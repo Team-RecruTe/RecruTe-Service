@@ -2,7 +2,7 @@
 name: "✅ Feature"
 about: "\U0001F449 새로운 기능에 대해 생성해주세요."
 title: "[Feature] 제목을 입력해주세요"
-labels: ''
+labels: feature
 assignees: ''
 
 ---
