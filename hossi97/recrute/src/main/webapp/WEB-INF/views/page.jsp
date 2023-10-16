@@ -9,5 +9,7 @@
 <body>
 <%@ include file="./layout/nav.jsp"%>
 <%@ include file="./layout/main.jsp"%>
+
+<script src="../../js/register.js"></script>
 </body>
 </html>
