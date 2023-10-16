@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-<%@ include file="./WEB-INF/layout/nav.jsp"%>
-<%@ include file="./WEB-INF/layout/home.jsp"%>
+<%@ include file="./layout/nav.jsp"%>
+<%@ include file="./layout/main.jsp"%>
 </body>
 </html>
