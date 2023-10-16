@@ -9,4 +9,44 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>MemberSignin</display-name>
+    <servlet-name>MemberSignin</servlet-name>
+    <servlet-class>com.jisun.member.controller.MemberSignin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberSignin</servlet-name>
+    <url-pattern>/member/signin</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberSignup</display-name>
+    <servlet-name>MemberSignup</servlet-name>
+    <servlet-class>com.jisun.member.controller.MemberSignup</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberSignup</servlet-name>
+    <url-pattern>/member/signup</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberSigninProcess</display-name>
+    <servlet-name>MemberSigninProcess</servlet-name>
+    <servlet-class>com.jisun.member.controller.MemberSigninProcess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberSigninProcess</servlet-name>
+    <url-pattern>/member/signin-process</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberSignupProcess</display-name>
+    <servlet-name>MemberSignupProcess</servlet-name>
+    <servlet-class>com.jisun.member.controller.MemberSignupProcess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberSignupProcess</servlet-name>
+    <url-pattern>/member/signup-process</url-pattern>
+  </servlet-mapping>
 </web-app>
