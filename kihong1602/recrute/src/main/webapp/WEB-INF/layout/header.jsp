@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="/css/layout.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
