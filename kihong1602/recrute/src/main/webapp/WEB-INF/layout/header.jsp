@@ -11,8 +11,9 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/css/layout.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="${requestScope.getContextPath}/css/layout.css">
+    <script src="${requestScope.getContextPath}/js/function.js"></script>
 </head>
 <body>
 <header class="bg-white">

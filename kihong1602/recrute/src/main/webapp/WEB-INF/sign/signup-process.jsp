@@ -6,15 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="/WEB-INF/layout/header.jsp" %>
-
-<!--
-Heads up! 👋
-
-Plugins:
-- @tailwindcss/forms
--->
-
+<%@include file="../layout/header.jsp" %>
 <section class="bg-white">
     <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
         <section
@@ -88,22 +80,50 @@ Plugins:
                     </p>
                 </div>
 
-                <form action="<c:url value="/signup"/>" method="post" class="mt-8 grid grid-cols-6 gap-6">
-                    <div class="col-span-6">
+                <form action="<c:url value="/signup"/>" method="post" class="mt-8 grid grid-cols-6 gap-6"
+                      onsubmit="return invalid();">
+                    <div class="col-span-6 sm:col-span-2">
                         <label
                                 for="member_id"
                                 class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                             <input
                                     type="text"
                                     id="member_id"
-                                    name="id"
-                                    class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                    class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 custom-height"
                                     placeholder="ID"
-                                    name="id"/>
+                                    name="member_id"/>
 
                             <span
                                     class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
                             >ID</span>
+                        </label>
+                    </div>
+                    <div class="col-span6 sm:col-span-2">
+
+                        <button
+                                class="inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75 id-check"
+                        >
+                            <span
+                                    class="block rounded-full bg-white px-8 py-3 text-sm font-medium hover:bg-transparent"
+                            >
+                                중복 확인
+                            </span>
+                        </button>
+                    </div>
+                    <div class="col-span-6 sm:col-span-2">
+                        <label
+                                for="name"
+                                class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                            <input
+                                    type="text"
+                                    id="name"
+                                    class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 custom-height"
+                                    placeholder="Name"
+                                    name="name"/>
+
+                            <span
+                                    class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                            >Name</span>
                         </label>
                     </div>
                     <div class="col-span-6">
@@ -113,7 +133,7 @@ Plugins:
                             <input
                                     type="text"
                                     id="email"
-                                    class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                    class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 custom-height"
                                     placeholder="email"
                                     name="email"/>
 
@@ -128,9 +148,9 @@ Plugins:
                                 for="password"
                                 class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                             <input
-                                    type="text"
+                                    type="password"
                                     id="password"
-                                    class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                    class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 custom-height"
                                     placeholder="password"
                                     name="password"
                             />
@@ -146,9 +166,9 @@ Plugins:
                                 for="password_confirm"
                                 class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                             <input
-                                    type="text"
+                                    type="password"
                                     id="password_confirm"
-                                    class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                    class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 custom-height"
                                     placeholder="Password Confirm"
                                     name="passwordConfirm"/>
 
@@ -158,26 +178,27 @@ Plugins:
                         </label>
                     </div>
                     <div class="col-span-6 sm:col-span-3">
+                        <p>Birth</p>
                         <label
                                 for="birth"
                                 class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                             <input
                                     type="date"
                                     id="birth"
-                                    class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                    class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 custom-height"
                                     placeholder="birth"
-                                    name="birth"/>Birth
+                                    name="birth"/>
                         </label>
                     </div>
                     <div class="col-span-6 sm:col-span-3">
-                        <p>Gender</p>
+                        <p id="gender">Gender</p>
                         <label for="gender_male">
                             <input
                                     type="radio"
                                     id="gender_male"
                                     class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
                                     placeholder="male"
-                                    name="gender" value="male"/>Male
+                                    name="gender" value="1"/>Male
                         </label>
                         <label for="gender_female">
                             <input
@@ -185,7 +206,7 @@ Plugins:
                                     id="gender_female"
                                     class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
                                     placeholder="female"
-                                    name="gender" value="female"/>Female
+                                    name="gender" value="0"/>Female
                         </label>
                     </div>
                     <div class="col-span-6">
@@ -195,9 +216,9 @@ Plugins:
                             <input
                                     type="tel"
                                     id="phone_number"
-                                    class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                    class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 custom-height"
                                     placeholder="Phone Number"
-                                    name="passwordConfirm"/>
+                                    name="phoneNumber"/>
 
                             <span
                                     class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
@@ -231,10 +252,15 @@ Plugins:
                     </div>
 
                     <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
-                        <button
-                                class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+                        <button type="submit"
+                                class="inline-block rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75"
+                                id="submit-btn"
                         >
-                            Create an account
+                        <span
+                                class="block rounded-sm bg-white px-8 py-3 text-sm font-medium hover:bg-transparent"
+                        >
+                            Create account
+                        </span>
                         </button>
                         <p class="mt-4 text-sm text-gray-500 sm:mt-0">
                             Already have an account?
@@ -247,4 +273,4 @@ Plugins:
     </div>
 </section>
 
-<%@include file="/WEB-INF/layout/footer.jsp" %>
+<%@include file="../layout/footer.jsp" %>
