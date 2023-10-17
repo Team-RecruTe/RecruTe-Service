@@ -41,7 +41,7 @@ public class SignupServlet extends HttpServlet {
             .birth(birth)
             .build();
 
-        memberService.register(signupDto);
+        memberService.signup(signupDto);
     }
 
 }
