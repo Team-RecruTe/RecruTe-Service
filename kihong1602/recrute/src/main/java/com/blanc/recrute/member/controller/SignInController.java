@@ -1,5 +1,6 @@
 package com.blanc.recrute.member.controller;
 
+import com.blanc.recrute.member.dto.InvalidDTO;
 import com.blanc.recrute.member.dto.LoginDTO;
 import com.blanc.recrute.member.service.MemberService;
 import com.blanc.recrute.member.service.MemberServiceImpl;
@@ -15,8 +16,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @WebServlet(name = "signin", value = "/signin")
 public class SignInController extends HttpServlet {
@@ -52,20 +51,19 @@ public class SignInController extends HttpServlet {
 
         LoginDTO loginDTO = new Gson().fromJson(jsonBuilder.toString(), LoginDTO.class);
 
-        boolean check = memberService.asyncLoginCheck(loginDTO);
-
-        Map<String, String> resultToMap = new HashMap<>();
+        boolean check = memberService.loginCheck(loginDTO);
+        InvalidDTO invalidDTO;
         String result;
         if (check) {
-            resultToMap.put("data", "available");
+            invalidDTO = new InvalidDTO("available");
 
             authenticater.setAuthCookie(request, loginDTO.getMemberId());
             Cookie authCookie = authenticater.getAuthCookie();
             response.addCookie(authCookie);
         } else {
-            resultToMap.put("data", "unavailable");
+            invalidDTO = new InvalidDTO("unavailable");
         }
-        result = new Gson().toJson(resultToMap);
+        result = new Gson().toJson(invalidDTO);
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

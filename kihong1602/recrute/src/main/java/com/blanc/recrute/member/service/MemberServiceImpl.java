@@ -21,15 +21,17 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean idCheck(String id) {
+    public String idCheck(String id) {
 
-        int result = memberDAO.idCheck(id);
+        if (id == null || id.isEmpty()) {
+            return "blank";
+        }
 
-        return result <= 0;
+        return memberDAO.idCheck(id) <= 0 ? "none" : "exist";
     }
 
     @Override
-    public boolean asyncLoginCheck(LoginDTO loginDTO) {
+    public boolean loginCheck(LoginDTO loginDTO) {
 
         MemberDTO memberDTO = new MemberDTO.Builder().memberId(loginDTO.getMemberId()).password(loginDTO.getPassword()).build();
         String memberId = memberDAO.loginCheck(memberDTO);

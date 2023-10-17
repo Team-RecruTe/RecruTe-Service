@@ -1,6 +1,7 @@
 package com.blanc.recrute.member.controller;
 
 import com.blanc.recrute.member.dto.IdCheckDTO;
+import com.blanc.recrute.member.dto.InvalidDTO;
 import com.blanc.recrute.member.service.MemberService;
 import com.blanc.recrute.member.service.MemberServiceImpl;
 import com.google.gson.Gson;
@@ -12,8 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @WebServlet(name = "check-id", value = "/check-id")
 public class IdCheckController extends HttpServlet {
@@ -30,20 +29,26 @@ public class IdCheckController extends HttpServlet {
             }
         }
 
-        Gson gson = new Gson();
-        IdCheckDTO idCheckDTO = gson.fromJson(jsonBuilder.toString(), IdCheckDTO.class);
+        IdCheckDTO idCheckDTO = new Gson().fromJson(jsonBuilder.toString(), IdCheckDTO.class);
         String memberId = idCheckDTO.getMemberId();
 
-        boolean check = memberService.idCheck(memberId);
+        String check = memberService.idCheck(memberId);
 
-        Map<String, String> resultToMap = new HashMap<>();
-        String result;
-        if (check) {
-            resultToMap.put("data", "available");
-        } else {
-            resultToMap.put("data", "unavailable");
+        InvalidDTO invalidDTO = null;
+
+        switch (check) {
+            case "blank":
+                invalidDTO = new InvalidDTO("blank");
+                break;
+            case "none":
+                invalidDTO = new InvalidDTO("available");
+                break;
+            case "exist":
+                invalidDTO = new InvalidDTO("unavailable");
+                break;
         }
-        result = gson.toJson(resultToMap);
+
+        String result = new Gson().toJson(invalidDTO);
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

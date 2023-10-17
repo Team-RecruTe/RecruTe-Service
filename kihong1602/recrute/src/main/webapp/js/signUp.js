@@ -1,10 +1,12 @@
 let memberId = document.querySelector('input[name="member_id"]');
 let password = document.querySelector('input[name="password"]');
+let confirm = document.getElementById('password_confirm');
 let name = document.querySelector('input[name="name"]');
 let birth = document.querySelector('input[name="birth"]');
 let gender = document.querySelector('input[name="gender"]');
 let email = document.querySelector('input[name="email"]');
 let tel = document.querySelector('input[name="phoneNumber"]');
+let invalidFeedback = document.querySelector('.invalid-feedback');
 let form = document.getElementById('signup-form');
 
 let isProperId = false;
@@ -77,24 +79,24 @@ document.getElementById('signup-id').addEventListener('click', function (e) {
 });
 
 function idDuplicate() {
-    let idValue = memberId.value;
 
     fetch('/check-id', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({memberId: idValue})
+        body: JSON.stringify({memberId: memberId.value})
     })
         .then(response => response.text())
         .then(data => {
-            const responseData = JSON.parse(data);
             //response.text()를 받아온 것이므로 다시한번 Parsing 을 해주어야 한다.
-            if (responseData.data === "available") {
+            if (JSON.parse(data).data === "available") {
                 alert('사용가능한 ID 입니다.');
                 isProperId = true;
-            } else {
+            } else if (JSON.parse(data).data === "unavailable") {
                 alert('이미 사용중인 ID 입니다.');
+            } else {
+                alert('입력된 아이디가 없습니다. 아이디를 적어주세요.')
             }
         })
         .catch(error => {
@@ -102,13 +104,6 @@ function idDuplicate() {
         })
 }
 
-document.getElementById('password_confirm').addEventListener('keyup', function () {
-    let psValue = password.value;
-    let confirm = document.getElementById('password_confirm').value;
-    let invalidFeedback = document.querySelector('.invalid-feedback');
-    if (psValue === confirm) {
-        invalidFeedback.innerHTML = "";
-    } else {
-        invalidFeedback.innerHTML = "비밀번호가 다릅니다.";
-    }
+confirm.addEventListener('keyup', function () {
+    invalidFeedback.innerHTML = password.value === confirm.value ? "" : "비밀번호가 다릅니다.";
 })

@@ -28,14 +28,12 @@ function invalid(e, memberId, password) {
 const signInFormSubmitEvent = (memberId, password) => {
     form.addEventListener('keydown', (e) => {
         if (e.code === "Enter") {
-            let flag = invalid(e, memberId, password);
-            checkAndSend(flag);
+            checkAndSend(invalid(e, memberId, password));
         }
     }, true);
 
     asyncBtn.addEventListener('click', (e) => {
-        let flag = invalid(e, memberId, password);
-        checkAndSend(flag);
+        checkAndSend(invalid(e, memberId, password));
     });
 }
 
@@ -47,8 +45,6 @@ signInFormSubmitEvent(memberId, password);
 });*/
 
 function loginCheck() {
-    let idValue = memberId.value;
-    let pwValue = password.value;
 
     fetch('/signin', {
         method: 'POST',
@@ -56,15 +52,14 @@ function loginCheck() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            memberId: idValue,
-            password: pwValue
+            memberId: memberId.value,
+            password: password.value
         })
     })
         .then(response => response.text())
         .then(data => {
-            const responseData = JSON.parse(data);
-            if (responseData.data === "available") {
-                let msg = '반갑습니다.' + idValue + '님!';
+            if (JSON.parse(data).data === "available") {
+                let msg = '반갑습니다.' + memberId.value + '님!';
                 alert(msg);
                 location.href = "/";
             } else {
