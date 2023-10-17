@@ -13,7 +13,6 @@
     <title>Title</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="${requestScope.getContextPath}/css/layout.css">
-    <script src="${requestScope.getContextPath}/js/function.js"></script>
 </head>
 <body>
 <header class="bg-white">

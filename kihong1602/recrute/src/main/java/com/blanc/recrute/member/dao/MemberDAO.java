@@ -6,4 +6,6 @@ public interface MemberDAO {
     int insertMember(MemberDTO memberDTO);
 
     String loginCheck(MemberDTO memberDTO);
+
+    int idCheck(String id);
 }

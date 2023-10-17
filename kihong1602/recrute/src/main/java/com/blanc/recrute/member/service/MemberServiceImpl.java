@@ -30,4 +30,12 @@ public class MemberServiceImpl implements MemberService {
 
         return new MemberDTO.Builder().memberId(memberId).build();
     }
+
+    @Override
+    public boolean idCheck(String id) {
+
+        int result = memberDAO.idCheck(id);
+
+        return result <= 0;
+    }
 }

@@ -80,8 +80,7 @@
                     </p>
                 </div>
 
-                <form action="<c:url value="/signup"/>" method="post" class="mt-8 grid grid-cols-6 gap-6"
-                      onsubmit="return invalid();">
+                <form action="<c:url value="/signup"/>" method="post" class="mt-8 grid grid-cols-6 gap-6">
                     <div class="col-span-6 sm:col-span-2">
                         <label
                                 for="member_id"
@@ -100,8 +99,9 @@
                     </div>
                     <div class="col-span6 sm:col-span-2">
 
-                        <button
+                        <button type="button"
                                 class="inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75 id-check"
+                                id="signup-id"
                         >
                             <span
                                     class="block rounded-full bg-white px-8 py-3 text-sm font-medium hover:bg-transparent"
@@ -176,6 +176,7 @@
                                     class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
                             >Password Confirm</span>
                         </label>
+                        <div class="invalid-feedback"></div>
                     </div>
                     <div class="col-span-6 sm:col-span-3">
                         <p>Birth</p>
@@ -254,7 +255,7 @@
                     <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
                         <button type="submit"
                                 class="inline-block rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75"
-                                id="submit-btn"
+                                id="submit-btn" onclick="return invalid();"
                         >
                         <span
                                 class="block rounded-sm bg-white px-8 py-3 text-sm font-medium hover:bg-transparent"

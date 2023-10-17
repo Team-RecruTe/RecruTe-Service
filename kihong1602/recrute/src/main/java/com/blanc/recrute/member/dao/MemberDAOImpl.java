@@ -26,6 +26,16 @@ public class MemberDAOImpl implements MemberDAO {
         return memberId;
     }
 
+    @Override
+    public int idCheck(String id) {
+        connSql();
+        MemberDTO memberDTO = new MemberDTO.Builder().memberId(id).build();
+        int result = sqlSession.selectOne("idCheck", memberDTO);
+
+        sqlSession.close();
+        return result;
+    }
+
     private void connSql() {
         sqlSession = MybatisConnectionFactory.getSqlSession();
     }

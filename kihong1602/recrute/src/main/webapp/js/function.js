@@ -72,3 +72,42 @@ function loginInvalid() {
     return property;
 }
 
+document.getElementById('signup-id').addEventListener('click', function (e) {
+    e.preventDefault();
+    idDuplicate();
+});
+
+function idDuplicate() {
+    let memberId = document.querySelector('input[name="member_id"]').value;
+    console.log(memberId);
+    fetch('/check-id', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({memberId: memberId})
+    })
+        .then(response => response.text())
+        .then(data => {
+            const responseData = JSON.parse(data);
+            //response.text()를 받아온 것이므로 다시한번 Parsing 을 해주어야 한다.
+            if (responseData.data === "available") {
+                alert('사용가능한 ID 입니다.');
+            } else {
+                alert('이미 사용중인 ID 입니다.');
+            }
+        })
+        .catch(error => {
+            alert('서버오류가 발생했습니다.');
+        })
+}
+
+document.getElementById('password_confirm').addEventListener('keyup', function () {
+    let password = document.getElementById('password').value;
+    let confirm = document.getElementById('password_confirm').value;
+    if (password === confirm) {
+        document.querySelector('.invalid-feedback').innerHTML = "";
+    } else {
+        document.querySelector('.invalid-feedback').innerHTML = "비밀번호가 다릅니다.";
+    }
+})
