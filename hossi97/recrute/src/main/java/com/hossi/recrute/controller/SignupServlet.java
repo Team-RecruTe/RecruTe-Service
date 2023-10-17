@@ -42,6 +42,9 @@ public class SignupServlet extends HttpServlet {
             .build();
 
         memberService.signup(signupDto);
+
+        response.setStatus(302);
+        response.sendRedirect("/");
     }
 
 }

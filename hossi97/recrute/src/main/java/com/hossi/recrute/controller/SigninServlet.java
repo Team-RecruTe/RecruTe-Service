@@ -27,7 +27,7 @@ public class SigninServlet extends HttpServlet {
             Cookie renewedAuthCookie = authenticater.getAuthCookie();
             response.addCookie(renewedAuthCookie);
             response.setStatus(302);
-            response.sendRedirect("");
+            response.sendRedirect("/");
         } else {
             BufferedReader requestReader = request.getReader();
             SigninDto signinDto = null;
@@ -44,7 +44,7 @@ public class SigninServlet extends HttpServlet {
             } else {
                 ErrorCode error = new ErrorCode("USR-04", "Invalid ID/PW");
                 String errorJSON = new Gson().toJson(error);
-                response.setStatus(401);
+                response.setStatus(400);
                 response.setContentType("application/json");
                 response.setContentLength(errorJSON.length());
                 response.getWriter().write(errorJSON);

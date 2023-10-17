@@ -12,6 +12,7 @@ const validateEmail = (el) => {
     const emailRegex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
     return emailRegex.test(el.value);
 }
+
 const checkInputEmpty = (el) => {
     return (el.value === "" || el.value === null || el.value === undefined)
 }

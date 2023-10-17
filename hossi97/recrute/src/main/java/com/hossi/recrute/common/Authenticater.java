@@ -22,6 +22,11 @@ public class Authenticater {
         authCookie = cookie;
     }
 
+    public Cookie expireAuthCookie() {
+        authCookie.setMaxAge(0);
+        return authCookie;
+    }
+
     public void setAuthCookie(HttpServletRequest request, Integer id) {
         String uuid = String.valueOf(UUID.randomUUID());
         request.getSession().setAttribute(uuid, id);
