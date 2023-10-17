@@ -37,16 +37,15 @@ public class IdCheckController extends HttpServlet {
         String memberId = idCheckVO.getMemberId();
 
         boolean check = memberService.idCheck(memberId);
-        System.out.println(memberId);
+
         Map<String, String> resultToMap = new HashMap<>();
         String result;
         if (check) {
             resultToMap.put("data", "available");
-            result = gson.toJson(resultToMap);
         } else {
             resultToMap.put("data", "unavailable");
-            result = gson.toJson(resultToMap);
         }
+        result = gson.toJson(resultToMap);
 
 
         request.setAttribute("result", result);

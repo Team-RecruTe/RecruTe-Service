@@ -80,7 +80,7 @@
                     </p>
                 </div>
 
-                <form action="<c:url value="/signup"/>" method="post" class="mt-8 grid grid-cols-6 gap-6">
+                <form action="<c:url value="/signup"/>" method="post" class="mt-8 grid grid-cols-6 gap-6" id="form">
                     <div class="col-span-6 sm:col-span-2">
                         <label
                                 for="member_id"
@@ -255,7 +255,7 @@
                     <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
                         <button type="submit"
                                 class="inline-block rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75"
-                                id="submit-btn" onclick="return invalid();"
+                                id="submit-btn"
                         >
                         <span
                                 class="block rounded-sm bg-white px-8 py-3 text-sm font-medium hover:bg-transparent"
@@ -273,5 +273,5 @@
         </main>
     </div>
 </section>
-
+<script src="${requestScope.getContextPath}/js/signUp.js"></script>
 <%@include file="../../layout/footer.jsp" %>

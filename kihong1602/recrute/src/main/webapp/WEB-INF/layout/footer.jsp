@@ -65,6 +65,5 @@
         </div>
     </div>
 </footer>
-<script src="${requestScope.getContextPath}/js/function.js"></script>
 </body>
 </html>
