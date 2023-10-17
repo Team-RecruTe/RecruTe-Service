@@ -18,8 +18,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(name = "login", value = "/login")
-public class LoginController extends HttpServlet {
+@WebServlet(name = "signin", value = "/signin")
+public class SignInController extends HttpServlet {
     private static MemberService memberService = new MemberServiceImpl();
     private static ViewResolver viewResolver = new ViewResolver();
     private static Authenticater authenticater = new Authenticater();

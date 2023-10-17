@@ -50,7 +50,7 @@ function loginCheck() {
     let idValue = memberId.value;
     let pwValue = password.value;
 
-    fetch('/login', {
+    fetch('/signin', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

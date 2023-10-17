@@ -21,18 +21,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDTO loginCheck(MemberDTO memberDTO) {
-
-        String memberId = memberDAO.loginCheck(memberDTO);
-
-        if (memberId == null) {
-            return null;
-        }
-
-        return new MemberDTO.Builder().memberId(memberId).build();
-    }
-
-    @Override
     public boolean idCheck(String id) {
 
         int result = memberDAO.idCheck(id);

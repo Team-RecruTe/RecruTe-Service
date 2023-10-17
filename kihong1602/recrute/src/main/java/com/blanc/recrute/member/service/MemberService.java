@@ -7,8 +7,6 @@ public interface MemberService {
 
     int insertMember(MemberDTO memberDTO);
 
-    MemberDTO loginCheck(MemberDTO memberDTO);
-
     boolean idCheck(String id);
 
     boolean asyncLoginCheck(LoginDTO loginDTO);
