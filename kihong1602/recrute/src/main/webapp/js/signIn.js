@@ -21,30 +21,30 @@ function invalid(e, memberId, password) {
         isProper = true;
     }
 
-    if (!isProper) {
-        e.preventDefault();
-    }
+    return isProper;
 }
 
 
 const signInFormSubmitEvent = (memberId, password) => {
     form.addEventListener('keydown', (e) => {
-        if (e.code === "ENTER") {
-            invalid(e, memberId, password);
+        if (e.code === "Enter") {
+            let flag = invalid(e, memberId, password);
+            checkAndSend(flag);
         }
     }, true);
 
     asyncBtn.addEventListener('click', (e) => {
-        invalid(e, memberId, password);
+        let flag = invalid(e, memberId, password);
+        checkAndSend(flag);
     });
 }
 
 signInFormSubmitEvent(memberId, password);
 
-asyncBtn.addEventListener('click', function (e) {
+/*asyncBtn.addEventListener('click', function (e) {
     e.preventDefault();
     loginCheck();
-});
+});*/
 
 function loginCheck() {
     let idValue = memberId.value;
@@ -73,4 +73,10 @@ function loginCheck() {
         }).catch(error => {
         alert('서버오류가 발생하였습니다.');
     })
+}
+
+function checkAndSend(flag) {
+    if (flag) {
+        loginCheck();
+    }
 }

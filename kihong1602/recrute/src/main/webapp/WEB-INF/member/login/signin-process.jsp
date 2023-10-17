@@ -16,8 +16,8 @@
                 account</h2>
         </div>
 
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" <%--action="signin" method="POST"--%> id="signin-form">
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm" id="enter">
+            <form class="space-y-6" id="signin-form">
                 <div>
                     <label for="member_id" class="block text-sm font-medium leading-6 text-gray-900">ID</label>
                     <div class="mt-2">
@@ -39,12 +39,12 @@
                     </div>
                 </div>
 
-                <div>
-                    <button type="submit"
+                <%--<div>
+                    <button type="button"
                             class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         Sign in
                     </button>
-                </div>
+                </div>--%>
             </form>
             <div>
                 <button type="button" id="asyncBtn"

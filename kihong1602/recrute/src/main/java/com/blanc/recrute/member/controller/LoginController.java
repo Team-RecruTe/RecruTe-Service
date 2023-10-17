@@ -4,6 +4,7 @@ import com.blanc.recrute.member.dto.LoginDTO;
 import com.blanc.recrute.member.service.MemberService;
 import com.blanc.recrute.member.service.MemberServiceImpl;
 import com.blanc.recrute.member.util.Authenticater;
+import com.blanc.recrute.member.view.ViewResolver;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,48 +21,55 @@ import java.util.Map;
 @WebServlet(name = "login", value = "/login")
 public class LoginController extends HttpServlet {
     private static MemberService memberService = new MemberServiceImpl();
+    private static ViewResolver viewResolver = new ViewResolver();
+    private static Authenticater authenticater = new Authenticater();
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Authenticater authenticater = new Authenticater();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (authenticater.isAuthenticated(request)) {
             Cookie renewdAuthCookie = authenticater.getAuthCookie();
             response.addCookie(renewdAuthCookie);
             response.setStatus(302);
             response.sendRedirect("/");
         } else {
-
-
-            StringBuilder jsonBuilder = new StringBuilder();
-
-            try (BufferedReader br = request.getReader()) {
-                String json;
-                while ((json = br.readLine()) != null) {
-                    jsonBuilder.append(json);
-                }
-            }
-
-
-            LoginDTO loginDTO = new Gson().fromJson(jsonBuilder.toString(), LoginDTO.class);
-
-            boolean check = memberService.asyncLoginCheck(loginDTO);
-
-            Map<String, String> resultToMap = new HashMap<>();
-            String result;
-            if (check) {
-                resultToMap.put("data", "available");
-
-                authenticater.setAuthCookie(request, loginDTO.getMemberId());
-                Cookie authCookie = authenticater.getAuthCookie();
-                response.addCookie(authCookie);
-            } else {
-                resultToMap.put("data", "unavailable");
-            }
-            result = new Gson().toJson(resultToMap);
-
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(result);
+            String path = "member/login/signin-process";
+            request.getRequestDispatcher(viewResolver.viewPath(path)).forward(request, response);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        StringBuilder jsonBuilder = new StringBuilder();
+
+        try (BufferedReader br = request.getReader()) {
+            String json;
+            while ((json = br.readLine()) != null) {
+                jsonBuilder.append(json);
+            }
+        }
+
+
+        LoginDTO loginDTO = new Gson().fromJson(jsonBuilder.toString(), LoginDTO.class);
+
+        boolean check = memberService.asyncLoginCheck(loginDTO);
+
+        Map<String, String> resultToMap = new HashMap<>();
+        String result;
+        if (check) {
+            resultToMap.put("data", "available");
+
+            authenticater.setAuthCookie(request, loginDTO.getMemberId());
+            Cookie authCookie = authenticater.getAuthCookie();
+            response.addCookie(authCookie);
+        } else {
+            resultToMap.put("data", "unavailable");
+        }
+        result = new Gson().toJson(resultToMap);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(result);
+
     }
 }

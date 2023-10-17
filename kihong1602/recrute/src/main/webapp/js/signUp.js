@@ -7,6 +7,9 @@ let email = document.querySelector('input[name="email"]');
 let tel = document.querySelector('input[name="phoneNumber"]');
 let form = document.getElementById('signup-form');
 
+let isProperId = false;
+
+
 function check(word) {
     return (word.value === "" || word.value === null || word.value === undefined);
 }
@@ -22,6 +25,9 @@ function invalid(e, memberId, password, name, birth, gender, email, tel) {
     let isProper = false;
     if (check(memberId)) {
         alert("ID 입력은 필수입니다.");
+        memberId.focus();
+    } else if (!isProperId) {
+        alert("중복된 아이디 입니다.");
         memberId.focus();
     } else if (check(email) || !invalidEmail(email)) {
         if (check(email)) {
@@ -86,6 +92,7 @@ function idDuplicate() {
             //response.text()를 받아온 것이므로 다시한번 Parsing 을 해주어야 한다.
             if (responseData.data === "available") {
                 alert('사용가능한 ID 입니다.');
+                isProperId = true;
             } else {
                 alert('이미 사용중인 ID 입니다.');
             }
