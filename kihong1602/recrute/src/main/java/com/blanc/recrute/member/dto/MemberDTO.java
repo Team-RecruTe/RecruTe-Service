@@ -1,16 +1,18 @@
 package com.blanc.recrute.member.dto;
 
+import java.time.LocalDate;
+
 public class MemberDTO {
     private int id;
     private String memberId;
     private String name;
     private String email;
     private String password;
-    private String birth;
+    private LocalDate birth;
     private String phoneNumber;
     private int gender;
 
-    public MemberDTO(int id, String memberId, String name, String email, String password, String birth, String phoneNumber, int gender) {
+    public MemberDTO(int id, String memberId, String name, String email, String password, LocalDate birth, String phoneNumber, int gender) {
         this.id = id;
         this.name = name;
         this.memberId = memberId;
@@ -52,7 +54,7 @@ public class MemberDTO {
         return password;
     }
 
-    public String getBirth() {
+    public LocalDate getBirth() {
         return birth;
     }
 
@@ -69,7 +71,7 @@ public class MemberDTO {
         private String memberId;
         private String email;
         private String password;
-        private String birth;
+        private LocalDate birth;
         private String phoneNumber;
         private int gender;
         private String name;
@@ -102,7 +104,7 @@ public class MemberDTO {
             return this;
         }
 
-        public Builder birth(String birth) {
+        public Builder birth(LocalDate birth) {
             this.birth = birth;
             return this;
         }
