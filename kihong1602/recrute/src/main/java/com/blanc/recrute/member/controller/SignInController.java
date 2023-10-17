@@ -1,5 +1,6 @@
 package com.blanc.recrute.member.controller;
 
+import com.blanc.recrute.member.dto.MemberDTO;
 import com.blanc.recrute.member.service.MemberService;
 import com.blanc.recrute.member.service.MemberServiceImpl;
 import com.blanc.recrute.member.view.ViewResolver;
@@ -19,12 +20,22 @@ public class SignInController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String path = "sign/signup";
-        request.getRequestDispatcher(path).forward(request, response);
+        String path = "member/login/signin-process";
+        request.getRequestDispatcher(viewResolver.viewPath(path)).forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String path = "member/login/signin";
+        String memberId = request.getParameter("member_id");
+        String password = request.getParameter("password");
 
+        MemberDTO memberDTO = new MemberDTO.Builder().memberId(memberId).password(password).build();
+
+        MemberDTO memberResponseDTO = memberService.loginCheck(memberDTO);
+        boolean check = memberResponseDTO != null;
+        request.setAttribute("loginCheck", check);
+        request.setAttribute("loginMember", memberResponseDTO);
+        request.getRequestDispatcher(viewResolver.viewPath(path)).forward(request, response);
     }
 }

@@ -4,5 +4,7 @@ import com.blanc.recrute.member.dto.MemberDTO;
 
 public interface MemberService {
 
-    public int insertMember(MemberDTO memberDTO);
+    int insertMember(MemberDTO memberDTO);
+
+    MemberDTO loginCheck(MemberDTO memberDTO);
 }

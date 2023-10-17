@@ -53,3 +53,22 @@ function invalid() {
 
     return property;
 }
+
+function loginInvalid() {
+    let memberId = document.querySelector('input[name="member_id"]').value;
+    let password = document.querySelector('input[name="password"]').value;
+
+    let property = true;
+    if (!check(memberId)) {
+        alert("아이디를 입력하세요.");
+        document.getElementById('member_id').focus();
+        property = false;
+    } else if (!check(password)) {
+        alert("비밀번호를 입력하세요.");
+        document.getElementById('password').focus();
+        property = false;
+    }
+
+    return property;
+}
+
