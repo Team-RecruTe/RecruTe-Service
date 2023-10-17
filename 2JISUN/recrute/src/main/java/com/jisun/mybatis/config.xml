@@ -7,7 +7,7 @@
 
 
  <typeAliases>
-	 <typeAlias alias="MemberDto" 	type="com.jisun.member.dto.MemberDto"/>
+	 <typeAlias alias="MemberDto" 	type="com.jisun.dto.MemberDto"/>
  </typeAliases>
 
 
@@ -15,8 +15,8 @@
     <environment id="development">
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
-        <property name="driver" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/hsdb?characterEncoding=UTF-8"/>
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/recrute"/>
         <property name="username" value="root"/>
         <property name="password" value="1234"/>
       </dataSource>
@@ -25,7 +25,7 @@
   
   
   <mappers>
-     <mapper resource="com/jisun/member/dao/member.xml"/>
+     <mapper resource="com/jisun/mybatis/member.xml"/>
   </mappers>
   
   

@@ -14,17 +14,21 @@
     </p>
   </div>
 
+
   <form action="../member/signin-process" 
   		method="post"
-  		class="mx-auto mb-0 mt-8 max-w-md space-y-4">
+  		class="mx-auto mb-0 mt-8 max-w-md space-y-4" 
+  		id="joinForm">
   		
-  	<!-- 아이디 → text -->
+  		
+  	<!-- 아이디(userId) → text -->
     <div>
       <label for="text" class="sr-only">아이디</label>
       <div class="relative">
         <input
 	          type="text"
 	          name="userId"
+	          value=""
 	          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
 	          placeholder="아이디를 입력해주세요."/>
 
@@ -47,13 +51,15 @@
       </div>
     </div>
 
-	<!-- 비밀번호 → password -->
+
+	<!-- 비밀번호(pw) → password -->
     <div>
       <label for="password" class="sr-only">비밀번호</label>
       <div class="relative">
         <input
 	          type="password"
 	          name="pw"
+	          value=""
 	          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
 	          placeholder="비밀번호를 입력해주세요."/>
 
@@ -92,6 +98,7 @@
 	<!-- 로그인 버튼 -->
       <button
 	        type="submit"
+	        id="btnSubmit"
 	        class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
 	      >
         로그인
@@ -99,3 +106,39 @@
     </div>
   </form>
 </div>
+
+
+
+<script>
+//http메시지 방식을 json으로 처리하기 위해 jquery(ajax) 사용
+
+
+
+
+$("#btnSubmit").on("click",function(e){
+					// json 형식으로 input 데이터 set
+					const params = {
+						userId : $("#userId").val(),
+						pw : $("#pw").val()
+						}
+					
+					
+					// ajax 통신
+					//e.preventDefault();
+					$.ajax({
+						type: "post"
+						url:"/member/signin-process",
+						dataType: "json",
+						data: params,
+						success:function(response) {
+							 alert(response.code);
+							 location.href="/index/index"
+						},
+						error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+		                    alert("통신 실패.")
+		                }
+					});
+					return false; 
+				})
+
+</script>

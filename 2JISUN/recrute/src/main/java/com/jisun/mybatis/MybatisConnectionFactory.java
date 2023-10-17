@@ -1,4 +1,4 @@
-package com.jisun.common;
+package com.jisun.mybatis;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +12,7 @@ public class MybatisConnectionFactory {
 	private static SqlSessionFactory sqlSessionFactory;
 	static {
 		try {
-			String resource = "com/jisun/common/config.xml";
+			String resource = "com/jisun/mybatis/config.xml";
 			InputStream inputStream = Resources.getResourceAsStream(resource);
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		} catch (Exception e) {

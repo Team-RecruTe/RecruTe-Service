@@ -50,9 +50,9 @@
 						<tr>
                             <td align="center" bgcolor="#FFFFCC">성별</td>
                             <td>
-                               <input type="radio" id="ag1" name="gender" checked="checked" />
+                               <input type="radio" id="ag1" name="gender" checked="checked" value="0" />
                                <label name="gender" for="ag1">남자</label>
-                               <input type="radio" id="ag2" name="gender" />
+                               <input type="radio" id="ag2" name="gender" value="1" />
                                <label name="gender" for="ag2">여자</label>
                             </td>
                        </tr>

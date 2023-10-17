@@ -13,7 +13,7 @@
     <description></description>
     <display-name>MemberSignin</display-name>
     <servlet-name>MemberSignin</servlet-name>
-    <servlet-class>com.jisun.member.controller.MemberSignin</servlet-class>
+    <servlet-class>com.jisun.controller.member.MemberSignin</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MemberSignin</servlet-name>
@@ -23,7 +23,7 @@
     <description></description>
     <display-name>MemberSignup</display-name>
     <servlet-name>MemberSignup</servlet-name>
-    <servlet-class>com.jisun.member.controller.MemberSignup</servlet-class>
+    <servlet-class>com.jisun.controller.member.MemberSignup</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MemberSignup</servlet-name>
@@ -33,7 +33,7 @@
     <description></description>
     <display-name>MemberSigninProcess</display-name>
     <servlet-name>MemberSigninProcess</servlet-name>
-    <servlet-class>com.jisun.member.controller.MemberSigninProcess</servlet-class>
+    <servlet-class>com.jisun.controller.member.MemberSigninProcess</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MemberSigninProcess</servlet-name>
@@ -43,7 +43,7 @@
     <description></description>
     <display-name>MemberSignupProcess</display-name>
     <servlet-name>MemberSignupProcess</servlet-name>
-    <servlet-class>com.jisun.member.controller.MemberSignupProcess</servlet-class>
+    <servlet-class>com.jisun.controller.member.MemberSignupProcess</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MemberSignupProcess</servlet-name>
