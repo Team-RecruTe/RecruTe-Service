@@ -11,14 +11,14 @@
     <h1 class="text-2xl font-bold sm:text-3xl">Create Account</h1>
   </div>
 
-  <form action="" class="mx-auto mb-0 mt-8 max-w-md space-y-4">
+  <form action="/recrute/signup-process" class="mx-auto mb-0 mt-8 max-w-md space-y-4" method="post">
     <div>
       <label for="id" class="sr-only">ID</label>
 
       <div class="relative">
         <input
           type="text"
-          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" name="userId" id="userId"
           placeholder="Enter your id"
         />
       </div>
@@ -29,7 +29,7 @@
       <div class="relative">
         <input
           type="password"
-          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" name="pw" id="pw"
           placeholder="Enter your password"
         />
       </div>
@@ -40,17 +40,18 @@
       <div class="relative">
         <input
           type="password"
-          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" name="pwConfirm" id="pwConfirm"
           placeholder="Password confirm"
         />
       </div>
+      <div class="invalid-feedback"></div>
     </div>
 	<div>
       <label for="name" class="sr-only">Name</label>
       <div class="relative">
         <input
           type="text"
-          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" name="username" id=""username""
           placeholder="Enter your name"
         />
       </div>
@@ -60,7 +61,7 @@
       <div class="relative">
         <input
           type="date"
-          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" name="birth" id="birth"
           placeholder="Enter your birth date"
         />
       </div>
@@ -70,7 +71,7 @@
       <div class="relative">
         <input
           type="tel"
-          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" name="phoneNum" id="phoneNum"
           placeholder="01012345678"
         />
       </div>
@@ -93,8 +94,8 @@
   <div>
     <input
       type="radio"
-      name="DeliveryOption"
-      value="DeliveryStandard"
+      name="gender"
+      value="0"
       id="DeliveryStandard"
       class="peer hidden [&:checked_+_label_svg]:block"
       checked
@@ -127,8 +128,8 @@
   <div>
     <input
       type="radio"
-      name="DeliveryOption"
-      value="DeliveryPriority"
+      name="gender"
+      value="1"
       id="DeliveryPriority"
       class="peer hidden [&:checked_+_label_svg]:block"
     />
@@ -164,7 +165,7 @@
       <div class="relative">
         <input
           type="email"
-          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" name="email"
           placeholder="0000@naver.com"
         />
 
@@ -196,11 +197,46 @@
 
       <button
         type="submit"
-        class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+        class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white" id="btnSubmit"
       >
         Sign Up
       </button>
     </div>
   </form>
 </div>
+<script>
+$("#pwConfirm").on("keyup", function() {
+	if ($("#pw").val() !== $("#pwConfirm").val()) {
+		$(".invalid-feedback").show();
+		$(".invalid-feedback").text("the password is not equivalent");
+	} else {
+		$(".invalid-feedback").hide();
+		$(".invalid-feedback").text("");
+	}
+
+});
+
+/* $("#btnSubmit").on("click", function(e) {
+	if ($("#userId").val() === "") {
+		e.preventDefault();
+		alert("id는 필수입력 사항입니다.");
+		//member.userID.value = "";
+		//member.userID.focus();
+		return false;
+	} else if (member.userPW.value.trim() === "") {
+		alert("password는 필수입력 사항입니다.");
+		member.userPW.value = "";
+		member.userPW.focus();
+		return false;
+	} else if (member.userPW02.value.trim() === "") {
+		alert("password확인은 필수입니다.");
+		member.userPW02.value = "";
+		member.userPW02.focus();
+		return false;
+	} else if (!isIdCheck) {
+		alert("아이디 중복 체크를 해주세요.");
+		return false;
+	}
+}); */
+</script>
 <%@ include file="/WEB-INF/include/footer.jsp"%>

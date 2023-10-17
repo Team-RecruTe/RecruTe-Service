@@ -1,4 +1,4 @@
-package com.juju.controller.member;
+package com.juju.controller.index;
 
 import java.io.IOException;
 import jakarta.servlet.RequestDispatcher;
@@ -8,11 +8,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-public class SignUp extends HttpServlet {
+public class Index extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-
-  public SignUp() {
+  public Index() {
     super();
 
   }
@@ -20,9 +19,10 @@ public class SignUp extends HttpServlet {
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/member/signup.jsp");
+    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/index/index.jsp");
     dispatcher.forward(request, response);
   }
+
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {

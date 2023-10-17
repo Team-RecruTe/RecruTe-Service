@@ -1,0 +1,82 @@
+<%@ include file="/WEB-INF/include/header.jsp"%>
+<!--
+  Heads up! 👋
+
+  Plugins:
+    - @tailwindcss/forms
+-->
+
+<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+	<div class="mx-auto max-w-lg text-center">
+		<h1 class="text-2xl font-bold sm:text-3xl">Login Page</h1>
+	</div>
+
+	<div class="mx-auto mb-0 mt-8 max-w-md space-y-4">
+		<div>
+			<label for="id" class="sr-only">ID</label>
+
+			<div class="relative">
+				<input type="text"
+					class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" id="userId" name="userId"
+					placeholder="Enter your id" />
+			</div>
+		</div>
+
+		<div>
+			<label for="password" class="sr-only">Password</label>
+			<div class="relative">
+				<input type="password"
+					class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" id="pw" name="pw"
+					placeholder="Enter your password" />
+			</div>
+		</div>
+
+
+
+
+
+		<div class="flex items-center justify-between">
+			<!-- <p class="text-sm text-gray-500">
+        No account?
+        <a class="underline" href="">Sign up</a>
+      </p> -->
+
+			<button type="submit"
+				class="inline-block rounded-lg bg-teal-500 px-5 py-3 text-sm font-medium text-white" id="btnSubmit">
+				Log In</button>
+		</div>
+	</div>
+</div>
+
+<script>
+$("#btnSubmit").on("click", function() {
+	$.ajax({
+		url : "/recrute/signin-process",
+		dataType: "json",
+		data : {
+			userId : $("#userId").val(),
+			pw : $("#pw").val(),
+		},
+		method: "post",
+		success : function(data) {
+			//console.log("success");
+			console.log(data);
+			if (data.loginResult !== null) {
+				//sendRedirect("/recrute/signup")
+				location.href="/recrute/index";
+			} else {
+				alert("Please check your id and password again.");
+			}
+		},
+		fail : function(error) {
+			console.log(error);
+		},
+		complete : function(data) {
+			console.log("complete");
+			console.log(data);
+		},
+	});
+	return false;
+});
+</script>
+<%@ include file="/WEB-INF/include/footer.jsp"%>

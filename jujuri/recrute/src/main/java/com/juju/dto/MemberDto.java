@@ -1,5 +1,7 @@
 package com.juju.dto;
 
+import java.time.LocalDate;
+
 public class MemberDto {
   /*
    * id int primary key auto_increment, member_id varchar(30) not null, password varchar(50) not
@@ -12,17 +14,21 @@ public class MemberDto {
   private String member_id;
   private String password;
   private String name;
-  private String birth;
+  private LocalDate birth;
   private int gender;
   private String phone_number;
   private String email;
   private String created_date;
   private String modified_date;
 
+
+
   @Override
   public String toString() {
-    // TODO Auto-generated method stub
-    return super.toString();
+    return "MemberDto [id=" + id + ", member_id=" + member_id + ", password=" + password + ", name="
+        + name + ", birth=" + birth + ", gender=" + gender + ", phone_number=" + phone_number
+        + ", email=" + email + ", created_date=" + created_date + ", modified_date=" + modified_date
+        + "]";
   }
 
   public int getId() {
@@ -57,11 +63,11 @@ public class MemberDto {
     this.name = name;
   }
 
-  public String getBirth() {
+  public LocalDate getBirth() {
     return birth;
   }
 
-  public void setBirth(String birth) {
+  public void setBirth(LocalDate birth) {
     this.birth = birth;
   }
 
@@ -105,8 +111,8 @@ public class MemberDto {
     this.modified_date = modified_date;
   }
 
-  public MemberDto(int id, String member_id, String password, String name, String birth, int gender,
-      String phone_number, String email, String created_date, String modified_date) {
+  public MemberDto(int id, String member_id, String password, String name, LocalDate birth,
+      int gender, String phone_number, String email, String created_date, String modified_date) {
     super();
     this.id = id;
     this.member_id = member_id;
