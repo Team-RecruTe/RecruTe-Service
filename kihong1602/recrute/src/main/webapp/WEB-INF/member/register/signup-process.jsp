@@ -80,7 +80,8 @@
                     </p>
                 </div>
 
-                <form action="<c:url value="/signup"/>" method="post" class="mt-8 grid grid-cols-6 gap-6" id="form">
+                <form action="<c:url value="/signup"/>" method="post" class="mt-8 grid grid-cols-6 gap-6"
+                      id="signup-form">
                     <div class="col-span-6 sm:col-span-2">
                         <label
                                 for="member_id"

@@ -1,9 +1,8 @@
 package com.blanc.recrute.member.controller;
 
+import com.blanc.recrute.member.dto.IdCheckDTO;
 import com.blanc.recrute.member.service.MemberService;
 import com.blanc.recrute.member.service.MemberServiceImpl;
-import com.blanc.recrute.member.view.ViewResolver;
-import com.blanc.recrute.member.vo.IdCheckVO;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,7 +18,6 @@ import java.util.Map;
 @WebServlet(name = "check-id", value = "/check-id")
 public class IdCheckController extends HttpServlet {
     private static MemberService memberService = new MemberServiceImpl();
-    private static ViewResolver viewResolver = new ViewResolver();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,8 +31,8 @@ public class IdCheckController extends HttpServlet {
         }
 
         Gson gson = new Gson();
-        IdCheckVO idCheckVO = gson.fromJson(jsonBuilder.toString(), IdCheckVO.class);
-        String memberId = idCheckVO.getMemberId();
+        IdCheckDTO idCheckDTO = gson.fromJson(jsonBuilder.toString(), IdCheckDTO.class);
+        String memberId = idCheckDTO.getMemberId();
 
         boolean check = memberService.idCheck(memberId);
 
@@ -47,8 +45,6 @@ public class IdCheckController extends HttpServlet {
         }
         result = gson.toJson(resultToMap);
 
-
-        request.setAttribute("result", result);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(result);

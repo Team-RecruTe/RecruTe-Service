@@ -5,7 +5,7 @@ let birth = document.querySelector('input[name="birth"]');
 let gender = document.querySelector('input[name="gender"]');
 let email = document.querySelector('input[name="email"]');
 let tel = document.querySelector('input[name="phoneNumber"]');
-let form = document.getElementById('form');
+let form = document.getElementById('signup-form');
 
 function check(word) {
     return (word.value === "" || word.value === null || word.value === undefined);

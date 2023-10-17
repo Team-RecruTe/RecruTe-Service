@@ -1,5 +1,6 @@
 package com.blanc.recrute.member.service;
 
+import com.blanc.recrute.member.dto.LoginDTO;
 import com.blanc.recrute.member.dto.MemberDTO;
 
 public interface MemberService {
@@ -9,4 +10,6 @@ public interface MemberService {
     MemberDTO loginCheck(MemberDTO memberDTO);
 
     boolean idCheck(String id);
+
+    boolean asyncLoginCheck(LoginDTO loginDTO);
 }

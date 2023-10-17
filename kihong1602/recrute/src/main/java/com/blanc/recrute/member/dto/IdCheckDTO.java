@@ -1,6 +1,6 @@
-package com.blanc.recrute.member.vo;
+package com.blanc.recrute.member.dto;
 
-public class IdCheckVO {
+public class IdCheckDTO {
     private String memberId;
 
     public String getMemberId() {
