@@ -1,4 +1,4 @@
-package com.blanc.recrute.member.view;
+package com.blanc.recrute.common;
 
 public class ViewResolver {
 
