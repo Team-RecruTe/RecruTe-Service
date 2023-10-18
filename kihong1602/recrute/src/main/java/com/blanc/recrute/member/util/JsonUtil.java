@@ -10,17 +10,9 @@ import java.util.stream.Collectors;
 public class JsonUtil {
 
     public static String jsonParsing(HttpServletRequest request) throws IOException {
-        /*StringBuilder jsonBuilder = new StringBuilder();
-        try (BufferedReader br = request.getReader()) {
-            String json;
-            while ((json = br.readLine()) != null) {
-                jsonBuilder.append(json);
-            }
-        }*/
 
         BufferedReader requestReader = request.getReader();
 
-//        return jsonBuilder.toString();
         return requestReader.lines().collect(Collectors.joining());
     }
 

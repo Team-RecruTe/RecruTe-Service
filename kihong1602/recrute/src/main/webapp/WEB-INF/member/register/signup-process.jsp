@@ -5,7 +5,7 @@
   Time: 오후 12:19
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@include file="../../layout/header.jsp" %>
 <section class="bg-white">
     <div class="lg:grid lg:min-h-screen lg:grid-cols-12">

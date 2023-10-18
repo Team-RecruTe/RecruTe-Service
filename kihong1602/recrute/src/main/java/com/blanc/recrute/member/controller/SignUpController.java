@@ -16,8 +16,8 @@ import java.time.LocalDate;
 @WebServlet(name = "signup", value = "/signup")
 public class SignUpController extends HttpServlet {
 
-    private static MemberService memberService = new MemberServiceImpl();
-    private static ViewResolver viewResolver = new ViewResolver();
+    private static final MemberService memberService = new MemberServiceImpl();
+    private static final ViewResolver viewResolver = new ViewResolver();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

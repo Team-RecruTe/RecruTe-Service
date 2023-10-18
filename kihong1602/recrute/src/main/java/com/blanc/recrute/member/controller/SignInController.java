@@ -19,9 +19,9 @@ import java.io.IOException;
 
 @WebServlet(name = "signin", value = "/signin")
 public class SignInController extends HttpServlet {
-    private static MemberService memberService = new MemberServiceImpl();
-    private static ViewResolver viewResolver = new ViewResolver();
-    private static Authenticater authenticater = new Authenticater();
+    private static final MemberService memberService = new MemberServiceImpl();
+    private static final ViewResolver viewResolver = new ViewResolver();
+    private static final Authenticater authenticater = new Authenticater();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class SignInController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String parsingJSON = JsonUtil.jsonParsing(request);
 

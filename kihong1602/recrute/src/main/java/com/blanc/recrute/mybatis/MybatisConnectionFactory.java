@@ -7,10 +7,13 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MybatisConnectionFactory {
 
     private static SqlSessionFactory sqlSessionFactory;
+    private static final Logger logger = Logger.getLogger(MybatisConnectionFactory.class.getName());
 
     static {
         try {
@@ -18,7 +21,7 @@ public class MybatisConnectionFactory {
             InputStream inputStream = Resources.getResourceAsStream(resource);
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Error!!", e);
         }
     }
 

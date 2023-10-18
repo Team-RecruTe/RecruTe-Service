@@ -1,7 +1,7 @@
 package com.blanc.recrute.member.dto;
 
 public class InvalidDTO {
-    private String data;
+    private final String data;
 
     public InvalidDTO(String data) {
         this.data = data;

@@ -6,7 +6,6 @@ import com.blanc.recrute.member.service.MemberService;
 import com.blanc.recrute.member.service.MemberServiceImpl;
 import com.blanc.recrute.member.util.JsonUtil;
 import com.google.gson.Gson;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,10 +15,10 @@ import java.io.IOException;
 
 @WebServlet(name = "check-id", value = "/check-id")
 public class IdCheckController extends HttpServlet {
-    private static MemberService memberService = new MemberServiceImpl();
+    private static final MemberService memberService = new MemberServiceImpl();
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String parsingJSON = JsonUtil.jsonParsing(request);
 
