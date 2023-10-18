@@ -7,4 +7,5 @@ public interface MemberService {
 
   MemberDto loginMember(MemberDto memberDto);
 
+  int IdCheck(String id);
 }

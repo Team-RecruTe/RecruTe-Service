@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.google.gson.Gson;
 import com.juju.dao.MemberDao;
 import com.juju.dto.MemberDto;
+import com.juju.util.CookieManager;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -31,14 +32,10 @@ public class SignInProcess extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    // response.setContentType("application/x-json; charset=UTF-8");
-    // response.setContentType("application/x-json; charset=UTF-8");
-
-
     String userId = request.getParameter("userId");
     String pw = request.getParameter("pw");
-
-    // System.out.println("userId===" + userId);
+    String saveID = request.getParameter("saveID");
+    System.out.println("saveID===" + saveID);
 
     MemberDto memberDto = new MemberDto();
     memberDto.setMember_id(userId);
@@ -51,6 +48,14 @@ public class SignInProcess extends HttpServlet {
     MemberDao memberDao = new MemberDao();
     loginResult = memberDao.loginMember(memberDto);
 
+    if (loginResult != null && saveID != null) {
+      if (saveID.equals("rememberMe")) {
+        CookieManager.createCookie(response, "saveIDCookie", userId, 60 * 60 * 24);
+      }
+    } else {
+      CookieManager.deleteCookie(response, "saveIDCookie");
+    }
+
     HttpSession session = request.getSession();
     session.setAttribute("loggedID", loginResult.getMember_id());
     String id = loginResult.getMember_id();
@@ -58,7 +63,7 @@ public class SignInProcess extends HttpServlet {
 
 
 
-    HashMap<String, Object> loginMap = new HashMap<>();
+    HashMap<String, String> loginMap = new HashMap<>();
     // loginMap.put("loginResult", loginResult);
     loginMap.put("id", id);
     loginMap.put("pw", pw02);

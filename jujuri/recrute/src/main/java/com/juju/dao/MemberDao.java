@@ -23,4 +23,14 @@ public class MemberDao implements MemberService {
     sqlSession.close();
     return loginDto;
   }
+
+  @Override
+  public int IdCheck(String id) {
+    int result = 0;
+    SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
+    result = sqlSession.selectOne("idCheck", id);
+    sqlSession.close();
+    return result;
+
+  }
 }

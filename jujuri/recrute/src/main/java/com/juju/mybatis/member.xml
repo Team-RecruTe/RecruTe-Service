@@ -18,5 +18,7 @@
 									#{email}
 									)
 	</insert>
-	
+	<select id="idCheck" resultType = "int" parameterType="String">
+		select count(*) as count from member where member_id = #{member_id}
+	</select>
 </mapper>

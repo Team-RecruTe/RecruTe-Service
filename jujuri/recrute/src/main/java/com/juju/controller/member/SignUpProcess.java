@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import com.juju.dao.MemberDao;
 import com.juju.dto.MemberDto;
+import com.juju.util.ScriptWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,7 +29,6 @@ public class SignUpProcess extends HttpServlet {
       throws ServletException, IOException {
     String userId = request.getParameter("userId");
     String pw = request.getParameter("pw");
-    String pwConfirm = request.getParameter("pwConfirm");
     String username = request.getParameter("username");
     LocalDate birth = LocalDate.parse(request.getParameter("birth"));
     String phoneNum = request.getParameter("phoneNum");
@@ -51,9 +51,9 @@ public class SignUpProcess extends HttpServlet {
     MemberDao memberDao = new MemberDao();
     int result = memberDao.insertMember(memberDto);
     if (result > 0) {
-      System.out.println("회원가입 성공");
+      ScriptWriter.alertAndNext(response, "signup succeeded", "/recrute/index");
     } else {
-      System.out.println("회원가입 실패");
+      ScriptWriter.alertAndBack(response, "signup failed");
     }
   }
 }

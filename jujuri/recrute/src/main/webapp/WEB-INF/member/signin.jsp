@@ -17,8 +17,8 @@
 
 			<div class="relative">
 				<input type="text"
-					class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" id="userId" name="userId"
-					placeholder="Enter your id" />
+					class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+					id="userId" name="userId" value="${cookie.saveIDCookie.value }" placeholder="Enter your id" />
 			</div>
 		</div>
 
@@ -26,10 +26,24 @@
 			<label for="password" class="sr-only">Password</label>
 			<div class="relative">
 				<input type="password"
-					class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" id="pw" name="pw"
-					placeholder="Enter your password" />
+					class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+					id="pw" name="pw" placeholder="Enter your password" />
 			</div>
 		</div>
+		<div class="col-span-6">
+            <label for="MarketingAccept" class="flex gap-4">
+              <input
+                type="checkbox"
+                id="saveID"
+                class="h-5 w-5 rounded-md border-gray-200 bg-white shadow-sm" value="rememberMe" name="saveID" <c:if test="${not empty cookie.saveIDCookie }">checked</c:if>
+              />
+
+              <span class="text-sm text-gray-700">
+                remember Me?
+              </span>
+            </label>
+          </div>
+
 
 
 
@@ -42,41 +56,43 @@
       </p> -->
 
 			<button type="submit"
-				class="inline-block rounded-lg bg-teal-500 px-5 py-3 text-sm font-medium text-white" id="btnSubmit">
-				Log In</button>
+				class="inline-block rounded-lg bg-teal-500 px-5 py-3 text-sm font-medium text-white"
+				id="btnSubmit">Log In</button>
 		</div>
 	</div>
 </div>
 
 <script>
-$("#btnSubmit").on("click", function() {
-	$.ajax({
-		url : "/recrute/signin-process",
-		dataType: "json",
-		data : {
-			userId : $("#userId").val(),
-			pw : $("#pw").val(),
-		},
-		method: "post",
-		success : function(data) {
-			//console.log("success");
-			console.log(data);
-			if (data.loginResult !== null) {
-				//sendRedirect("/recrute/signup")
-				location.href="/recrute/index";
-			} else {
-				alert("Please check your id and password again.");
-			}
-		},
-		fail : function(error) {
-			console.log(error);
-		},
-		complete : function(data) {
-			console.log("complete");
-			console.log(data);
-		},
+	$("#btnSubmit").on("click", function() {
+		$.ajax({
+			url : "/recrute/signin-process",
+			dataType : "json",
+			data : {
+				userId : $("#userId").val(),
+				pw : $("#pw").val(),
+				saveID : $("#saveID").val(),
+			},
+			method : "post",
+			success : function(data) {
+				//console.log("success");
+				console.log(data.id);
+				//{pw: '0612', id: 'jujuri'}
+				if (data.id !== null && data.pw !== null) {
+					//sendRedirect("/recrute/signup")
+					location.href = "/recrute/index";
+				} else {
+					alert("Please check your id and password again.");
+				}
+			},
+			fail : function(error) {
+				console.log(error);
+			},
+			complete : function(data) {
+				console.log("complete");
+				console.log(data);
+			},
+		});
+		return false;
 	});
-	return false;
-});
 </script>
 <%@ include file="/WEB-INF/include/footer.jsp"%>

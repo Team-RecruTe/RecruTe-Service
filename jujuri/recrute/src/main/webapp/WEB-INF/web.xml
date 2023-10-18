@@ -69,4 +69,14 @@
     <servlet-name>SignOut</servlet-name>
     <url-pattern>/signout</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>IdCheck</display-name>
+    <servlet-name>IdCheck</servlet-name>
+    <servlet-class>com.juju.controller.member.IdCheck</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IdCheck</servlet-name>
+    <url-pattern>/id-check</url-pattern>
+  </servlet-mapping>
 </web-app>
