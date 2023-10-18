@@ -5,7 +5,7 @@
   Time: 오후 12:19
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@include file="../../layout/header.jsp" %>
 <section class="bg-white">
     <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
@@ -82,7 +82,7 @@
 
                 <form action="<c:url value="/signup"/>" method="post" class="mt-8 grid grid-cols-6 gap-6"
                       id="signup-form">
-                    <div class="col-span-6 sm:col-span-2">
+                    <div class="col-span-6 sm:col-span-2 id-parent">
                         <label
                                 for="member_id"
                                 class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
@@ -111,7 +111,7 @@
                             </span>
                         </button>
                     </div>
-                    <div class="col-span-6 sm:col-span-2">
+                    <div class="col-span-6 sm:col-span-2 name-parent">
                         <label
                                 for="name"
                                 class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
@@ -127,7 +127,7 @@
                             >Name</span>
                         </label>
                     </div>
-                    <div class="col-span-6">
+                    <div class="col-span-6 email-parent">
                         <label
                                 for="email"
                                 class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
@@ -144,7 +144,7 @@
                         </label>
                     </div>
 
-                    <div class="col-span-6 sm:col-span-3">
+                    <div class="col-span-6 sm:col-span-3 password-parent">
                         <label
                                 for="password"
                                 class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
@@ -162,7 +162,7 @@
                         </label>
                     </div>
 
-                    <div class="col-span-6 sm:col-span-3">
+                    <div class="col-span-6 sm:col-span-3 pw-confirm-parent">
                         <label
                                 for="password_confirm"
                                 class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
@@ -177,7 +177,6 @@
                                     class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
                             >Password Confirm</span>
                         </label>
-                        <div class="invalid-feedback"></div>
                     </div>
                     <div class="col-span-6 sm:col-span-3">
                         <p>Birth</p>
@@ -211,7 +210,7 @@
                                     name="gender" value="0"/>Female
                         </label>
                     </div>
-                    <div class="col-span-6">
+                    <div class="col-span-6 tel-parent">
                         <label
                                 for="phone_number"
                                 class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
@@ -226,6 +225,7 @@
                                     class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
                             >Phone Number</span>
                         </label>
+                        <p>구분자 없이 숫자만 입력하세요.</p>
                     </div>
                     <div class="col-span-6">
                         <label for="MarketingAccept" class="flex gap-4">

@@ -6,16 +6,22 @@ let birth = document.querySelector('input[name="birth"]');
 let gender = document.querySelector('input[name="gender"]');
 let email = document.querySelector('input[name="email"]');
 let tel = document.querySelector('input[name="phoneNumber"]');
-let invalidFeedback = document.querySelector('.invalid-feedback');
+let passwordConfirm = document.querySelector('.password-confirm');
 let form = document.getElementById('signup-form');
 
 let isProperId = false;
+const regexMap = new Map();
+regexMap.set('id', /^(?=.*[a-zA-Z])(?=.*[0-9]).{1,30}$/);
+regexMap.set('password', /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/);
+regexMap.set('name', /^(?=.*[a-zA-Z])(?=.*[ㄱ-ㅎ가-힣]).{1,30}$/);
+regexMap.set('email', /^[a-z0-9]+@[a-z]+\.[a-z.]{2,}$/);
+regexMap.set('tel', /^(?=.*[0-9]).{10,20}$/);
 
 function invalid(e, memberId, password, name, birth, gender, email, tel) {
     e.stopPropagation();
 
     let isProper = false;
-    
+
     if (check(memberId)) {
         alert("ID 입력은 필수입니다.");
         memberId.focus();
@@ -68,29 +74,24 @@ function check(word) {
 }
 
 function invalidId(memberId) {
-    const idRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{1,30}$/;
-    return idRegex.test(memberId.value);
+    return regexMap.get('id').test(memberId.value);
 }
 
 
 function invalidPw(password) {
-    const pwRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/;
-    return pwRegex.text(password.value);
+    return regexMap.get('password').text(password.value);
 }
 
 function invalidName(name) {
-    const nameRegex = /^(?=.*[a-zA-Z])(?=.*[ㄱ-ㅎ가-힣]).{1,30}$/;
-    return nameRegex.test(name.value);
+    return regexMap.get('name').test(name.value);
 }
 
 function invalidEmail(email) {
-    const emailRegex = /^[a-z0-9]+@[a-z]+\.[a-z.]{2,}$/;
-    return emailRegex.test(email.value);
+    return regexMap.get('email').test(email.value);
 }
 
 function invalidTel(tel) {
-    const telRegex = /^(?=.*[0-9]).{10,20}$/;
-    return telRegex.text(tel.value);
+    return regexMap.get('tel').text(tel.value);
 }
 
 
@@ -135,11 +136,109 @@ function idDuplicate() {
                 alert('입력된 아이디가 없습니다. 아이디를 적어주세요.')
             }
         })
-        .catch(error => {
+        .catch(() => {
             alert('서버오류가 발생했습니다.');
         })
 }
 
-confirm.addEventListener('keyup', function () {
-    invalidFeedback.innerHTML = password.value === confirm.value ? "" : "비밀번호가 다릅니다.";
+confirm.addEventListener('keyup', () => {
+
+    if (password.value !== confirm.value) {
+        pwConDiv.textContent = "비밀번호가 다릅니다.";
+        pwConDiv.style.display = "block";
+    } else {
+        pwConDiv.style.display = "none";
+    }
+})
+
+//memberId,password,name,email,tel
+let idParent = document.querySelector('.id-parent');
+let pwParent = document.querySelector('.password-parent');
+let pwConfirmParent = document.querySelector('.pw-confirm-parent');
+let nameParent = document.querySelector('.name-parent');
+let emailParent = document.querySelector('.email-parent');
+let telParent = document.querySelector('.tel-parent');
+const idDiv = createDiv(idParent);
+const pwDiv = createDiv(pwParent);
+const pwConDiv = createDiv(pwConfirmParent);
+const nameDiv = createDiv(nameParent);
+const emailDiv = createDiv(emailParent);
+const telDiv = createDiv(telParent);
+
+
+function createDiv(parent) {
+    const div = document.createElement('div');
+    div.classList.add('invalid');
+    parent.appendChild(div);
+    div.style.display = "none";
+    return div;
+}
+
+memberId.addEventListener('input', () => {
+
+    const compare = memberId.value;
+    memberId.value = memberId.value.replace(/[^a-z0-9]/g, "");
+
+
+    if (compare !== memberId.value) {
+        idDiv.textContent = "올바르지 않은 아이디 형식입니다.";
+        idDiv.style.display = "block";
+        //자식으로 생성하기
+    } else {
+        idDiv.style.display = "none";
+        //hidden 처리하기
+    }
+
+})
+
+password.addEventListener('input', () => {
+    const compare = password.value;
+    password.value = password.value.replace(/[^a-zA-Z!@#$%^&*-=+\d]/g, "");
+
+    if (compare !== password.value) {
+        pwDiv.textContent = "올바르지 않은 비밀번호 형식입니다.";
+        pwDiv.style.display = "block";
+
+    } else {
+        pwDiv.style.display = "none";
+    }
+})
+
+name.addEventListener('input', () => {
+    const compare = name.value;
+    name.value = name.value.replace(/[^a-zA-Zㄱ-ㅎ가-힣]/g, "");
+
+    if (compare !== name.value) {
+        nameDiv.textContent = "올바르지 않은 이름 형식입니다.";
+        nameDiv.style.display = "block";
+
+    } else {
+        nameDiv.style.display = "none";
+    }
+})
+
+email.addEventListener('input', () => {
+    const compare = email.value;
+    email.value = email.value.replace(/[^a-zA-Z\d@.]/g, "");
+
+    if (compare !== email.value) {
+        emailDiv.textContent = "올바르지 않은 이메일 형식입니다.";
+        emailDiv.style.display = "block";
+
+    } else {
+        emailDiv.style.display = "none";
+    }
+})
+
+tel.addEventListener('input', () => {
+    const compare = tel.value;
+    tel.value = tel.value.replace(/[^0-9]/g, "");
+
+    if (compare !== tel.value) {
+        telDiv.textContent = "올바르지 않은 전화번호 형식입니다.";
+        telDiv.style.display = "block";
+
+    } else {
+        telDiv.style.display = "none";
+    }
 })
