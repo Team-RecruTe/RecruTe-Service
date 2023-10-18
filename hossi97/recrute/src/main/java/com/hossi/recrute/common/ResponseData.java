@@ -1,7 +1,5 @@
 package com.hossi.recrute.common;
 
-import java.util.HashMap;
-
 public class ResponseData<V> {
     private final String key;
     private final V value;
