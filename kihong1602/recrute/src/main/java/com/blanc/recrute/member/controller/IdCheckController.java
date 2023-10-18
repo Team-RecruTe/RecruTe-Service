@@ -1,10 +1,10 @@
 package com.blanc.recrute.member.controller;
 
+import com.blanc.recrute.common.JsonUtil;
 import com.blanc.recrute.member.dto.IdCheckDTO;
 import com.blanc.recrute.member.dto.InvalidDTO;
 import com.blanc.recrute.member.service.MemberService;
 import com.blanc.recrute.member.service.MemberServiceImpl;
-import com.blanc.recrute.member.util.JsonUtil;
 import com.google.gson.Gson;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
