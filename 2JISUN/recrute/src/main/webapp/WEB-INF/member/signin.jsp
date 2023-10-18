@@ -15,97 +15,96 @@
   </div>
 
 
-  <form action="../member/signin-process" 
-  		method="post"
-  		class="mx-auto mb-0 mt-8 max-w-md space-y-4" 
-  		id="joinForm">
-  		
-  		
-  	<!-- 아이디(userId) → text -->
-    <div>
-      <label for="text" class="sr-only">아이디</label>
-      <div class="relative">
-        <input
-	          type="text"
-	          name="userId"
-	          value=""
-	          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-	          placeholder="아이디를 입력해주세요."/>
-
-        <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4 text-gray-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-            />
-          </svg>
-        </span>
-      </div>
-    </div>
-
-
-	<!-- 비밀번호(pw) → password -->
-    <div>
-      <label for="password" class="sr-only">비밀번호</label>
-      <div class="relative">
-        <input
-	          type="password"
-	          name="pw"
-	          value=""
-	          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-	          placeholder="비밀번호를 입력해주세요."/>
-
-
-        <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4 text-gray-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-            />
-          </svg>
-        </span>
-      </div>
-    </div>
-
-    <div class="flex items-center justify-between">
-      <p class="text-sm text-gray-500">
-        No account?
-        <a class="underline" href="">Sign up</a>
-      </p>
-
-	<!-- 로그인 버튼 -->
-      <button
-	        type="submit"
-	        id="btnSubmit"
-	        class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
-	      >
-        로그인
-      </button>
-    </div>
-  </form>
-</div>
+	<div class="mx-auto mb-0 mt-8 max-w-md space-y-4" 
+		 id="join"> 
+		
+		<!-- 아이디(id="userId") (value="")-->
+	    <div>
+	      <label for="text" class="sr-only">아이디</label>
+	      <div class="relative">
+	        <input
+	        	  id="userId" 
+		          type="text"
+		          name="userId"
+		          value=""
+		          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+		          placeholder="아이디를 입력해주세요."/>
+	
+	        <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
+	          <svg
+	            xmlns="http://www.w3.org/2000/svg"
+	            class="h-4 w-4 text-gray-400"
+	            fill="none"
+	            viewBox="0 0 24 24"
+	            stroke="currentColor"
+	          >
+	            <path
+	              stroke-linecap="round"
+	              stroke-linejoin="round"
+	              stroke-width="2"
+	              d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+	            />
+	          </svg>
+	        </span>
+	      </div>
+	    </div>
+	
+	
+		<!-- 비밀번호(pw) → password -->
+	    <div>
+	      <label for="password" class="sr-only">비밀번호</label>
+	      <div class="relative">
+	        <input
+	        	  id="pw"
+		          type="password"
+		          name="pw"
+		          value=""
+		          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+		          placeholder="비밀번호를 입력해주세요."/>
+	
+	
+	        <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
+	          <svg
+	            xmlns="http://www.w3.org/2000/svg"
+	            class="h-4 w-4 text-gray-400"
+	            fill="none"
+	            viewBox="0 0 24 24"
+	            stroke="currentColor"
+	          >
+	            <path
+	              stroke-linecap="round"
+	              stroke-linejoin="round"
+	              stroke-width="2"
+	              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+	            />
+	            <path
+	              stroke-linecap="round"
+	              stroke-linejoin="round"
+	              stroke-width="2"
+	              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+	            />
+	          </svg>
+	        </span>
+	      </div>
+	    </div>
+	
+	    <div class="flex items-center justify-between">
+	      <p class="text-sm text-gray-500">
+	        No account?
+	        <a class="underline" href="">Sign up</a>
+	      </p>
+	
+		<!-- 로그인 버튼 -->
+	      <button
+		        type="submit"
+		        id="btnSubmit"
+		        class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+		      >
+	        로그인
+	      </button>
+	    </div>
+		</div>
+	</div>
 
 
 
@@ -113,32 +112,32 @@
 //http메시지 방식을 json으로 처리하기 위해 jquery(ajax) 사용
 
 
-
-
 $("#btnSubmit").on("click",function(e){
-					// json 형식으로 input 데이터 set
-					const params = {
-						userId : $("#userId").val(),
-						pw : $("#pw").val()
-						}
+	console.log("click");
+				// json 형식으로 input(name속성 값)데이터 set
+				const params = {
+								userId : $("#userId").val(),
+								pw : $("#pw").val()
+								}
 					
 					
-					// ajax 통신
-					//e.preventDefault();
+				// ajax 통신
+				// e.preventDefault();
+				// 데이터 담아서 signin-process 서블릿으로 이동 > 성공하면 돌아와서
 					$.ajax({
-						type: "post"
-						url:"/member/signin-process",
-						dataType: "json",
-						data: params,
-						success:function(response) {
-							 alert(response.code);
-							 location.href="/index/index"
-						},
-						error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
-		                    alert("통신 실패.")
-		                }
-					});
-					return false; 
+							type: "post",
+							url:"../member/signin-process",
+							dataType: "json",
+							data: params,
+							success:function(data) {
+								 console.log(data);
+								 location.href="../index/index"
+							},
+							error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+			                     //alert("통신 실패.")
+			                }
+							});	
+				//return false; 
 				})
 
 </script>

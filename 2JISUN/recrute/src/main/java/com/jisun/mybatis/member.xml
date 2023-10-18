@@ -20,7 +20,7 @@
 	<select id="loginMember"
 			resultType="MemberDto" 
 			parameterType="MemberDto"> 
-	select member_id ,password,name,birth,gender,phone_number,email 
+	select member_id as memberID , password
 	from member 
 	where member_id = #{memberID} and password = #{password}
 	</select>

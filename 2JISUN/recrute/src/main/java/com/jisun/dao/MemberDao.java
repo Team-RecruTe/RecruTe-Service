@@ -15,16 +15,12 @@ public class MemberDao {
 	public int insertMember(MemberDto memberDto) {
 		// 초기화
 		int result = 0;
-		
 		// MyBatis의 SqlSession을 가져오는 메서드를 호출하여 SqlSession 객체를 획득
         SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
-        
         // MyBatis 매퍼 파일에 정의된 id="insertMember" 쿼리를 실행하고 결과를 받아옴
         result = sqlSession.insert("insertMember", memberDto); 
-        
         // 사용이 끝난 SqlSession 객체를 닫음
         sqlSession.close();
-        
         // 
         return result;
 	}
@@ -43,7 +39,7 @@ public class MemberDao {
         // MyBatis의 SqlSession을 가져오는 메서드를 호출하여 SqlSession 객체를 획득
         SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
         // MyBatis 매퍼 파일에 정의된 id="loginMember" 쿼리를 실행하고 결과를 받아옴
-        loggedMember = sqlSession.selectOne("loginMember", memberDto); 
+        loggedMember = sqlSession.selectOne("loginMember", memberDto); //selectOne : 결과값이 하나의 row일때
         // 사용이 끝난 SqlSession 객체를 닫음
         sqlSession.close();
         // 로그인된 Member 정보 또는 null을 반환

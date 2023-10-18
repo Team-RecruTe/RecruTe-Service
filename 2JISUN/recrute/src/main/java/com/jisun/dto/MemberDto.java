@@ -14,6 +14,7 @@ public class MemberDto {
 	//created_date datetime default now()
 	//modified_date datetime default now() on update now()
 	
+	
 	public MemberDto(String memberID, String password, String name, LocalDate birth, int gender, String phoneNum,
 			String email) {
 		this.memberID = memberID;
@@ -24,10 +25,18 @@ public class MemberDto {
 		this.phoneNum = phoneNum;
 		this.email = email;
 	}
+	
 	public MemberDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	@Override
+	public String toString() {
+		return "MemberDto [memberID=" + memberID + ", password=" + password + ", name=" + name + ", birth=" + birth
+				+ ", gender=" + gender + ", phoneNum=" + phoneNum + ", email=" + email + "]";
+	}
+	
 	
 	public String getMemberID() {
 		return memberID;
@@ -72,20 +81,4 @@ public class MemberDto {
 		this.email = email;
 	}
 	
-	
-	@Override
-	public String toString() {
-		return "MemberDto [memberID=" + memberID + ", password=" + password + ", name=" + name + ", birth=" + birth
-				+ ", gender=" + gender + ", phoneNum=" + phoneNum + ", email=" + email + "]";
-	}
-	
-	
-	
-
-	
-	
-	
-	
-
-
 }

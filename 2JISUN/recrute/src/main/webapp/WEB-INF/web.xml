@@ -49,4 +49,24 @@
     <servlet-name>MemberSignupProcess</servlet-name>
     <url-pattern>/member/signup-process</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberSigninJsonProcess</display-name>
+    <servlet-name>MemberSigninJsonProcess</servlet-name>
+    <servlet-class>com.jisun.controller.member.MemberSigninJsonProcess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberSigninJsonProcess</servlet-name>
+    <url-pattern>/member/signinJson-process</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Index</display-name>
+    <servlet-name>Index</servlet-name>
+    <servlet-class>com.jisun.controller.index.Index</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Index</servlet-name>
+    <url-pattern>/index/index</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -69,13 +69,10 @@
                             <td align="center" bgcolor="#FFFFCC">이메일</td>
                             <td><input type="email" name="email"/></td>
                        </tr>        
-
                 </table>
                 
-				                
-                      
-
                 <br />
+                
                 <div class="">
 					<button type="submit" >회원가입</button>
 					<button type="reset" >취소</button>
