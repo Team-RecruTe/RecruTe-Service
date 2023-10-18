@@ -4,6 +4,7 @@ import com.blanc.recrute.member.dto.IdCheckDTO;
 import com.blanc.recrute.member.dto.InvalidDTO;
 import com.blanc.recrute.member.service.MemberService;
 import com.blanc.recrute.member.service.MemberServiceImpl;
+import com.blanc.recrute.member.util.JsonUtil;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
 @WebServlet(name = "check-id", value = "/check-id")
@@ -21,15 +21,9 @@ public class IdCheckController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        StringBuilder jsonBuilder = new StringBuilder();
-        try (BufferedReader br = request.getReader()) {
-            String json;
-            while ((json = br.readLine()) != null) {
-                jsonBuilder.append(json);
-            }
-        }
+        String parsingJSON = JsonUtil.jsonParsing(request);
 
-        IdCheckDTO idCheckDTO = new Gson().fromJson(jsonBuilder.toString(), IdCheckDTO.class);
+        IdCheckDTO idCheckDTO = new Gson().fromJson(parsingJSON, IdCheckDTO.class);
         String memberId = idCheckDTO.getMemberId();
 
         String check = memberService.idCheck(memberId);
@@ -50,8 +44,6 @@ public class IdCheckController extends HttpServlet {
 
         String result = new Gson().toJson(invalidDTO);
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(result);
+        JsonUtil.sendJSON(response, result);
     }
 }
