@@ -1,10 +1,10 @@
-package com.hossi.recrute.service;
+package com.hossi.recrute.member.service;
 
-import com.hossi.recrute.dao.MemberDao;
-import com.hossi.recrute.dto.request.CheckDupReqDto;
-import com.hossi.recrute.dto.request.SigninDto;
-import com.hossi.recrute.dto.request.SignupDto;
-import com.hossi.recrute.dto.response.CheckDupResDto;
+import com.hossi.recrute.member.dao.MemberDao;
+import com.hossi.recrute.member.dto.request.CheckDupReqDto;
+import com.hossi.recrute.member.dto.request.SigninDto;
+import com.hossi.recrute.member.dto.request.SignupDto;
+import com.hossi.recrute.member.dto.response.CheckDupResDto;
 
 public class MemberService {
     private final MemberDao memberDao = new MemberDao();

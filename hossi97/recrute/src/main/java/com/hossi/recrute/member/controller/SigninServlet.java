@@ -1,13 +1,13 @@
-package com.hossi.recrute.controller;
+package com.hossi.recrute.member.controller;
 
 import java.io.*;
 
 import com.google.gson.Gson;
-import com.hossi.recrute.ViewResolver;
+import com.hossi.recrute.common.ViewResolver;
 import com.hossi.recrute.common.Authenticater;
 import com.hossi.recrute.common.ErrorCode;
-import com.hossi.recrute.dto.request.SigninDto;
-import com.hossi.recrute.service.MemberService;
+import com.hossi.recrute.member.dto.request.SigninDto;
+import com.hossi.recrute.member.service.MemberService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -18,7 +18,7 @@ public class SigninServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.setAttribute("mainViewPath", ViewResolver.resolveMainViewPath("signin"));
-        request.getRequestDispatcher(ViewResolver.getViewPath()).forward(request, response);
+        request.getRequestDispatcher(ViewResolver.getMainViewPath()).forward(request, response);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

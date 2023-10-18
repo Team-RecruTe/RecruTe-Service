@@ -1,10 +1,10 @@
-package com.hossi.recrute.dao;
+package com.hossi.recrute.member.dao;
 
 import com.hossi.recrute.common.MyBatisConnectionFactory;
-import com.hossi.recrute.dto.request.CheckDupReqDto;
-import com.hossi.recrute.dto.request.SigninDto;
-import com.hossi.recrute.dto.request.SignupDto;
-import com.hossi.recrute.dto.response.CheckDupResDto;
+import com.hossi.recrute.member.dto.request.CheckDupReqDto;
+import com.hossi.recrute.member.dto.request.SigninDto;
+import com.hossi.recrute.member.dto.request.SignupDto;
+import com.hossi.recrute.member.dto.response.CheckDupResDto;
 import org.apache.ibatis.session.SqlSession;
 
 public class MemberDao {

@@ -5,9 +5,10 @@
 <configuration>
     <properties resource="config/db.properties"/>
     <typeAliases>
-        <typeAlias alias="SignupDto" type="com.hossi.recrute.dto.request.SignupDto"/>
-        <typeAlias alias="SigninDto" type="com.hossi.recrute.dto.request.SigninDto"/>
-        <typeAlias alias="CheckDupDto" type="com.hossi.recrute.dto.request.CheckDupReqDto"/>
+        <typeAlias alias="SignupDto" type="com.hossi.recrute.member.dto.request.SignupDto"/>
+        <typeAlias alias="SigninDto" type="com.hossi.recrute.member.dto.request.SigninDto"/>
+        <typeAlias alias="CheckDupDto" type="com.hossi.recrute.member.dto.request.CheckDupReqDto"/>
+        <typeAlias alias="RecruitmentDto" type="com.hossi.recrute.recruitment.dto.RecruitmentDto"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -22,5 +23,6 @@
     </environments>
     <mappers>
         <mapper resource="mapper/member.xml"/>
+        <mapper resource="mapper/recruitment.xml"/>
     </mappers>
 </configuration>

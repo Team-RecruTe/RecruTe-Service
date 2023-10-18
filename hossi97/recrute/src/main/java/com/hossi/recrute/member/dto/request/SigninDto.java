@@ -1,6 +1,4 @@
-package com.hossi.recrute.dto.request;
-
-import java.time.LocalDate;
+package com.hossi.recrute.member.dto.request;
 
 public class SigninDto {
     private final String memberId;

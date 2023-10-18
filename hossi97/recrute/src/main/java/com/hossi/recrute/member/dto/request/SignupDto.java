@@ -1,6 +1,4 @@
-package com.hossi.recrute.dto.request;
-
-import com.hossi.recrute.vo.GenderVo;
+package com.hossi.recrute.member.dto.request;
 
 import java.time.LocalDate;
 

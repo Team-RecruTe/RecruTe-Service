@@ -1,4 +1,4 @@
-package com.hossi.recrute.dto.response;
+package com.hossi.recrute.member.dto.response;
 
 public class CheckDupResDto {
     private Boolean isDup;

@@ -1,4 +1,4 @@
-package com.hossi.recrute.dto.request;
+package com.hossi.recrute.member.dto.request;
 
 public class CheckDupReqDto {
     private String memberId;

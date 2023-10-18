@@ -1,10 +1,10 @@
-package com.hossi.recrute.controller;
+package com.hossi.recrute.member.controller;
 
 
-import com.hossi.recrute.ViewResolver;
-import com.hossi.recrute.dto.request.SignupDto;
-import com.hossi.recrute.service.MemberService;
-import com.hossi.recrute.vo.GenderVo;
+import com.hossi.recrute.common.ViewResolver;
+import com.hossi.recrute.member.dto.request.SignupDto;
+import com.hossi.recrute.member.service.MemberService;
+import com.hossi.recrute.member.vo.GenderVo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,7 +19,7 @@ public class SignupServlet extends HttpServlet {
     private final MemberService memberService = new MemberService();
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.setAttribute("mainViewPath", ViewResolver.resolveMainViewPath("signup"));
-        request.getRequestDispatcher(ViewResolver.getViewPath()).forward(request, response);
+        request.getRequestDispatcher(ViewResolver.getMainViewPath()).forward(request, response);
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         GenderVo gender = request.getParameter("gender").equals("male") ? GenderVo.MALE : GenderVo.FEMALE;

@@ -1,8 +1,8 @@
-package com.hossi.recrute.controller;
+package com.hossi.recrute.member.controller;
 
 import com.google.gson.Gson;
-import com.hossi.recrute.dto.request.CheckDupReqDto;
-import com.hossi.recrute.service.MemberService;
+import com.hossi.recrute.member.dto.request.CheckDupReqDto;
+import com.hossi.recrute.member.service.MemberService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

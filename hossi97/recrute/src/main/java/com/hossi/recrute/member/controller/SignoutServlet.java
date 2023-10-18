@@ -1,6 +1,5 @@
-package com.hossi.recrute.controller;
+package com.hossi.recrute.member.controller;
 
-import com.hossi.recrute.ViewResolver;
 import com.hossi.recrute.common.Authenticater;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
