@@ -11,35 +11,37 @@ let form = document.getElementById('signup-form');
 
 let isProperId = false;
 
-
-function check(word) {
-    return (word.value === "" || word.value === null || word.value === undefined);
-}
-
-function invalidEmail(email) {
-    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    return emailRegex.test(email.value);
-}
-
 function invalid(e, memberId, password, name, birth, gender, email, tel) {
     e.stopPropagation();
 
     let isProper = false;
+    
     if (check(memberId)) {
         alert("ID 입력은 필수입니다.");
         memberId.focus();
     } else if (!isProperId) {
         alert("중복된 아이디 입니다.");
         memberId.focus();
-    } else if (check(email) || !invalidEmail(email)) {
-        if (check(email)) {
-            alert("이메일을 입력해주세요.");
-        } else if (!invalidEmail(email)) {
-            alert("올바르지 않은 이메일 형식입니다.")
-        }
+    } else if (invalidId(memberId)) {
+        alert("올바르지 않은 아이디 형식입니다.");
+        memberId.focus();
+    } else if (check(name)) {
+        alert("이름을 입력해주세요.");
+        name.focus();
+    } else if (invalidName(name)) {
+        alert("올바르지않은 이름 형식입니다.");
+        name.focus();
+    } else if (check(email)) {
+        alert("이메일을 입력해주세요.");
+        email.focus();
+    } else if (!invalidEmail(email)) {
+        alert("올바르지 않은 이메일 형식입니다.")
         email.focus();
     } else if (check(password)) {
         alert("비밀번호 입력은 필수입니다.");
+        password.focus();
+    } else if (invalidPw(password)) {
+        alert("올바르지 않은 비밀번호 형식입니다.");
         password.focus();
     } else if (check(birth)) {
         alert("생년월일을 입력하세요.");
@@ -49,6 +51,9 @@ function invalid(e, memberId, password, name, birth, gender, email, tel) {
     } else if (check(tel)) {
         alert("전화번호를 입력해주세요.");
         tel.focus();
+    } else if (invalidTel(tel)) {
+        alert("올바르지 않은 전화번호 형식입니다.");
+        tel.focus();
     } else {
         isProper = true;
     }
@@ -57,6 +62,37 @@ function invalid(e, memberId, password, name, birth, gender, email, tel) {
         e.preventDefault();
     }
 }
+
+function check(word) {
+    return (word.value === "" || word.value === null || word.value === undefined);
+}
+
+function invalidId(memberId) {
+    const idRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{1,30}$/;
+    return idRegex.test(memberId.value);
+}
+
+
+function invalidPw(password) {
+    const pwRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/;
+    return pwRegex.text(password.value);
+}
+
+function invalidName(name) {
+    const nameRegex = /^(?=.*[a-zA-Z])(?=.*[ㄱ-ㅎ가-힣]).{1,30}$/;
+    return nameRegex.test(name.value);
+}
+
+function invalidEmail(email) {
+    const emailRegex = /^[a-z0-9]+@[a-z]+\.[a-z.]{2,}$/;
+    return emailRegex.test(email.value);
+}
+
+function invalidTel(tel) {
+    const telRegex = /^(?=.*[0-9]).{10,20}$/;
+    return telRegex.text(tel.value);
+}
+
 
 const signUpFormSubmitEvent = (memberId, password, name, birth, gender, email, tel) => {
     form.addEventListener('keydown', (e) => {
