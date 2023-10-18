@@ -41,10 +41,9 @@ public class SignupServlet extends HttpServlet {
             .birth(birth)
             .build();
 
-        memberService.signup(signupDto);
-
-        response.setStatus(302);
-        response.sendRedirect("/");
+        if(memberService.signup(signupDto)) {
+            response.setStatus(302);
+            response.sendRedirect("/");
+        }
     }
-
 }

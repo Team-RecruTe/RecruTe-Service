@@ -7,8 +7,12 @@
         insert into member (member_id, password, email, name, birth, gender, phone_number)
             values (#{memberId},#{password},#{name},#{email},#{birth},#{gender},#{phoneNumber})
     </insert>
-    <select id="findMember" parameterType="SigninDto" resultType="Integer">
+    <select id="selectIdByMemberIdAndPassword" parameterType="SigninDto" resultType="Integer">
         select id from member
             where member_id = #{memberId} and password = #{password}
+    </select>
+    <select id="selectCountByMemberId" parameterType="CheckDupDto" resultType="Integer">
+        select count(*) from member
+            where member_id = #{memberId}
     </select>
 </mapper>

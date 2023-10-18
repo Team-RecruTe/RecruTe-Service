@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <section class="bg-gray-900 text-white">
     <div
             class="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center"

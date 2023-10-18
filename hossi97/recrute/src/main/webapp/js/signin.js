@@ -6,14 +6,34 @@ const checkInputEmpty = (el) => {
     return (el.value === "" || el.value === null || el.value === undefined)
 }
 
+const validateInputValue = (el, regex) => {
+    const elRegex = new RegExp(regex);
+    return elRegex.test(el.value);
+}
+
+id.addEventListener('input', e => {
+    id.value = id.value.replace(/[^a-zA-Z0-9]/g,'')
+})
+password.addEventListener('input', e => {
+    password.value = password.value.replace(/[^a-zA-Z0-9!@#$%^*+=-]g/,'')
+})
+
 const isNotEmpty = (id, password) => {
     if (checkInputEmpty(id)) {
         alert("아이디를 입력해주세요.")
         id.focus()
         return false
+    } else if (!validateInputValue(id, /^(?=.*[a-zA-Z])(?=.*[0-9]).{1,30}$/)) {
+        alert("아이디 형식이 올바르지 않습니다.")
+        email.focus()
+        return false
     } else if (checkInputEmpty(password)) {
         alert("비밀번호를 입력해주세요.")
         password.focus()
+        return false
+    } else if (!validateInputValue(id, /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/)) {
+        alert("아이디 형식이 올바르지 않습니다.")
+        email.focus()
         return false
     }
 
@@ -64,6 +84,7 @@ const addFormEvent = (id, password) => {
         }
     }, true);
 }
+
 const addBtnEvent = (id, password) => {
     submitBtn.addEventListener("click", (e) => {
         checkAndSend(e, id, password)

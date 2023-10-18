@@ -5,7 +5,6 @@ public class ViewResolver {
     public static String resolveMainViewPath(String viewName) {
         return "./pages/" + viewName + ".jsp";
     }
-
     public static String getViewPath() {
         return viewPath;
     }

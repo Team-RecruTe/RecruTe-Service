@@ -7,38 +7,71 @@ const passwordConfirm = document.querySelector('input[name="passwordConfirm"]')
 const phoneNumber = document.querySelector('input[name="phoneNumber"]')
 const birth = document.querySelector('input[name="birth"]')
 const form = document.querySelector("#form")
+const checkBtn = document.querySelector("#check-btn")
 
-const validateEmail = (el) => {
-    const emailRegex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
-    return emailRegex.test(el.value);
+const validateInputValue = (el, regex) => {
+    const elRegex = new RegExp(regex);
+    return elRegex.test(el.value);
 }
+
+id.addEventListener('input', e => {
+    id.value = id.value.replace(/[^a-zA-Z0-9]/g,'')
+})
+password.addEventListener('input', e => {
+    password.value = password.value.replace(/[^a-zA-Z0-9!@#$%^*+=-]g/,'')
+})
+passwordConfirm.addEventListener('input', e => {
+    passwordConfirm.value = passwordConfirm.value.replace(/[^a-zA-Z0-9!@#$%^*+=-]/g,'')
+})
+email.addEventListener('input', e => {
+    email.value = email.value.replace(/[^a-z0-9@.]/g,'')
+})
+name.addEventListener('input', e => {
+    name.value = name.value.replace(/[^a-zA-Zㄱ-ㅎ가-힣]/g,'')
+})
+phoneNumber.addEventListener('input', e => {
+    phoneNumber.value = phoneNumber.value.replace(/[^0-9]/g,'')
+})
+
 
 const checkInputEmpty = (el) => {
     return (el.value === "" || el.value === null || el.value === undefined)
 }
 
-const registerEvent = (e, id, email, name, gender, password, passwordConfirm, phoneNumber, birth) => {
+const registerEvent = (e, id, email, name, gender, password, passwordConfirm, phoneNumber, birth, checked) => {
     e.stopPropagation();
 
     let isProper = false;
     if (checkInputEmpty(id)) {
         alert("아이디를 입력하세요.")
         id.focus()
+    } else if (!validateInputValue(id, /^(?=.*[a-zA-Z])(?=.*[0-9]).{1,30}$/)) {
+        alert("아이디 형식이 올바르지 않습니다.")
+        email.focus()
+    } else if(checked.isDup) {
+        alert("중복 체크를 진행하세요.")
+        id.focus()
     } else if (checkInputEmpty(email)) {
         alert("이메일을 입력하세요.")
         email.focus()
-    } else if (!validateEmail(email)) {
+    } else if (!validateInputValue(email, /^[/a-z0-9]+@[a-z]+\\.[a-z.]{2,}$/)) {
         alert("이메일 형식이 올바르지 않습니다.")
         email.focus()
     } else if (checkInputEmpty(name)) {
         alert("이름을 입력하세요.")
         name.focus()
+    } else if (!validateInputValue(name, /^(?=.*[a-zA-Z])(?=.*[ㄱ-ㅎ가-힣])(?=.*[0-9]).{1,30}$/)) {
+        alert("이름 형식이 올바르지 않습니다.")
+        email.focus()
     } else if (checkInputEmpty(gender)) {
         alert("성별을 선택하세요.")
         gender.focus()
     } else if (checkInputEmpty(password)) {
         alert("비밀번호를 입력하세요.")
         password.focus()
+    } else if (!validateInputValue(password, /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-]).{8,30}$/)) {
+        alert("이름 형식이 올바르지 않습니다.")
+        email.focus()
     } else if (checkInputEmpty(passwordConfirm)) {
         alert("비밀번호 확인을 입력하세요.")
         passwordConfirm.focus()
@@ -48,6 +81,9 @@ const registerEvent = (e, id, email, name, gender, password, passwordConfirm, ph
     } else if (checkInputEmpty(phoneNumber)) {
         alert("전화번호를 입력하세요.")
         phoneNumber.focus()
+    } else if (!validateInputValue(password, /^(?=.*[0-9]).{10,20}$/)) {
+        alert("전화번호 형식이 올바르지 않습니다.")
+        email.focus()
     } else if (checkInputEmpty(birth)) {
         alert("생년월일을 선택하세요.")
         birth.focus()
@@ -60,84 +96,54 @@ const registerEvent = (e, id, email, name, gender, password, passwordConfirm, ph
     }
 }
 
+const checkDuplicate = (id, checked) => {
+    if (checkInputEmpty(id)) {
+        alert("아이디를 입력하세요.")
+        id.focus()
+    } else if (!validateInputValue(id, /^(?=.*[a-zA-Z])(?=.*[0-9]).{1,30}$/)) {
+        alert("아이디 형식이 올바르지 않습니다.")
+        email.focus()
+    } else {
+        const path = `/signup/check-duplicate?memberId=${id.value}`
+        fetch(path)
+            .then(res => res.json())
+            .then(data => {
+                if(data.isDup) {
+                    alert("중복된 아이디입니다.")
+                    id.focus();
+                } else {
+                    if(!confirm("사용가능한 아이디입니다. 사용하시겠습니까?")){
+                        alert("취소 되었습니다.");
+                    }else{
+                        checked.isDup = false
+                        id.readOnly = true;
+                        checkBtn.setAttribute("style", "cursor: default;")
+                        checkBtn.removeEventListener("click", checkDupIdEvent)
+                        alert("확인 되었습니다.");
+                    }
+                }
+            });
+    }
+}
+
 const registerFormSubmitEvent = (id, email, name, gender, password, passwordConfirm, phoneNumber, birth) => {
+    const checked = {
+        isDup: true
+    }
+
+    checkBtn.addEventListener("click", checkDupIdEvent = () => {
+        checkDuplicate(id, checked)
+    })
+
     form.addEventListener('keydown', (e) => {
         if (e.code === "Enter") {
-            registerEvent(e, id, email, name, gender, password, passwordConfirm, phoneNumber, birth)
+            registerEvent(e, id, email, name, gender, password, passwordConfirm, phoneNumber, birth, checked)
         }
     }, true);
 
     form.addEventListener("submit", (e) => {
-        registerEvent(e, id, email, name, gender, password, passwordConfirm, phoneNumber, birth)
+        registerEvent(e, id, email, name, gender, password, passwordConfirm, phoneNumber, birth, checked)
     });
 }
 
 registerFormSubmitEvent(id, email, name, gender, password, passwordConfirm, phoneNumber, birth)
-// const loginFormSubmitEvent = (submitBtn, memberId, password) => {
-//     form.addEventListener('keydown', (e) => {
-//         if (e.code === "Enter") {
-//             loginEvent(e, memberId, password)
-//         }
-//     }, true);
-//
-//     submitBtn.addEventListener("click", (e) => {
-//         loginEvent(e, memberId, password)
-//     });
-// }
-
-// const loginEvent = (e, memberId, password) => {
-//     e.stopPropagation();
-//     let isProper = false;
-//
-//     if (checkInputEmpty(memberId)) {
-//         setNotice(memberId)
-//     } else if (checkInputEmpty(password)) {
-//         setNotice(password)
-//     } else {
-//         isProper = true;
-//     }
-//
-//     if (isProper) {
-//         const memberInfo = {
-//             memberId: memberId.value,
-//             password: password.value
-//         };
-//
-//         const message = {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             redirect: 'follow',
-//             body: JSON.stringify(memberInfo)
-//         };
-//
-//         // redirect 라면 -> not then
-//         // error 라면 -> then
-//         fetch(window.location.href, message)
-//             .then((res) => {
-//                 if (res.redirected) {
-//                     console.log(res.url)
-//                     window.location.href = res.url
-//                 } else {
-//                     return res.json();
-//                 }
-//             }).then((json) => {
-//             if (json.errorMsg === "Invalid ID/PW") {
-//                 formNotice.textContent = "아이디와 비밀번호를 다시 확인해주세요."
-//             }
-//         })
-//     }
-// }
-
-
-
-
-// console.log(id.value);
-// console.log(email.value);
-// console.log(name.value);
-// console.log(gender.value);
-// console.log(password.value);
-// console.log(passwordConfirm.value);
-// console.log(phoneNumber.value);
-// console.log(birth.value);

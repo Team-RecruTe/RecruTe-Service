@@ -1,8 +1,10 @@
 package com.hossi.recrute.dao;
 
 import com.hossi.recrute.common.MyBatisConnectionFactory;
+import com.hossi.recrute.dto.request.CheckDupReqDto;
 import com.hossi.recrute.dto.request.SigninDto;
 import com.hossi.recrute.dto.request.SignupDto;
+import com.hossi.recrute.dto.response.CheckDupResDto;
 import org.apache.ibatis.session.SqlSession;
 
 public class MemberDao {
@@ -15,11 +17,20 @@ public class MemberDao {
         return result == 1;
     }
 
-    public Integer findById(SigninDto signinDto) {
+    public Integer getIdByMemberId(SigninDto signinDto) {
         SqlSession sqlSession = MyBatisConnectionFactory.getSqlSession();
-        Integer id = sqlSession.selectOne("findMember", signinDto);
+        Integer id = sqlSession.selectOne("selectIdByMemberIdAndPassword", signinDto);
         sqlSession.close();
 
         return id;
+    }
+
+    public CheckDupResDto getCountByMemberId(CheckDupReqDto checkDupReqDto) {
+        SqlSession sqlSession = MyBatisConnectionFactory.getSqlSession();
+        Integer count = sqlSession.selectOne("selectCountByMemberId", checkDupReqDto);
+        CheckDupResDto checkDupResDto = new CheckDupResDto(count > 0);
+        sqlSession.close();
+
+        return checkDupResDto;
     }
 }

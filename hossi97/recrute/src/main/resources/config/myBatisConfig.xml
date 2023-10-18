@@ -6,6 +6,7 @@
     <typeAliases>
         <typeAlias alias="SignupDto" type="com.hossi.recrute.dto.request.SignupDto"/>
         <typeAlias alias="SigninDto" type="com.hossi.recrute.dto.request.SigninDto"/>
+        <typeAlias alias="CheckDupDto" type="com.hossi.recrute.dto.request.CheckDupReqDto"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
