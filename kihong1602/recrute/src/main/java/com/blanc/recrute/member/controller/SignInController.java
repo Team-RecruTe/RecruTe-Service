@@ -5,6 +5,7 @@ import com.blanc.recrute.member.dto.LoginDTO;
 import com.blanc.recrute.member.service.MemberService;
 import com.blanc.recrute.member.service.MemberServiceImpl;
 import com.blanc.recrute.member.util.Authenticater;
+import com.blanc.recrute.member.util.JsonUtil;
 import com.blanc.recrute.member.view.ViewResolver;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
@@ -14,7 +15,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
 @WebServlet(name = "signin", value = "/signin")
@@ -39,17 +39,10 @@ public class SignInController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        StringBuilder jsonBuilder = new StringBuilder();
-
-        try (BufferedReader br = request.getReader()) {
-            String json;
-            while ((json = br.readLine()) != null) {
-                jsonBuilder.append(json);
-            }
-        }
+        String parsingJSON = JsonUtil.jsonParsing(request);
 
 
-        LoginDTO loginDTO = new Gson().fromJson(jsonBuilder.toString(), LoginDTO.class);
+        LoginDTO loginDTO = new Gson().fromJson(parsingJSON, LoginDTO.class);
 
         boolean check = memberService.loginCheck(loginDTO);
         InvalidDTO invalidDTO;
@@ -65,9 +58,7 @@ public class SignInController extends HttpServlet {
         }
         result = new Gson().toJson(invalidDTO);
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(result);
+        JsonUtil.sendJSON(response, result);
 
     }
 }
