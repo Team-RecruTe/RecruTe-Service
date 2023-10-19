@@ -28,13 +28,13 @@ function invalid(e, memberId, password, name, birth, gender, email, tel) {
     } else if (!isProperId) {
         alert("중복된 아이디 입니다.");
         memberId.focus();
-    } else if (invalidId(memberId)) {
+    } else if (!invalidId(memberId)) {
         alert("올바르지 않은 아이디 형식입니다.");
         memberId.focus();
     } else if (check(name)) {
         alert("이름을 입력해주세요.");
         name.focus();
-    } else if (invalidName(name)) {
+    } else if (!invalidName(name)) {
         alert("올바르지않은 이름 형식입니다.");
         name.focus();
     } else if (check(email)) {
@@ -46,7 +46,7 @@ function invalid(e, memberId, password, name, birth, gender, email, tel) {
     } else if (check(password)) {
         alert("비밀번호 입력은 필수입니다.");
         password.focus();
-    } else if (invalidPw(password)) {
+    } else if (!invalidPw(password)) {
         alert("올바르지 않은 비밀번호 형식입니다.");
         password.focus();
     } else if (check(birth)) {
@@ -57,7 +57,7 @@ function invalid(e, memberId, password, name, birth, gender, email, tel) {
     } else if (check(tel)) {
         alert("전화번호를 입력해주세요.");
         tel.focus();
-    } else if (invalidTel(tel)) {
+    } else if (!invalidTel(tel)) {
         alert("올바르지 않은 전화번호 형식입니다.");
         tel.focus();
     } else {
