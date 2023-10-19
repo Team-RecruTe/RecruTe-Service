@@ -69,4 +69,14 @@
     <servlet-name>Index</servlet-name>
     <url-pattern>/index/index</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberLogoutProcess</display-name>
+    <servlet-name>MemberLogoutProcess</servlet-name>
+    <servlet-class>com.jisun.controller.member.MemberLogoutProcess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberLogoutProcess</servlet-name>
+    <url-pattern>/member/logout-process</url-pattern>
+  </servlet-mapping>
 </web-app>
