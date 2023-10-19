@@ -8,6 +8,7 @@
         <typeAlias alias="RecruitDTO" type="com.blanc.recrute.recruitment.dto.RecruitDTO"/>
         <typeAlias alias="RctDetDTO" type="com.blanc.recrute.recruitment.dto.RctDetDTO"/>
         <typeAlias alias="ApplyDTO" type="com.blanc.recrute.recruitment.dto.ApplyDTO"/>
+        <typeAlias alias="DetailDTO" type="com.blanc.recrute.recruitment.dto.DetailDTO"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">

@@ -1,6 +1,9 @@
 package com.blanc.recrute.recruitment.controller;
 
 import com.blanc.recrute.common.ViewResolver;
+import com.blanc.recrute.recruitment.dto.DetailDTO;
+import com.blanc.recrute.recruitment.service.ApplyService;
+import com.blanc.recrute.recruitment.service.RecruitService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,13 +12,24 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "recruitments/*", value = "/recruitments/*")
+@WebServlet(name = "RecruitController", value = "/recruitments/*")
 public class RecruitController extends HttpServlet {
     private static final ViewResolver ViewResolver = new ViewResolver();
-
+    private static final RecruitService recruitService = new RecruitService();
+    private static final ApplyService applyService = new ApplyService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String[] parsingURI = request.getRequestURI().split("/");
+
+        Integer recruitId = Integer.valueOf(parsingURI[parsingURI.length - 1]);
+
+        DetailDTO detailDTO = recruitService.selectDetail(recruitId);
+
+        if (detailDTO != null) {
+            request.setAttribute("detailDTO", detailDTO);
+        }
+
         String path = "recruitment/rct-detail";
         request.getRequestDispatcher(ViewResolver.viewPath(path)).forward(request, response);
     }
