@@ -23,7 +23,6 @@
     </environments>
     <mappers>
         <mapper resource="mapper/member.xml"/>
-        <mapper resource="mapper/applicant.xml"/>
         <mapper resource="mapper/recruitment.xml"/>
     </mappers>
 </configuration>

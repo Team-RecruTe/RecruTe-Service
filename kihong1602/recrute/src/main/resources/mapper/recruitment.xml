@@ -27,4 +27,11 @@
         WHERE
         r.id = #{id};
     </select>
+    <select id="searchMemberRealId" parameterType="String" resultType="Integer">
+        select id from member where member_id = #{memberId}
+    </select>
+    <insert id="applyRecruit" parameterType="ApplyDTO">
+        insert into applicant (apt_id,member_id,recruitment_id)
+        values (#{aptId},#{memberId},#{recruitId})
+    </insert>
 </mapper>

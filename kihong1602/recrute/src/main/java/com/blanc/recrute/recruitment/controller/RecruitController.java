@@ -6,7 +6,6 @@ import com.blanc.recrute.common.ViewResolver;
 import com.blanc.recrute.member.dto.InvalidDTO;
 import com.blanc.recrute.recruitment.dto.ApplyInfoDTO;
 import com.blanc.recrute.recruitment.dto.DetailDTO;
-import com.blanc.recrute.recruitment.service.ApplyService;
 import com.blanc.recrute.recruitment.service.RecruitService;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
@@ -22,7 +21,6 @@ import java.io.IOException;
 public class RecruitController extends HttpServlet {
     private static final ViewResolver ViewResolver = new ViewResolver();
     private static final RecruitService recruitService = new RecruitService();
-    private static final ApplyService applyService = new ApplyService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,7 +42,7 @@ public class RecruitController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //비동기 처리 apt_id 는 회사ID+회사Name+응시순서+@로 입력
         //외래키 삽입을 위해 MemberDTO 사용해야함
-        
+
         String parsingJSON = JsonUtil.jsonParsing(request);
 
         ApplyInfoDTO applyInfoDTO = new Gson().fromJson(parsingJSON, ApplyInfoDTO.class);
@@ -55,7 +53,7 @@ public class RecruitController extends HttpServlet {
 
             String memberId = (String) request.getSession().getAttribute(AuthCookie.getValue());
 
-            String result = applyService.applyRecruit(applyInfoDTO, memberId);
+            String result = recruitService.applyRecruit(applyInfoDTO, memberId);
 
             InvalidDTO invalidDTO = result.equals("success") ? new InvalidDTO("available") : new InvalidDTO("unavailable");
 
