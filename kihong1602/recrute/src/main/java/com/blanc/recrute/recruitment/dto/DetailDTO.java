@@ -2,50 +2,55 @@ package com.blanc.recrute.recruitment.dto;
 
 import java.time.LocalDate;
 
-public class RecruitDTO {
-
-    private final Integer id;
+public class DetailDTO {
+    private final Integer recruitId;
     private final String title;
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final Integer salary;
     private final String location;
-    private final int workForm;
     private final String job;
+    private final int workForm;
     private final String skills;
     private final int career;
     private final Integer companyId;
+    private final String companyName;
+    private final String content;
 
-    public RecruitDTO(Builder builder) {
-        this.id = builder.id;
+    public DetailDTO(Builder builder) {
+        this.recruitId = builder.recruitId;
         this.title = builder.title;
         this.startDate = builder.startDate;
         this.endDate = builder.endDate;
         this.salary = builder.salary;
         this.location = builder.location;
-        this.workForm = builder.workForm;
         this.job = builder.job;
+        this.workForm = builder.workForm;
         this.skills = builder.skills;
         this.career = builder.career;
         this.companyId = builder.companyId;
+        this.companyName = builder.companyName;
+        this.content = builder.content;
     }
 
-    public RecruitDTO(Integer id, String title, LocalDate startDate, LocalDate endDate, Integer salary, String location, int workForm, String job, String skills, int career, Integer companyId) {
-        this.id = id;
+    public DetailDTO(Integer recruitId, String title, LocalDate startDate, LocalDate endDate, Integer salary, String location, String job, int workForm, String skills, int career, Integer companyId, String companyName, String content) {
+        this.recruitId = recruitId;
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.salary = salary;
         this.location = location;
-        this.workForm = workForm;
         this.job = job;
+        this.workForm = workForm;
         this.skills = skills;
         this.career = career;
         this.companyId = companyId;
+        this.companyName = companyName;
+        this.content = content;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getRecruitId() {
+        return recruitId;
     }
 
     public String getTitle() {
@@ -60,16 +65,20 @@ public class RecruitDTO {
         return endDate;
     }
 
+    public Integer getSalary() {
+        return salary;
+    }
+
     public String getLocation() {
         return location;
     }
 
-    public int getWorkForm() {
-        return workForm;
-    }
-
     public String getJob() {
         return job;
+    }
+
+    public int getWorkForm() {
+        return workForm;
     }
 
     public String getSkills() {
@@ -80,32 +89,38 @@ public class RecruitDTO {
         return career;
     }
 
-    public Integer getSalary() {
-        return salary;
-    }
-
     public Integer getCompanyId() {
         return companyId;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
     public static class Builder {
-        private Integer id;
+        private Integer recruitId;
         private String title;
         private LocalDate startDate;
         private LocalDate endDate;
         private Integer salary;
         private String location;
-        private int workForm;
         private String job;
+        private int workForm;
         private String skills;
         private int career;
         private Integer companyId;
+        private String companyName;
+        private String content;
 
         public Builder() {
         }
 
-        public Builder id(Integer id) {
-            this.id = id;
+        public Builder recruitId(Integer recruitId) {
+            this.recruitId = recruitId;
             return this;
         }
 
@@ -134,13 +149,13 @@ public class RecruitDTO {
             return this;
         }
 
-        public Builder workForm(int workForm) {
-            this.workForm = workForm;
+        public Builder job(String job) {
+            this.job = job;
             return this;
         }
 
-        public Builder job(String job) {
-            this.job = job;
+        public Builder workForm(int workForm) {
+            this.workForm = workForm;
             return this;
         }
 
@@ -154,8 +169,23 @@ public class RecruitDTO {
             return this;
         }
 
-        public RecruitDTO build() {
-            return new RecruitDTO(this);
+        public Builder companyId(Integer companyId) {
+            this.companyId = companyId;
+            return this;
+        }
+
+        public Builder companyName(String companyName) {
+            this.companyName = companyName;
+            return this;
+        }
+
+        public Builder content(String content) {
+            this.content = content;
+            return this;
+        }
+
+        public DetailDTO build() {
+            return new DetailDTO(this);
         }
     }
 }
