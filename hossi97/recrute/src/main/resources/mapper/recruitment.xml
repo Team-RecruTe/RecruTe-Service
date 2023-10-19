@@ -22,4 +22,8 @@
             join rct_detail as rd on r.id = rd.recruitment_id
         where r.id = #{rctId}
     </select>
+    <insert id="saveApplicant" parameterType="ApplicantDto">
+        insert into applicant(apt_id, member_id, recruitment_id)
+            values(#{aptId}, #{id}, #{rctId})
+    </insert>
 </mapper>

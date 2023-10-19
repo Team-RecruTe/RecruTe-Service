@@ -24,7 +24,7 @@ public class SigninServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Authenticater authenticater = new Authenticater();
         if(authenticater.isAuthenticated(request)) {
-            Cookie renewedAuthCookie = authenticater.getAuthCookie();
+            Cookie renewedAuthCookie = authenticater.getAuthCookie(request);
             response.addCookie(renewedAuthCookie);
             response.setStatus(302);
             response.sendRedirect("/");
@@ -38,9 +38,10 @@ public class SigninServlet extends HttpServlet {
             Integer id = memberService.signin(signinDto);
             if(id != null) {
                 authenticater.setAuthCookie(request, id);
-                Cookie authCookie = authenticater.getAuthCookie();
+                Cookie authCookie = authenticater.getAuthCookie(request);
                 response.addCookie(authCookie);
-                response.sendRedirect("");
+                response.setStatus(302);
+                response.sendRedirect("/");
             } else {
                 ErrorCode error = new ErrorCode("USR-04", "Invalid ID/PW");
                 String errorJSON = new Gson().toJson(error);

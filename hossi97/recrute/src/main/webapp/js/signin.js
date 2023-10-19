@@ -25,15 +25,15 @@ const isNotEmpty = (id, password) => {
         return false
     } else if (!validateInputValue(id, /^(?=.*[a-zA-Z])(?=.*[0-9]).{1,30}$/)) {
         alert("아이디 형식이 올바르지 않습니다.")
-        email.focus()
+        id.focus()
         return false
     } else if (checkInputEmpty(password)) {
         alert("비밀번호를 입력해주세요.")
         password.focus()
         return false
-    } else if (!validateInputValue(id, /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/)) {
-        alert("아이디 형식이 올바르지 않습니다.")
-        email.focus()
+    } else if (!validateInputValue(password, /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/)) {
+        alert("비밀번호 형식이 올바르지 않습니다.")
+        password.focus()
         return false
     }
 
@@ -57,6 +57,9 @@ const sendData = (idVal, passwordVal) => {
 
     fetch(window.location.href, msg)
         .then((res) => {
+            console.log(res)
+            console.log(res.redirected)
+            console.log(res.url)
             if (res.redirected) {
                 window.location.href = res.url
             } else {

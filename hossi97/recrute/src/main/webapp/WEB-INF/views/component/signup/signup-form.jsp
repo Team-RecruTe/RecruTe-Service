@@ -122,4 +122,8 @@
         </form>
     </div>
 </div>
-<script src="../../js/signup.js"></script>
+
+<%--<script src="${requestScope.getContextPath}"></script>--%>
+<%--<script src="${pageContext.request.contextPath}"></script>--%>
+
+<script src="/js/signup.js"></script>

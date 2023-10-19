@@ -8,13 +8,9 @@ import java.util.UUID;
 public class Authenticater {
     private Cookie authCookie;
     public boolean isAuthenticated(HttpServletRequest request){
-        for(Cookie cookie: request.getCookies()) {
-            if(cookie.getName().equals("sid")) {
-                renewAuthCookie(cookie);
-                return true;
-            }
-        }
-        return false;
+        findAuthCookie(request);
+
+        return authCookie != null;
     }
 
     private void renewAuthCookie(Cookie cookie) {
@@ -36,7 +32,18 @@ public class Authenticater {
         authCookie = cookie;
     }
 
-    public Cookie getAuthCookie() {
+    public Cookie getAuthCookie(HttpServletRequest request) {
+        if(authCookie == null) {
+            findAuthCookie(request);
+        }
         return authCookie;
+    }
+
+    private void findAuthCookie(HttpServletRequest request) {
+        for(Cookie cookie: request.getCookies()) {
+            if(cookie.getName().equals("sid")) {
+                renewAuthCookie(cookie);
+            }
+        }
     }
 }
