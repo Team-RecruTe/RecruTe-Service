@@ -29,11 +29,11 @@
 					<nav aria-label="Global">
 						<ul class="flex items-center gap-6 text-sm">
 							<li><a
-								class="text-gray-500 transition hover:text-gray-500/75" href="/">
+								class="text-gray-500 transition hover:text-gray-500/75" href="">
 									About </a></li>
 
 							<li><a
-								class="text-gray-500 transition hover:text-gray-500/75" href="/">
+								class="text-gray-500 transition hover:text-gray-500/75" href="">
 									Careers </a></li>
 
 							<li><a
@@ -51,6 +51,9 @@
 							<li><a
 								class="text-gray-500 transition hover:text-gray-500/75" href="/">
 									Blog </a></li>
+							<li><a
+								class="text-gray-500 transition hover:text-gray-500/75" href="/recrute/recruit?recruitId=1">
+									Find jobs </a></li>
 						</ul>
 					</nav>
 				</div>

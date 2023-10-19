@@ -79,4 +79,24 @@
     <servlet-name>IdCheck</servlet-name>
     <url-pattern>/id-check</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>HireView</display-name>
+    <servlet-name>HireView</servlet-name>
+    <servlet-class>com.juju.controller.hire.HireView</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HireView</servlet-name>
+    <url-pattern>/recruit</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ApplyProcess</display-name>
+    <servlet-name>ApplyProcess</servlet-name>
+    <servlet-class>com.juju.controller.hire.ApplyProcess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ApplyProcess</servlet-name>
+    <url-pattern>/apply-process</url-pattern>
+  </servlet-mapping>
 </web-app>

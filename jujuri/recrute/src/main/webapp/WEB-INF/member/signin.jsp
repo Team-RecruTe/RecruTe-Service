@@ -35,7 +35,7 @@
               <input
                 type="checkbox"
                 id="saveID"
-                class="h-5 w-5 rounded-md border-gray-200 bg-white shadow-sm" value="rememberMe" name="saveID" <c:if test="${not empty cookie.saveIDCookie }">checked</c:if>
+                class="h-5 w-5 rounded-md border-gray-200 bg-white shadow-sm" name="saveID" <c:if test="${not empty cookie.saveIDCookie }">checked</c:if>
               />
 
               <span class="text-sm text-gray-700">
@@ -64,6 +64,12 @@
 
 <script>
 	$("#btnSubmit").on("click", function() {
+		//console.log($("#saveID").val());
+		if ($("#saveID").is(":checked")) {
+			 $("#saveID").val("rememberMe");
+		} else {
+			$("#saveID").val(null);
+		}
 		$.ajax({
 			url : "/recrute/signin-process",
 			dataType : "json",
@@ -80,12 +86,10 @@
 				if (data.id !== null && data.pw !== null) {
 					//sendRedirect("/recrute/signup")
 					location.href = "/recrute/index";
-				} else {
-					alert("Please check your id and password again.");
 				}
 			},
-			fail : function(error) {
-				console.log(error);
+			error:function() {
+				alert("Please check your id and password again.");
 			},
 			complete : function(data) {
 				console.log("complete");
