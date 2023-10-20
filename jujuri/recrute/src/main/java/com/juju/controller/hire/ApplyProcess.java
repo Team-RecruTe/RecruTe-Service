@@ -26,7 +26,8 @@ public class ApplyProcess extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    // loggedID => member_id fk from member
+    // loggedID => 해당 멤버 찾아와서 새로운 dto생성
+    // member_id fk from member table
     // aptid = 수험번호 내가 임의로 지정함
     // rct_id = recruitment에서 가져옴
     HttpSession session = request.getSession();

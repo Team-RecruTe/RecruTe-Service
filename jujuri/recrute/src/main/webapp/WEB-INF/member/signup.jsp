@@ -92,11 +92,11 @@
 				<input type="radio" name="gender" value="0" id="DeliveryStandard"
 					class="peer hidden [&:checked_+_label_svg]:block" checked /> <label
 					for="DeliveryStandard"
-					class="block cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500">
+					class="block cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-teal-500 peer-checked:ring-1 peer-checked:ring-teal-500">
 					<div class="flex items-center justify-between">
 						<p class="text-gray-700">Male</p>
 
-						<svg class="hidden h-5 w-5 text-blue-600"
+						<svg class="hidden h-5 w-5 text-teal-600"
 							xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
 							fill="currentColor">
           <path fill-rule="evenodd"
@@ -112,11 +112,11 @@
 				<input type="radio" name="gender" value="1" id="DeliveryPriority"
 					class="peer hidden [&:checked_+_label_svg]:block" /> <label
 					for="DeliveryPriority"
-					class="block cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500">
+					class="block cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-teal-500 peer-checked:ring-1 peer-checked:ring-teal-500">
 					<div class="flex items-center justify-between">
 						<p class="text-gray-700">Female</p>
 
-						<svg class="hidden h-5 w-5 text-blue-600"
+						<svg class="hidden h-5 w-5 text-teal-600"
 							xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
 							fill="currentColor">
           <path fill-rule="evenodd" s
@@ -134,43 +134,34 @@
 
 			<div class="relative">
 				<input type="email"
-					class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-					name="email" placeholder="0000@naver.com" />
-
-				<!-- <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4 text-gray-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-            />
-          </svg>
-        </span> -->
+					class="rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+					id="email" name="email" placeholder="0000@naver.com" />
+					<button class="inline-block rounded bg-teal-600 px-6 py-2 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-teal-500" id="btnVerifyEmail">
+				verify email</button>
 			</div>
 		</div>
 
+		<div>
+			<div class="relative">
+				<input type="text"
+					class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" 
+					id="emailCheck" placeholder="put your verification code here" />
+			</div>
+		</div>
 
 		<div class="flex items-center justify-between">
 			<!-- <p class="text-sm text-gray-500">
         No account?
         <a class="underline" href="">Sign up</a>
       </p> -->
-
 			<button type="submit"
-				class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+				class="inline-block rounded-lg bg-teal-500 px-5 py-3 text-sm font-medium text-white"
 				id="btnSubmit">Sign Up</button>
 		</div>
 	</form>
 </div>
 <script>
-const btnIdCheck = false;
+let btnIdCheck = false;
 $("#pwConfirm").on("keyup", function() {
 	if ($("#pw").val() !== $("#pwConfirm").val()) {
 		$(".invalid-feedback").show();
@@ -203,9 +194,6 @@ $("#btnIdCheck").on("click", function() {
 				}
 			}
 		},
-		fail : function(error) {
-			console.log(error);
-		},
 		complete : function(data) {
 			console.log("complete");
 			console.log(data);
@@ -214,6 +202,31 @@ $("#btnIdCheck").on("click", function() {
 	return false;
 });
 
+let code = "";
+$("#btnVerifyEmail").on("click", function(e) {
+	$.ajax({
+		url : "/recrute/email-check",
+		data : {
+			email : $("#email").val(),
+		},
+		method: "get",
+		success : function(data) {
+			console.log("success");
+			console.log(data);
+			if (data.sent === "true") {
+				alert("해당 이메일로 인증키를 전송하였습니다.");
+				code = data.code;
+			} else {
+				alert("해당 이메일로 인증키를 전송하는데 실패하였습니다.");
+			}
+		},
+		complete : function(data) {
+			console.log("complete");
+			console.log(data);
+		},
+	});
+	return false;
+})
 $("#btnSubmit").on("click", function(e) {
 	if ($("#userId").val() === "") {
 		//e.preventDefault();
@@ -242,7 +255,12 @@ $("#btnSubmit").on("click", function(e) {
 	else if($("#gender").val() === null) {
 		alert("성별 체크는 필수입니다.");
 		return false;
-	} else if (btnIdCheck) {
+	}
+	else if($("#emailCheck").val() !== code) {
+		alert("이메일 인증 키를 다시 한 번 확인해 주세요.");
+		return false;
+	
+	} else if (!btnIdCheck) {
 		alert("아이디 중복 체크를 해주세요.");
 		return false;
 	}

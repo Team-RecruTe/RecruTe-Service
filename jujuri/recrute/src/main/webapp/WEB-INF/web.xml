@@ -99,4 +99,14 @@
     <servlet-name>ApplyProcess</servlet-name>
     <url-pattern>/apply-process</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EmailCheck</display-name>
+    <servlet-name>EmailCheck</servlet-name>
+    <servlet-class>com.juju.controller.member.EmailCheck</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmailCheck</servlet-name>
+    <url-pattern>/email-check</url-pattern>
+  </servlet-mapping>
 </web-app>
