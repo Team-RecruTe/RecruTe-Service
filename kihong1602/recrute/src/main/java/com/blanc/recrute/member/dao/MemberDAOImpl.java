@@ -36,6 +36,15 @@ public class MemberDAOImpl implements MemberDAO {
         return result;
     }
 
+    @Override
+    public String searchMember(MemberDTO memberDTO) {
+        connSql();
+        String findEmail = sqlSession.selectOne("searchMember", memberDTO);
+
+        sqlSession.close();
+        return findEmail;
+    }
+
     private void connSql() {
         sqlSession = MybatisConnectionFactory.getSqlSession();
     }

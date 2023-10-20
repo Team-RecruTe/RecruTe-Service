@@ -13,4 +13,10 @@
     <select id="idCheck" parameterType="MemberDTO" resultType="Integer">
         select count(*) from member where member_id = #{memberId}
     </select>
+    <select id="searchMember" parameterType="MemberDTO" resultType="String">
+        select email from member where member_id = #{memberId}
+    </select>
+    <update id="emailAuth" parameterType="MemberDTO">
+        update member set auth_status = true where email = #{email}
+    </update>
 </mapper>

@@ -10,4 +10,6 @@ public interface MemberService {
     String idCheck(String id);
 
     boolean loginCheck(LoginDTO loginDTO);
+
+    MemberDTO searchMember(String memberId);
 }

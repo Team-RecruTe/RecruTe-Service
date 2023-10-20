@@ -39,4 +39,13 @@ public class MemberServiceImpl implements MemberService {
         return memberId != null;
 
     }
+
+    @Override
+    public MemberDTO searchMember(String memberId) {
+
+
+        String findEmail = memberDAO.searchMember(new MemberDTO.Builder().memberId(memberId).build());
+
+        return new MemberDTO.Builder().email(findEmail).build();
+    }
 }

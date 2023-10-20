@@ -21,16 +21,15 @@
 
                     <div class="p-8 sm:p-16 lg:p-24">
                         <h2 class="text-2xl font-bold sm:text-3xl">
-                            회원가입 완료!
+                            이메일 인증 페이지입니다.
                         </h2>
 
                         <p class="mt-4 text-gray-600">
-                            회원이 되신 것을 환영합니다. ${requestScope.signUpID}님!<br>
-                            많은 활동 부탁드립니다!
+                            이메일 인증을 하셔야 모든 서비스 이용이 가능합니다.
                         </p>
 
                         <a
-                                href="javascript:emailConfirm('${requestScope.signUpID}')"
+                                href="javascript:emailConfirm('sid')"
                                 class="mt-8 inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
                         >
                             이메일 인증
