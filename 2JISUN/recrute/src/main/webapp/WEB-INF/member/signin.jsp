@@ -88,7 +88,7 @@
 	    </div>
     
     	
-    	<!-- 조건문 : 쿠키(saveIdCookie)로 아이디를 기억하는 조건문 생성 -->
+    	<!-- 조건문 : 쿠키(saveIdCookie)로 아이디를 기억하는 조건문 생성 .-->
 		<div class="flex items-center justify-between">
 	    	<p class="text-sm text-gray-500"> 아이디 기억하기</p>
 		    <label for="AcceptConditions"
