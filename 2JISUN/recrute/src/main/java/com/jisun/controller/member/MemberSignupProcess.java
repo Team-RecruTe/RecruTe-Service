@@ -2,6 +2,7 @@ package com.jisun.controller.member;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import com.jisun.dao.MemberDao;
 import com.jisun.dto.MemberDto;
@@ -30,30 +31,32 @@ public class MemberSignupProcess extends HttpServlet {
 		String pw = request.getParameter("pw");
 		String username = request.getParameter("username");
 		String birthStr = request.getParameter("birth");
-			String[] yymmdd = birthStr.split("-");
-	        int year = Integer.parseInt(yymmdd[0]);
-	        int month = Integer.parseInt(yymmdd[1]);
-	        int day = Integer.parseInt(yymmdd[2]);
-	        LocalDate birth = LocalDate.of(year, month,day);
+		LocalDate birth = LocalDate.parse(birthStr, DateTimeFormatter.ISO_DATE);
+		
+//		String birthStr = request.getParameter("birth");
+//			String[] yymmdd = birthStr.split("-");
+//	        int year = Integer.parseInt(yymmdd[0]);
+//	        int month = Integer.parseInt(yymmdd[1]);
+//	        int day = Integer.parseInt(yymmdd[2]);
+//	        LocalDate birth = LocalDate.of(year, month,day);
 	        
 		int gender = 0;
 			if(request.getParameter("gender")!=null && !request.getParameter("gender").isEmpty()) {
 				gender = Integer.parseInt(request.getParameter("gender"));
 			}
-		System.out.println(gender);
-			
+	
 		String phoneNum = request.getParameter("phoneNum");
 		String email = request.getParameter("email");
 
 		
 		MemberDto insertMember = new MemberDto();
-		insertMember.setMemberID(userId);
-		insertMember.setPassword(pw);
-		insertMember.setName(username);
-		insertMember.setEmail(email);
-		insertMember.setBirth(birth);
-		insertMember.setGender(gender);
-		insertMember.setPhoneNum(phoneNum);
+				  insertMember.setMemberID(userId);
+				  insertMember.setPassword(pw);
+				  insertMember.setName(username);
+				  insertMember.setEmail(email);
+				  insertMember.setBirth(birth);
+				  insertMember.setGender(gender);
+				  insertMember.setPhoneNum(phoneNum);
 		
 		
 		MemberDao memberDao = new MemberDao();

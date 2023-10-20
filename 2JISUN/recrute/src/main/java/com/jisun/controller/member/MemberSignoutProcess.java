@@ -12,11 +12,11 @@ import java.io.IOException;
 import com.jisun.util.ScriptWriter;
 
 
-public class MemberLogoutProcess extends HttpServlet {
+public class MemberSignoutProcess extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public MemberLogoutProcess() {
+    public MemberSignoutProcess() {
         super();
     }
     
@@ -34,3 +34,4 @@ public class MemberLogoutProcess extends HttpServlet {
 	}
 
 }
+

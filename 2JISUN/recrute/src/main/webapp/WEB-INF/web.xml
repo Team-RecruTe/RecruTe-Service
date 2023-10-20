@@ -71,12 +71,22 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>MemberLogoutProcess</display-name>
-    <servlet-name>MemberLogoutProcess</servlet-name>
-    <servlet-class>com.jisun.controller.member.MemberLogoutProcess</servlet-class>
+    <display-name>MemberIdCheck</display-name>
+    <servlet-name>MemberIdCheck</servlet-name>
+    <servlet-class>com.jisun.controller.member.MemberIdCheck</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>MemberLogoutProcess</servlet-name>
-    <url-pattern>/member/logout-process</url-pattern>
+    <servlet-name>MemberIdCheck</servlet-name>
+    <url-pattern>/member/idCheck</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberSignoutProcess</display-name>
+    <servlet-name>MemberSignoutProcess</servlet-name>
+    <servlet-class>com.jisun.controller.member.MemberSignoutProcess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberSignoutProcess</servlet-name>
+    <url-pattern>/member/signout</url-pattern>
   </servlet-mapping>
 </web-app>

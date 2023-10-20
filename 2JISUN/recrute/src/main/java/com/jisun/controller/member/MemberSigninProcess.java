@@ -63,12 +63,19 @@ public class MemberSigninProcess extends HttpServlet {
 						session.setAttribute("loggedName", loggedMember.getName());
 			
 			//쿠키설정
-			//input checkbox-value속성의 값과 일치할 경우 쿠키를 생성한다.
-			if(saveId!=null && saveId.equals("rememberMe")) {
-				//input checkbox-value속성의 값과 일치할 경우 쿠키를 생성한다.
-				CookieManager.createCookie(response, "saveIDCookie", saveId, 60*60*24*365);		
+			//input > type(checkbox) > value속성의 값과 일치할 경우 쿠키를 생성한다.
+			if(saveId!=null){
+			//페이지 방문 경험이 있고 로그인을 해본경우
+				if(saveId.equals("rememberMe")) { //saveId value="rememberMe"일 경우
+					//토글 on
+					CookieManager.createCookie(response, "saveIdCookie", userId, 60*60*24*365); //
+				} else { 
+					//토글 off
+					CookieManager.deleteCookie(response, "saveIdCookie");
+				}
 			} else {
-				CookieManager.deleteCookie(response, "saveIDCookie");
+			//페이지 방문경험이 없음
+				CookieManager.deleteCookie(response, "saveIdCookie");
 			}
 	
 			
@@ -89,29 +96,7 @@ public class MemberSigninProcess extends HttpServlet {
 			
 			//성공시 signin.jsp로 돌아가서 ajax의 success처리
 			//실패시 signin.jsp로 돌아가서 ajax의 error처리
-						
-		} else {
-			ScriptWriter.alertAndBack(response, "아이디, 패스워드를 다시 확인해주세요");
 			
-			
-
-//			//모달 메소드 나중에
-//			//dto로 보여줄 데이터 저장
-//			ModalDto modalDto = new ModalDto();
-//					 modalDto.setState("show");
-//					 modalDto.setTitle("로그인 실패");
-//					 modalDto.setMsg("아이디와 패스워드를 다시 입력해주세요");
-//
-//			//세션으로 데이터를 저장
-//			HttpSession session = request.getSession();
-//						session.setAttribute("modalDto", modalDto);
-//			
-//						
-//						
-//			
-//			response.sendRedirect("../member/login");
-			
-		}
-	
+		} 
 	}
 }

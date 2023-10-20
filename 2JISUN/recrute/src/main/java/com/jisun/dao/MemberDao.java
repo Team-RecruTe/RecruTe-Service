@@ -7,6 +7,40 @@ import com.jisun.dto.MemberDto;
 import com.jisun.mybatis.MybatisConnectionFactory;
 
 public class MemberDao {
+	
+    /**
+     * 사용자 회원가입 시 아이디 중복을 확인하는 메서드
+     * 
+     * @param userId 아이디 중복 확인시 
+     * @return 있으면1 없으면0
+     */
+	public int idCheck (String userId) {
+		
+		// 초기화
+		int result = 0;
+		
+		// MyBatis의 SqlSession을 가져오는 메서드를 호출하여 SqlSession 객체를 획득
+		SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
+		
+		// MyBatis 매퍼 파일에 정의된 "result" 쿼리를 실행하고 결과를 받아옴
+		// sqlSession.selectOne("xml의 id="~"",param);
+		result = sqlSession.selectOne("idCheck",userId); //0 or 1
+				 // 사용이 끝난 SqlSession 객체를 닫음
+		         sqlSession.close();
+		 
+		// 함수가 끝나도 종료되지 않고 값을 돌려주어야 함
+		return result;
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
     /**
      * 사용자 회원가입을 처리하는 메서드
      * 
