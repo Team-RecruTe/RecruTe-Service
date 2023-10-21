@@ -29,17 +29,22 @@ public class EmailConfirmController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("email") == null) {
-            String path = "member/register/email-confirm";
-            request.getRequestDispatcher(viewResolver.viewPath(path)).forward(request, response);
+
+            request.getRequestDispatcher(viewResolver.viewPath("member/register/email-confirm")).forward(request, response);
         } else {
             //이메일에 있는 링크 클릭 후 AuthKey 판별해서 Auth-status 카운트하는곳
             String email = request.getParameter("email");
             String authKey = request.getParameter("authKey");
-            if (request.getSession().getAttribute("authKey") == authKey) {
+            if (request.getSession().getAttribute("authKey").equals(authKey)) {
                 //email의 파라미터로 들어온 authKey가 session에 저장된 authKey와 동일하다면
+                String result = memberService.authGrantMember(email);
+                request.setAttribute("result", result);
             } else {
                 //동일하지 않다면..
+                request.setAttribute("result", "fail");
             }
+            String path = "member/register/email-auth";
+            request.getRequestDispatcher(viewResolver.viewPath(path)).forward(request, response);
         }
     }
 
@@ -63,7 +68,7 @@ public class EmailConfirmController extends HttpServlet {
         String authKey = String.valueOf(UUID.randomUUID());
 
         //이메일 발송
-        boolean check = SendEmailService.mailSend("gmail", "emailAddress", "password", memberDTO.getEmail(), authKey);
+        boolean check = SendEmailService.mailSend("gmail", "team.recrute1602@gmail.com", "qlhg mjfn oscq fbzo", memberDTO.getEmail(), authKey);
         InvalidDTO invalidDTO = check ? new InvalidDTO("available") : new InvalidDTO("unavailable");
         request.getSession().setAttribute("authKey", authKey);
 

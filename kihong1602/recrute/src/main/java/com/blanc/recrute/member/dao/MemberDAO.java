@@ -10,4 +10,6 @@ public interface MemberDAO {
     int idCheck(String id);
 
     String searchMember(MemberDTO memberDTO);
+
+    int authGrantMember(MemberDTO memberDTO);
 }

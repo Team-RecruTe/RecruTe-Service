@@ -26,7 +26,7 @@
 
                         <p class="mt-4 text-gray-600">
                             회원이 되신 것을 환영합니다. ${requestScope.signUpID}님!<br>
-                            많은 활동 부탁드립니다!
+                            RecruTe의 모든 서비스를 이용하시려면 이메일 인증이 필요합니다!
                         </p>
 
                         <a

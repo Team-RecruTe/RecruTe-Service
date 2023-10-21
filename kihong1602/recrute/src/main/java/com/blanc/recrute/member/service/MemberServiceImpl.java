@@ -48,4 +48,12 @@ public class MemberServiceImpl implements MemberService {
 
         return new MemberDTO.Builder().email(findEmail).build();
     }
+
+    @Override
+    public String authGrantMember(String email) {
+
+        int result = memberDAO.authGrantMember(new MemberDTO.Builder().email(email).build());
+
+        return result > 0 ? "success" : "fail";
+    }
 }

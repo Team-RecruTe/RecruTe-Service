@@ -12,4 +12,6 @@ public interface MemberService {
     boolean loginCheck(LoginDTO loginDTO);
 
     MemberDTO searchMember(String memberId);
+
+    String authGrantMember(String email);
 }

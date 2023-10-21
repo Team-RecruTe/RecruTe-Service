@@ -13,7 +13,7 @@ let isProperId = false;
 const regexMap = new Map();
 regexMap.set('id', /^(?=.*[a-zA-Z])(?=.*[0-9]).{1,30}$/);
 regexMap.set('password', /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,30}$/);
-regexMap.set('name', /^(?=.*[a-zA-Z])(?=.*[ㄱ-ㅎ가-힣]).{1,30}$/);
+regexMap.set('name', /^(?=.*[a-zA-Zㄱ-ㅎ가-힣]).{1,30}$/);
 regexMap.set('email', /^[a-z0-9]+@[a-z]+\.[a-z.]{2,}$/);
 regexMap.set('tel', /^(?=.*[0-9]).{10,20}$/);
 

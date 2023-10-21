@@ -45,6 +45,16 @@ public class MemberDAOImpl implements MemberDAO {
         return findEmail;
     }
 
+    @Override
+    public int authGrantMember(MemberDTO memberDTO) {
+        connSql();
+
+        int result = sqlSession.update("emailAuth", memberDTO);
+
+        sqlSession.close();
+        return result;
+    }
+
     private void connSql() {
         sqlSession = MybatisConnectionFactory.getSqlSession();
     }
