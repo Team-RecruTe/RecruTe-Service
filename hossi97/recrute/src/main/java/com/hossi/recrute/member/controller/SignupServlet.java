@@ -1,18 +1,23 @@
 package com.hossi.recrute.member.controller;
 
 
+import com.google.gson.Gson;
+import com.hossi.recrute.common.Authenticater;
+import com.hossi.recrute.common.ResponseData;
 import com.hossi.recrute.common.ViewResolver;
 import com.hossi.recrute.member.dto.request.SignupDto;
 import com.hossi.recrute.member.service.MemberService;
 import com.hossi.recrute.member.vo.GenderVo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @WebServlet(name="signupServlet", value="/signup")
 public class SignupServlet extends HttpServlet {
@@ -41,9 +46,13 @@ public class SignupServlet extends HttpServlet {
             .birth(birth)
             .build();
 
-        if(memberService.signup(signupDto)) {
+        Integer id = memberService.signup(signupDto);
+        if(id != null) {
+            Authenticater authenticater = new Authenticater();
+            authenticater.setAuthCookie(request, id);
+            response.addCookie(authenticater.getAuthCookie(request));
             response.setStatus(302);
-            response.sendRedirect("/");
+            response.sendRedirect("/signup/complete");
         }
     }
 }

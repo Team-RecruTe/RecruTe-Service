@@ -57,9 +57,6 @@ const sendData = (idVal, passwordVal) => {
 
     fetch(window.location.href, msg)
         .then((res) => {
-            console.log(res)
-            console.log(res.redirected)
-            console.log(res.url)
             if (res.redirected) {
                 window.location.href = res.url
             } else {

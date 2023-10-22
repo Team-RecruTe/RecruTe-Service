@@ -1,6 +1,8 @@
 package com.hossi.recrute.member.dao;
 
 import com.hossi.recrute.common.MyBatisConnectionFactory;
+import com.hossi.recrute.email.service.EmailDto;
+import com.hossi.recrute.member.dto.response.SignupResDto;
 import com.hossi.recrute.member.dto.request.CheckDupReqDto;
 import com.hossi.recrute.member.dto.request.SigninDto;
 import com.hossi.recrute.member.dto.request.SignupDto;
@@ -8,13 +10,12 @@ import com.hossi.recrute.member.dto.response.CheckDupResDto;
 import org.apache.ibatis.session.SqlSession;
 
 public class MemberDao {
-    public boolean register(SignupDto signupDto) {
+    public Integer register(SignupDto signupDto) {
         SqlSession sqlSession = MyBatisConnectionFactory.getSqlSession();
-        // 0: false, 1: true
-        int result = sqlSession.insert("saveMember", signupDto);
+        Integer id = sqlSession.insert("saveMember", signupDto);
         sqlSession.close();
 
-        return result == 1;
+        return id;
     }
 
     public Integer getIdByMemberId(SigninDto signinDto) {
@@ -32,5 +33,19 @@ public class MemberDao {
         sqlSession.close();
 
         return checkDupResDto;
+    }
+
+    public void activeAuthStatus(Integer id) {
+        SqlSession sqlSession = MyBatisConnectionFactory.getSqlSession();
+        sqlSession.update("updateAuthStatusById", id);
+        sqlSession.close();
+    }
+
+    public String getEmailById(Integer id) {
+        SqlSession sqlSession = MyBatisConnectionFactory.getSqlSession();
+        String email = sqlSession.selectOne("selectEmailById", id);
+        sqlSession.close();
+
+        return email;
     }
 }

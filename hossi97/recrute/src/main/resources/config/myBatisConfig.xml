@@ -6,6 +6,7 @@
     <properties resource="config/db.properties"/>
     <typeAliases>
         <typeAlias alias="SignupDto" type="com.hossi.recrute.member.dto.request.SignupDto"/>
+        <typeAlias alias="SignupResDto" type="com.hossi.recrute.member.dto.response.SignupResDto"/>
         <typeAlias alias="SigninDto" type="com.hossi.recrute.member.dto.request.SigninDto"/>
         <typeAlias alias="CheckDupDto" type="com.hossi.recrute.member.dto.request.CheckDupReqDto"/>
         <typeAlias alias="RecruitmentDto" type="com.hossi.recrute.recruitment.dto.RecruitmentDto"/>

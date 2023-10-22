@@ -1,6 +1,7 @@
 package com.hossi.recrute.member.service;
 
 import com.hossi.recrute.member.dao.MemberDao;
+import com.hossi.recrute.member.dto.response.SignupResDto;
 import com.hossi.recrute.member.dto.request.CheckDupReqDto;
 import com.hossi.recrute.member.dto.request.SigninDto;
 import com.hossi.recrute.member.dto.request.SignupDto;
@@ -8,11 +9,15 @@ import com.hossi.recrute.member.dto.response.CheckDupResDto;
 
 public class MemberService {
     private final MemberDao memberDao = new MemberDao();
-    public boolean signup(SignupDto signupDto) {
+    public Integer signup(SignupDto signupDto) {
         if(validatePassword(signupDto.getPassword(), signupDto.getPasswordConfirm())) {
             return memberDao.register(signupDto);
         }
-        return false;
+        return null;
+    }
+
+    public void authMail(Integer id) {
+        memberDao.activeAuthStatus(id);
     }
 
     public Integer signin(SigninDto signinDto) {

@@ -3,6 +3,7 @@ package com.hossi.recrute.member.dto.request;
 import java.time.LocalDate;
 
 public class SignupDto {
+    private final Integer id;
     private final String memberId;
     private final String email;
     private final String name;
@@ -11,6 +12,10 @@ public class SignupDto {
     private final String passwordConfirm;
     private final String phoneNumber;
     private final LocalDate birth;
+
+    public Integer getId() {
+        return id;
+    }
 
     public String getMemberId() {
         return memberId;
@@ -46,6 +51,7 @@ public class SignupDto {
 
 
     public SignupDto(Builder builder) {
+        this.id = builder.id;
         this.memberId = builder.memberId;
         this.email = builder.email;
         this.name = builder.name;
@@ -57,6 +63,7 @@ public class SignupDto {
     }
 
     public static class Builder {
+        private Integer id = null;
         private String memberId = null;
         private String email = null;
         private String name = null;
