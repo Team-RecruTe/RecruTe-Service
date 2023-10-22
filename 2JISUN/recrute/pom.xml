@@ -41,10 +41,9 @@
 	    <artifactId>jquery</artifactId>
 	    <version>3.6.0</version>
 	</dependency>
-	
   </dependencies>
   
-  
+    
   <build>
     <plugins>
       <plugin>

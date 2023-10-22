@@ -39,28 +39,32 @@ public class MemberSigninProcess extends HttpServlet {
 						  HttpServletResponse response) throws ServletException, IOException {
 
 		//jsp값을 dto(loginMember)에 저장
-		String userId = request.getParameter("userId"); //id속성
-		String pw = request.getParameter("pw"); //id속성
-		String saveId = request.getParameter("saveId"); //name속성
-	
+		String userId = request.getParameter("userId"); 
+		String pw = request.getParameter("pw"); 
+		
 		MemberDto loginMember = new MemberDto();
-					loginMember.setMemberID(userId);
-					loginMember.setPassword(pw);
+				  loginMember.setMemberID(userId);
+				  loginMember.setPassword(pw);
+
 					
 		
 		//dao( mybatisConn -> 쿼리xml )
 		//dto(loginMember)를 dao(쿼리)를 통해 db와 맵핑하여 dto(loggedMember)로 저장
 		MemberDao memberDao = new MemberDao();
+		
+		
 		MemberDto loggedMember = memberDao.loginMember(loginMember);
 		
 		
 		
 		//데이터가 존재하면 로그인 없으면 알림창
+		String saveId = request.getParameter("saveId"); 
 		if(loggedMember!=null) {
 			//세션으로 데이터를 저장 > 로그인상태 유지를 위해 세션 추가
 			HttpSession session = request.getSession();
-						session.setAttribute("loggedId", loggedMember.getMemberID());
-						session.setAttribute("loggedName", loggedMember.getName());
+						session.setAttribute("loggedMemberId", loggedMember.getMemberID());
+						session.setAttribute("loggedName", loggedMember.getName()); //헤더에 적용
+						session.setAttribute("loggedId", loggedMember.getId()); 
 			
 			//쿠키설정
 			//input > type(checkbox) > value속성의 값과 일치할 경우 쿠키를 생성한다.

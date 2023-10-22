@@ -17,6 +17,7 @@
 
 	<div class="mx-auto mb-0 mt-8 max-w-md space-y-4" 
 	 	 id="join"> 
+	 	  	 
 	 	<!-- 아이디 -->
  		<!-- 조건문 : 쿠키(saveIdCookie)로 아이디를 기억하는 조건문 생성 -->
  		<div>
@@ -47,6 +48,8 @@
 	        </span>
 	      </div>
 	    </div>
+	    
+	    
 
 	
 		<!-- 비밀번호 -->

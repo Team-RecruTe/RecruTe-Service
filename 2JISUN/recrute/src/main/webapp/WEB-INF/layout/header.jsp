@@ -100,7 +100,7 @@
              
 <c:choose>
 	<%-- 로그인 전 : 세션값이 없을 때 or 만료된 이후 --%>
-	<c:when test="${empty loggedId}"> 
+	<c:when test="${empty loggedMemberId}"> 
 	<div class="flex items-center gap-4">
 		
         <div class="sm:flex sm:gap-4">
@@ -151,7 +151,7 @@
 		  <%-- 내정보 버튼 --%>
           <a
             class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
-            href="../member/info?userId=${loggedId }"> <%-- 서블릿에 저장시켜둔 loggedId로 내정보 불러오기 --%>
+            href="../member/info?userId=${loggedMemberId }"> <%-- 세션에 저장시켜둔 loggedMemberId로 내정보 불러오기 --%>
             내 정보
           </a>
           

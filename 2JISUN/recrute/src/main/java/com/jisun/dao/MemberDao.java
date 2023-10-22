@@ -23,8 +23,8 @@ public class MemberDao {
 		SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
 		
 		// MyBatis 매퍼 파일에 정의된 "result" 쿼리를 실행하고 결과를 받아옴
-		// sqlSession.selectOne("xml의 id="~"",param);
-		result = sqlSession.selectOne("idCheck",userId); //0 or 1
+			  // sqlSession.selectOne(" xml의 id="~" ", param);
+		result = sqlSession.selectOne("idCheck"		 , userId); //0 or 1
 				 // 사용이 끝난 SqlSession 객체를 닫음
 		         sqlSession.close();
 		 
@@ -33,12 +33,6 @@ public class MemberDao {
 		
 	}
 
-	
-	
-	
-	
-	
-	
 	
 	
     /**

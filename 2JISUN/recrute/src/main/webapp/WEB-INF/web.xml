@@ -89,4 +89,24 @@
     <servlet-name>MemberSignoutProcess</servlet-name>
     <url-pattern>/member/signout</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>compRecruitList</display-name>
+    <servlet-name>compRecruitList</servlet-name>
+    <servlet-class>com.jisun.controller.compRecruit.compRecruitList</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>compRecruitList</servlet-name>
+    <url-pattern>/compRecruit/list</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>compRecruitView</display-name>
+    <servlet-name>compRecruitView</servlet-name>
+    <servlet-class>com.jisun.controller.compRecruit.compRecruitView</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>compRecruitView</servlet-name>
+    <url-pattern>/compRecruit/view</url-pattern>
+  </servlet-mapping>
 </web-app>
