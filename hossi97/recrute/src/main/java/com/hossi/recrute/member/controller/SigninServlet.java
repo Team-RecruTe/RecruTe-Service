@@ -3,8 +3,11 @@ package com.hossi.recrute.member.controller;
 import java.io.*;
 
 import com.google.gson.Gson;
-import com.hossi.recrute.common.ViewResolver;
-import com.hossi.recrute.common.Authenticater;
+import com.hossi.recrute.common.request.RequestUtil;
+import com.hossi.recrute.common.response.CookieContainer;
+import com.hossi.recrute.common.response.ResponseUtil;
+import com.hossi.recrute.common.response.ViewResolver;
+import com.hossi.recrute.common.auth.Authenticator;
 import com.hossi.recrute.common.ErrorCode;
 import com.hossi.recrute.member.dto.request.SigninDto;
 import com.hossi.recrute.member.service.MemberService;
@@ -12,9 +15,15 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
+import static jakarta.servlet.http.HttpServletResponse.SC_FOUND;
+import static jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+
 @WebServlet(name = "loginServlet", value = "/signin")
 public class SigninServlet extends HttpServlet {
-    private final MemberService memberService = new MemberService();
+
+    private static final CookieContainer cookieContainer = new CookieContainer();
+    private static final Gson gson = new Gson();
+    private static final MemberService memberService = new MemberService();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.setAttribute("mainViewPath", ViewResolver.resolveMainViewPath("signin"));
@@ -22,33 +31,24 @@ public class SigninServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Authenticater authenticater = new Authenticater();
-        if(authenticater.isAuthenticated(request)) {
-            Cookie renewedAuthCookie = authenticater.getAuthCookie(request);
-            response.addCookie(renewedAuthCookie);
-            response.setStatus(302);
-            response.sendRedirect("/");
+        Authenticator authenticator = new Authenticator();
+        if(authenticator.isAuthenticated(request)) {
+            Cookie renewedAuthCookie = authenticator.getAuthCookie(request);
+            cookieContainer.set(renewedAuthCookie);
+            ResponseUtil.setCookies(cookieContainer, response);
+            ResponseUtil.sendRedirect(SC_FOUND, "/", response);
         } else {
-            BufferedReader requestReader = request.getReader();
-            SigninDto signinDto = null;
-            while(requestReader.ready()) {
-                signinDto = new Gson().fromJson(requestReader.readLine(), SigninDto.class);
-            }
-
+            SigninDto signinDto = gson.fromJson(RequestUtil.parseJson(request), SigninDto.class);
             Integer id = memberService.signin(signinDto);
             if(id != null) {
-                authenticater.setAuthCookie(request, id);
-                Cookie authCookie = authenticater.getAuthCookie(request);
-                response.addCookie(authCookie);
-                response.setStatus(302);
-                response.sendRedirect("/");
+                authenticator.setAuthCookie(request, id);
+                Cookie authCookie = authenticator.getAuthCookie(request);
+                cookieContainer.set(authCookie);
+                ResponseUtil.setCookies(cookieContainer, response);
+                ResponseUtil.sendRedirect(SC_FOUND, "/", response);
             } else {
                 ErrorCode error = new ErrorCode("USR-04", "Invalid ID/PW");
-                String errorJSON = new Gson().toJson(error);
-                response.setStatus(400);
-                response.setContentType("application/json");
-                response.setContentLength(errorJSON.length());
-                response.getWriter().write(errorJSON);
+                ResponseUtil.sendJson(SC_NOT_FOUND, gson.toJson(error), response);
             }
         }
     }

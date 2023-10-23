@@ -1,4 +1,4 @@
-package com.hossi.recrute.common;
+package com.hossi.recrute.common.service;
 
 public class MailManager {
     private String host;

@@ -1,30 +1,36 @@
 package com.hossi.recrute.member.controller;
 
 
-import com.google.gson.Gson;
-import com.hossi.recrute.common.Authenticater;
-import com.hossi.recrute.common.ResponseData;
-import com.hossi.recrute.common.ViewResolver;
+import com.hossi.recrute.common.auth.Authenticator;
+import com.hossi.recrute.common.response.AttributeContainer;
+import com.hossi.recrute.common.response.CookieContainer;
+import com.hossi.recrute.common.response.ResponseUtil;
+import com.hossi.recrute.common.response.ViewResolver;
 import com.hossi.recrute.member.dto.request.SignupDto;
 import com.hossi.recrute.member.service.MemberService;
 import com.hossi.recrute.member.vo.GenderVo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.UUID;
+
+import static jakarta.servlet.http.HttpServletResponse.SC_FOUND;
+import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 
 @WebServlet(name="signupServlet", value="/signup")
 public class SignupServlet extends HttpServlet {
+    private static final CookieContainer cookieContainer = new CookieContainer();
+    private static final AttributeContainer attributeContainer = new AttributeContainer();
+
     private final MemberService memberService = new MemberService();
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setAttribute("mainViewPath", ViewResolver.resolveMainViewPath("signup"));
-        request.getRequestDispatcher(ViewResolver.getMainViewPath()).forward(request, response);
+        attributeContainer.set("mainViewPath", ViewResolver.resolveMainViewPath("signup"));
+        ResponseUtil.setAttributes(attributeContainer, request);
+        ResponseUtil.forward(SC_OK, ViewResolver.getMainViewPath(), request, response);
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         GenderVo gender = request.getParameter("gender").equals("male") ? GenderVo.MALE : GenderVo.FEMALE;
@@ -48,11 +54,12 @@ public class SignupServlet extends HttpServlet {
 
         Integer id = memberService.signup(signupDto);
         if(id != null) {
-            Authenticater authenticater = new Authenticater();
-            authenticater.setAuthCookie(request, id);
-            response.addCookie(authenticater.getAuthCookie(request));
-            response.setStatus(302);
-            response.sendRedirect("/signup/complete");
+            Authenticator authenticator = new Authenticator();
+            authenticator.setAuthCookie(request, id);
+
+            cookieContainer.set(authenticator.getAuthCookie(request));
+            ResponseUtil.setCookies(cookieContainer, response);
+            ResponseUtil.sendRedirect(SC_FOUND, "/signup/complete", response);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.hossi.recrute.common;
+package com.hossi.recrute.common.response;
 
 public class ViewResolver {
     private static String mainViewPath = "/WEB-INF/views/page.jsp";

@@ -1,15 +1,14 @@
-package com.hossi.recrute.common;
+package com.hossi.recrute.common.auth;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.UUID;
 
-public class Authenticater {
+public class Authenticator {
     private Cookie authCookie;
     public boolean isAuthenticated(HttpServletRequest request){
         findAuthCookie(request);
-
         return authCookie != null;
     }
 

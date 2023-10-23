@@ -1,6 +1,6 @@
 package com.hossi.recrute.recruitment.dao;
 
-import com.hossi.recrute.common.MyBatisConnectionFactory;
+import com.hossi.recrute.common.data.MyBatisConnectionFactory;
 import com.hossi.recrute.recruitment.dto.ApplicantDto;
 import com.hossi.recrute.recruitment.dto.RecruitmentDto;
 import org.apache.ibatis.session.SqlSession;

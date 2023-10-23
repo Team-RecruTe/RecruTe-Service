@@ -1,4 +1,4 @@
-package com.hossi.recrute.common;
+package com.hossi.recrute.common.response;
 
 public class ResponseData<V> {
     private final String key;

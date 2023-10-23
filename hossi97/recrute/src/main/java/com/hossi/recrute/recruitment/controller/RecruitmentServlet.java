@@ -1,13 +1,13 @@
 package com.hossi.recrute.recruitment.controller;
 
 import com.google.gson.Gson;
-import com.hossi.recrute.common.Authenticater;
-import com.hossi.recrute.common.ResponseData;
-import com.hossi.recrute.common.ViewResolver;
-import com.hossi.recrute.recruitment.dto.ApplicantDto;
+import com.hossi.recrute.common.auth.Authenticator;
+import com.hossi.recrute.common.response.AttributeContainer;
+import com.hossi.recrute.common.response.ResponseData;
+import com.hossi.recrute.common.response.ResponseUtil;
+import com.hossi.recrute.common.response.ViewResolver;
 import com.hossi.recrute.recruitment.dto.RecruitmentDto;
 import com.hossi.recrute.recruitment.service.RecruitmentService;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,8 +17,13 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+import static jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+import static jakarta.servlet.http.HttpServletResponse.SC_OK;
+
 @WebServlet(name = "recruitmentServlet", urlPatterns = "/recruitments/*")
 public class RecruitmentServlet extends HttpServlet {
+    private static final AttributeContainer attributeContainer = new AttributeContainer();
+    private static final Gson gson = new Gson();
     private final RecruitmentService recruitmentService = new RecruitmentService();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String requestURI = request.getRequestURI();
@@ -42,18 +47,16 @@ public class RecruitmentServlet extends HttpServlet {
         String lastPiece = parsedURI[parsedURI.length - 1];
         if(isNumeric(lastPiece)) {
             Integer rctId = Integer.parseInt(lastPiece);
-            Authenticater authenticater = new Authenticater();
+            Authenticator authenticator = new Authenticator();
             HttpSession session = request.getSession();
-            Integer id = (Integer) session.getAttribute(authenticater.getAuthCookie(request).getValue());
+            Integer id = (Integer) session.getAttribute(authenticator.getAuthCookie(request).getValue());
             recruitmentService.applyRecruitment(id, rctId);
             ResponseData<Integer> responseData = new ResponseData<>("rctId", rctId);
-            String resJsonData = new Gson().toJson(responseData);
-            response.setContentType("application/json");
-            response.setContentLength(resJsonData.length());
-            response.getWriter().write(resJsonData);
+            ResponseUtil.sendJson(SC_OK, gson.toJson(responseData), response);
         } else {
-            request.setAttribute("errorViewPath", ViewResolver.resolveErrorViewPath("err404"));
-            request.getRequestDispatcher(ViewResolver.getErrorViewPath()).forward(request, response);
+            attributeContainer.set("errorViewPath", ViewResolver.resolveErrorViewPath("err404"));
+            ResponseUtil.setAttributes(attributeContainer, request);
+            ResponseUtil.forward(SC_NOT_FOUND, ViewResolver.getErrorViewPath(), request, response);
         }
     }
 

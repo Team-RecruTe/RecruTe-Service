@@ -1,8 +1,6 @@
 package com.hossi.recrute.member.dao;
 
-import com.hossi.recrute.common.MyBatisConnectionFactory;
-import com.hossi.recrute.email.service.EmailDto;
-import com.hossi.recrute.member.dto.response.SignupResDto;
+import com.hossi.recrute.common.data.MyBatisConnectionFactory;
 import com.hossi.recrute.member.dto.request.CheckDupReqDto;
 import com.hossi.recrute.member.dto.request.SigninDto;
 import com.hossi.recrute.member.dto.request.SignupDto;
