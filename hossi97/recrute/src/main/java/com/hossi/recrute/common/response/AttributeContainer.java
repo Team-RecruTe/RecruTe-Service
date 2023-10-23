@@ -1,4 +1,4 @@
-package com.hossi.recrute.common.response.util;
+package com.hossi.recrute.common.response;
 
 import java.util.HashMap;
 import java.util.Map;

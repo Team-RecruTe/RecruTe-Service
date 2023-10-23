@@ -1,8 +1,8 @@
 package com.hossi.recrute.common.controller;
 
-import com.hossi.recrute.common.response.util.AttributeContainer;
-import com.hossi.recrute.common.response.util.ResponseUtil;
-import com.hossi.recrute.common.response.util.ViewResolver;
+import com.hossi.recrute.common.response.AttributeContainer;
+import com.hossi.recrute.common.response.ResponseUtil;
+import com.hossi.recrute.common.response.ViewResolver;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

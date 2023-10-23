@@ -1,8 +1,9 @@
 package com.hossi.recrute.member.controller;
 
-import com.hossi.recrute.common.auth.Authenticator;
-import com.hossi.recrute.common.response.util.CookieContainer;
-import com.hossi.recrute.common.response.util.ResponseUtil;
+import com.hossi.recrute.common.request.Authenticator;
+import com.hossi.recrute.common.request.RequestUtil;
+import com.hossi.recrute.common.response.CookieContainer;
+import com.hossi.recrute.common.response.ResponseUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -26,9 +27,10 @@ public class SignoutServlet extends HttpServlet {
     }
 
     private static void depriveAuth(HttpServletRequest request, HttpServletResponse response) {
-        if(AUTHENTICATOR.isAuthenticated(request)) {
+        cookieContainer.setCookies(request);
+        if(AUTHENTICATOR.isAuthenticated(cookieContainer)) {
             Cookie expiredAuthCookie = AUTHENTICATOR.expireAuthCookie();
-            cookieContainer.set(expiredAuthCookie);
+            cookieContainer.setCookie(expiredAuthCookie);
             ResponseUtil.setCookies(cookieContainer, response);
         }
     }

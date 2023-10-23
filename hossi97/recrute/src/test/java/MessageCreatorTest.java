@@ -17,10 +17,10 @@ public class MessageCreatorTest {
     @Test
     public void testCreateMessageWithoutData() {
         // given
-        MessageCreator messageCreator = MessageCreator.getInstance();
+
 
         // when
-        Message<String> message = messageCreator.create(RCT, "001", true, "Invalid");
+        Message<String> message = MessageCreator.create(RCT, "001", true, "Invalid");
         String resMessage = new Gson().toJson(message);
 
         // then
@@ -34,12 +34,12 @@ public class MessageCreatorTest {
     @Test
     public void testCreateMessageWithData() {
         // given
-        MessageCreator messageCreator = MessageCreator.getInstance();
+
 
         // when
         ResponseData responseData = new ResponseData();
         responseData.set("rctId", 1);
-        Message<Map<String, Object>> message = messageCreator.create(RCT, "002", true, "Applied", responseData);
+        Message<Map<String, Object>> message = MessageCreator.create(RCT, "002", true, "Applied", responseData);
         String resMessage = new Gson().toJson(message);
 
         // then

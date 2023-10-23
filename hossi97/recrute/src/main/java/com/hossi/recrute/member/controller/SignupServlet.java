@@ -1,11 +1,12 @@
 package com.hossi.recrute.member.controller;
 
 
-import com.hossi.recrute.common.auth.Authenticator;
-import com.hossi.recrute.common.response.util.AttributeContainer;
-import com.hossi.recrute.common.response.util.CookieContainer;
-import com.hossi.recrute.common.response.util.ResponseUtil;
-import com.hossi.recrute.common.response.util.ViewResolver;
+import com.hossi.recrute.common.request.Authenticator;
+import com.hossi.recrute.common.request.RequestUtil;
+import com.hossi.recrute.common.response.AttributeContainer;
+import com.hossi.recrute.common.response.CookieContainer;
+import com.hossi.recrute.common.response.ResponseUtil;
+import com.hossi.recrute.common.response.ViewResolver;
 import com.hossi.recrute.member.dto.request.SignupDto;
 import com.hossi.recrute.member.service.MemberService;
 import com.hossi.recrute.member.vo.GenderVo;
@@ -55,9 +56,9 @@ public class SignupServlet extends HttpServlet {
         Integer id = memberService.signup(signupDto);
         if(id != null) {
             Authenticator authenticator = new Authenticator();
-            authenticator.setAuthCookie(request, id);
-
-            cookieContainer.set(authenticator.getAuthCookie(request));
+            authenticator.setAuthCookie(RequestUtil.getSession(request), id);
+            cookieContainer.setCookies(request);
+            cookieContainer.setCookie(authenticator.getAuthCookie(cookieContainer));
             ResponseUtil.setCookies(cookieContainer, response);
             ResponseUtil.sendRedirect(SC_FOUND, "/signup/complete", response);
         }

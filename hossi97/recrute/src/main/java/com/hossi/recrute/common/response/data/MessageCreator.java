@@ -6,33 +6,24 @@ import com.hossi.recrute.common.response.service.ServicePrefix;
 
 import java.util.Map;
 
-public class MessageCreator {
-    private static final MessageCreator INSTANCE = new MessageCreator();
-
-    private MessageCreator(){
-    }
-
-    public static MessageCreator getInstance() {
-        return INSTANCE;
-    }
-
-    public Message<String> create(ServicePrefix servicePrefix, String serviceNumber, boolean success, String message) {
+public interface MessageCreator {
+    static Message<String> create(ServicePrefix servicePrefix, String serviceNumber, boolean success, String message) {
         ServiceCode serviceCode = createServiceCode(servicePrefix, serviceNumber);
         Result result = createResult(success, message);
         return new Message<>(serviceCode, result, "");
     }
 
-    public Message<Map<String, Object>> create(ServicePrefix servicePrefix, String serviceNumber, boolean success, String message, ResponseData responseData) {
+    static Message<Map<String, Object>> create(ServicePrefix servicePrefix, String serviceNumber, boolean success, String message, ResponseData responseData) {
         ServiceCode serviceCode = createServiceCode(servicePrefix, serviceNumber);
         Result result = createResult(success, message);
         return new Message<>(serviceCode, result, responseData.getData());
     }
 
-    private ServiceCode createServiceCode(ServicePrefix servicePrefix, String serviceNumber) {
+    private static ServiceCode createServiceCode(ServicePrefix servicePrefix, String serviceNumber) {
         return ServiceCodeManager.getInstance().getServiceCode(servicePrefix, serviceNumber);
     }
 
-    private Result createResult(boolean success, String message) {
+    private static Result createResult(boolean success, String message) {
         return new Result(success, message);
     }
 }

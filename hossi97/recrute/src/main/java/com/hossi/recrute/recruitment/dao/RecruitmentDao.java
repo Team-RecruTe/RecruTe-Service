@@ -1,13 +1,13 @@
 package com.hossi.recrute.recruitment.dao;
 
-import com.hossi.recrute.common.data.MyBatisConnectionFactory;
+import com.hossi.recrute.common.data.MyBatisConnectionManager;
 import com.hossi.recrute.recruitment.dto.ApplicantDto;
 import com.hossi.recrute.recruitment.dto.RecruitmentDto;
 import org.apache.ibatis.session.SqlSession;
 
 public class RecruitmentDao {
     public RecruitmentDto getRecruitmentByRctId(Integer rctId) {
-        SqlSession sqlSession = MyBatisConnectionFactory.getSqlSession();
+        SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         RecruitmentDto recruitmentDto = sqlSession.selectOne("selectRecruitmentByRctId", rctId);
         sqlSession.close();
 
@@ -15,7 +15,7 @@ public class RecruitmentDao {
     }
 
     public void setRecruitment(ApplicantDto applicantDto) {
-        SqlSession sqlSession = MyBatisConnectionFactory.getSqlSession();
+        SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         sqlSession.insert("saveApplicant", applicantDto);
         sqlSession.close();
     }

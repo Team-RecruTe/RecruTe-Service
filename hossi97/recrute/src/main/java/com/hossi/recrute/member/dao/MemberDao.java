@@ -1,6 +1,6 @@
 package com.hossi.recrute.member.dao;
 
-import com.hossi.recrute.common.data.MyBatisConnectionFactory;
+import com.hossi.recrute.common.data.MyBatisConnectionManager;
 import com.hossi.recrute.member.dto.request.CheckDupReqDto;
 import com.hossi.recrute.member.dto.request.SigninDto;
 import com.hossi.recrute.member.dto.request.SignupDto;
@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 
 public class MemberDao {
     public Integer register(SignupDto signupDto) {
-        SqlSession sqlSession = MyBatisConnectionFactory.getSqlSession();
+        SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         Integer id = sqlSession.insert("saveMember", signupDto);
         sqlSession.close();
 
@@ -17,7 +17,7 @@ public class MemberDao {
     }
 
     public Integer getIdByMemberId(SigninDto signinDto) {
-        SqlSession sqlSession = MyBatisConnectionFactory.getSqlSession();
+        SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         Integer id = sqlSession.selectOne("selectIdByMemberIdAndPassword", signinDto);
         sqlSession.close();
 
@@ -25,7 +25,7 @@ public class MemberDao {
     }
 
     public CheckDupResDto getCountByMemberId(CheckDupReqDto checkDupReqDto) {
-        SqlSession sqlSession = MyBatisConnectionFactory.getSqlSession();
+        SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         Integer count = sqlSession.selectOne("selectCountByMemberId", checkDupReqDto);
         CheckDupResDto checkDupResDto = new CheckDupResDto(count > 0);
         sqlSession.close();
@@ -34,13 +34,13 @@ public class MemberDao {
     }
 
     public void activeAuthStatus(Integer id) {
-        SqlSession sqlSession = MyBatisConnectionFactory.getSqlSession();
+        SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         sqlSession.update("updateAuthStatusById", id);
         sqlSession.close();
     }
 
     public String getEmailById(Integer id) {
-        SqlSession sqlSession = MyBatisConnectionFactory.getSqlSession();
+        SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         String email = sqlSession.selectOne("selectEmailById", id);
         sqlSession.close();
 

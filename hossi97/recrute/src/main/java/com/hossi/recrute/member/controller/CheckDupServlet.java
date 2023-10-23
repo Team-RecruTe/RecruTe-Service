@@ -5,7 +5,7 @@ import com.hossi.recrute.common.response.data.Message;
 import com.hossi.recrute.common.response.data.MessageCreator;
 import com.hossi.recrute.common.response.data.ResponseData;
 import com.hossi.recrute.common.response.service.ServicePrefix;
-import com.hossi.recrute.common.response.util.ResponseUtil;
+import com.hossi.recrute.common.response.ResponseUtil;
 import com.hossi.recrute.member.dto.request.CheckDupReqDto;
 import com.hossi.recrute.member.dto.response.CheckDupResDto;
 import com.hossi.recrute.member.service.MemberService;
@@ -25,7 +25,6 @@ import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 public class CheckDupServlet extends HttpServlet {
     private final static Gson gson = new Gson();
     private final static MemberService memberService = new MemberService();
-    private final static MessageCreator messageCreator = MessageCreator.getInstance();
     private final static ServicePrefix prefix = MBR;
     private final static ResponseData responseData = new ResponseData();
 
@@ -33,7 +32,7 @@ public class CheckDupServlet extends HttpServlet {
         CheckDupReqDto checkDupReqDto = new CheckDupReqDto(request.getParameter("memberId"));
         CheckDupResDto checkDupResDto = memberService.checkDuplicate(checkDupReqDto);
         responseData.set("isDup", checkDupResDto.getIsDup());
-        Message<Map<String, Object>> message = messageCreator.create(prefix, "003", true, "Not Duplicated", responseData);
+        Message<Map<String, Object>> message = MessageCreator.create(prefix, "003", true, "Not Duplicated", responseData);
         ResponseUtil.sendJson(SC_OK, gson.toJson(message), response);
     }
 }

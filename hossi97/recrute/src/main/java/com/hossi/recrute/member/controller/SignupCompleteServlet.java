@@ -1,9 +1,11 @@
 package com.hossi.recrute.member.controller;
 
-import com.hossi.recrute.common.auth.Authenticator;
-import com.hossi.recrute.common.response.util.AttributeContainer;
-import com.hossi.recrute.common.response.util.ResponseUtil;
-import com.hossi.recrute.common.response.util.ViewResolver;
+import com.hossi.recrute.common.request.Authenticator;
+import com.hossi.recrute.common.request.RequestUtil;
+import com.hossi.recrute.common.response.AttributeContainer;
+import com.hossi.recrute.common.response.CookieContainer;
+import com.hossi.recrute.common.response.ResponseUtil;
+import com.hossi.recrute.common.response.ViewResolver;
 import com.hossi.recrute.email.service.EmailService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,6 +22,7 @@ import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 public class SignupCompleteServlet extends HttpServlet {
 
     private static final AttributeContainer attributeContainer = new AttributeContainer();
+    private static final CookieContainer cookieContainer = new CookieContainer();
     EmailService emailService = new EmailService();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +35,8 @@ public class SignupCompleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Authenticator authenticator = new Authenticator();
-        Cookie authCookie = authenticator.getAuthCookie(request);
+        cookieContainer.setCookies(request);
+        Cookie authCookie = authenticator.getAuthCookie(cookieContainer);
         Integer id = (Integer)request.getSession().getAttribute(authCookie.getValue());
         emailService.sendEmail(id);
     }

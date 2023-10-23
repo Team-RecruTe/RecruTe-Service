@@ -1,13 +1,15 @@
 package com.hossi.recrute.recruitment.controller;
 
 import com.google.gson.Gson;
-import com.hossi.recrute.common.auth.Authenticator;
+import com.hossi.recrute.common.request.Authenticator;
+import com.hossi.recrute.common.request.RequestUtil;
+import com.hossi.recrute.common.response.CookieContainer;
 import com.hossi.recrute.common.response.data.MessageCreator;
 import com.hossi.recrute.common.response.service.ServicePrefix;
-import com.hossi.recrute.common.response.util.AttributeContainer;
+import com.hossi.recrute.common.response.AttributeContainer;
 import com.hossi.recrute.common.response.data.ResponseData;
-import com.hossi.recrute.common.response.util.ResponseUtil;
-import com.hossi.recrute.common.response.util.ViewResolver;
+import com.hossi.recrute.common.response.ResponseUtil;
+import com.hossi.recrute.common.response.ViewResolver;
 import com.hossi.recrute.recruitment.dto.RecruitmentDto;
 import com.hossi.recrute.recruitment.service.RecruitmentService;
 import jakarta.servlet.ServletException;
@@ -18,8 +20,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.hossi.recrute.common.response.service.ServicePrefix.RCT;
 import static jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
@@ -27,8 +27,8 @@ import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 
 @WebServlet(name = "recruitmentServlet", urlPatterns = "/recruitments/*")
 public class RecruitmentServlet extends HttpServlet {
-    private static final MessageCreator messageCreator = MessageCreator.getInstance();
     private static final AttributeContainer attributeContainer = new AttributeContainer();
+    private static final CookieContainer cookieContainer = new CookieContainer();
     private static final Gson gson = new Gson();
     private static final ServicePrefix prefix = RCT;
     private static final ResponseData responseData = new ResponseData();
@@ -57,13 +57,14 @@ public class RecruitmentServlet extends HttpServlet {
         String[] parsedURI = requestURI.split("recruitments/");
         String lastPiece = parsedURI[parsedURI.length - 1];
         if(isNumeric(lastPiece)) {
+            cookieContainer.setCookies(request);
             Integer rctId = Integer.parseInt(lastPiece);
             Authenticator authenticator = new Authenticator();
             HttpSession session = request.getSession();
-            Integer id = (Integer) session.getAttribute(authenticator.getAuthCookie(request).getValue());
+            Integer id = (Integer) session.getAttribute(authenticator.getAuthCookie(cookieContainer).getValue());
             recruitmentService.applyRecruitment(id, rctId);
             responseData.set("rctId", 1);
-            messageCreator.create(prefix, "002", true, "Applied", responseData);
+            MessageCreator.create(prefix, "002", true, "Applied", responseData);
             ResponseUtil.sendJson(SC_OK, gson.toJson(responseData), response);
         } else {
             attributeContainer.set("errorViewPath", ViewResolver.resolveErrorViewPath("err404"));
