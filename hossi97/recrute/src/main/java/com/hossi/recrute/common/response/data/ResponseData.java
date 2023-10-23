@@ -1,11 +1,16 @@
 package com.hossi.recrute.common.response.data;
 
-public class ResponseData<V> {
-    private final String key;
-    private final V value;
+import java.util.HashMap;
+import java.util.Map;
 
-    public ResponseData(String key, V value) {
-        this.key = key;
-        this.value = value;
+public class ResponseData {
+    private final Map<String, Object> data = new HashMap<>();
+
+    public void set(String key, Object value) {
+        data.put(key, value);
+    }
+
+    public Map<String, Object> getData() {
+        return data;
     }
 }

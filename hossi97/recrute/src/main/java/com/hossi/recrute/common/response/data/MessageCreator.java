@@ -4,6 +4,8 @@ import com.hossi.recrute.common.response.service.ServiceCode;
 import com.hossi.recrute.common.response.service.ServiceCodeManager;
 import com.hossi.recrute.common.response.service.ServicePrefix;
 
+import java.util.Map;
+
 public class MessageCreator {
     private static final MessageCreator INSTANCE = new MessageCreator();
 
@@ -18,6 +20,12 @@ public class MessageCreator {
         ServiceCode serviceCode = createServiceCode(servicePrefix, serviceNumber);
         Result result = createResult(success, message);
         return new Message<>(serviceCode, result, "");
+    }
+
+    public Message<Map<String, Object>> create(ServicePrefix servicePrefix, String serviceNumber, boolean success, String message, ResponseData responseData) {
+        ServiceCode serviceCode = createServiceCode(servicePrefix, serviceNumber);
+        Result result = createResult(success, message);
+        return new Message<>(serviceCode, result, responseData.getData());
     }
 
     private ServiceCode createServiceCode(ServicePrefix servicePrefix, String serviceNumber) {
