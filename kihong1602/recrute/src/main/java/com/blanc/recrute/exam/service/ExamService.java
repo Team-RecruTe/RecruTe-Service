@@ -1,16 +1,15 @@
 package com.blanc.recrute.exam.service;
 
 import com.blanc.recrute.exam.dao.ExamDAO;
-import com.blanc.recrute.exam.dto.ExamDTO;
+import com.blanc.recrute.exam.dto.ExamInfoDTO;
 
 public class ExamService {
 
   private static ExamDAO examDAO = new ExamDAO();
 
+  public ExamInfoDTO getExamContent(Integer recruitId) {
 
-  public ExamDTO getExamContent(Integer examId) {
-
-    return examId != null ? examDAO.getExamContent(examId) : null;
+    return recruitId != null ? examDAO.getExamContent(recruitId) : null;
 
   }
 

@@ -15,4 +15,9 @@ public class CookieManager {
         return null;
     }
 
+    public static Cookie createCookie(String name,String value,int age){
+        Cookie cookie = new Cookie(name,value);
+        cookie.setMaxAge(age);
+        return cookie;
+    }
 }

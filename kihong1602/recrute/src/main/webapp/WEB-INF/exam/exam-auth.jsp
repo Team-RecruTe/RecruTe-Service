@@ -13,6 +13,14 @@
             <li>채용 시작일: ${requestScope.examDTO.startDate}</li>
             <li>채용 종료일: ${requestScope.examDTO.endDate}</li>
         </ul>
+        <div>
+            <label for="apt-id"
+                   class="block text-sm font-medium leading-6 text-gray-900">수험번호</label>
+            <div class="mt-2">
+                <input id="apt-id" name="apt-id" type="text" autocomplete="apt-id"
+                       class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+        </div>
     </div>
     <a
             class="group flex items-center justify-between gap-4 rounded-lg border border-teal-600 bg-teal-600 px-5 py-3 transition-colors hover:bg-transparent focus:outline-none focus:ring"
@@ -44,4 +52,5 @@
   </span>
     </a>
 </div>
+<script src="../../js/exam-auth.js"></script>
 <%@include file="../layout/footer.jsp" %>
