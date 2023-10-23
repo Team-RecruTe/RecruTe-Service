@@ -1,7 +1,7 @@
 package com.hossi.recrute.member.controller;
 
 import com.google.gson.Gson;
-import com.hossi.recrute.common.response.ResponseUtil;
+import com.hossi.recrute.common.response.util.ResponseUtil;
 import com.hossi.recrute.member.dto.request.CheckDupReqDto;
 import com.hossi.recrute.member.service.MemberService;
 import jakarta.servlet.ServletException;

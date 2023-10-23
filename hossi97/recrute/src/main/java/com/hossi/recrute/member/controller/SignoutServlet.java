@@ -1,8 +1,8 @@
 package com.hossi.recrute.member.controller;
 
 import com.hossi.recrute.common.auth.Authenticator;
-import com.hossi.recrute.common.response.CookieContainer;
-import com.hossi.recrute.common.response.ResponseUtil;
+import com.hossi.recrute.common.response.util.CookieContainer;
+import com.hossi.recrute.common.response.util.ResponseUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;

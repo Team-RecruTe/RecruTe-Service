@@ -1,4 +1,4 @@
-package com.hossi.recrute.common.response;
+package com.hossi.recrute.common.response.util;
 
 import com.google.common.net.MediaType;
 import jakarta.servlet.ServletException;

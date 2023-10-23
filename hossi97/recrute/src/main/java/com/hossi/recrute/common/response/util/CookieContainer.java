@@ -1,4 +1,4 @@
-package com.hossi.recrute.common.response;
+package com.hossi.recrute.common.response.util;
 
 import jakarta.servlet.http.Cookie;
 

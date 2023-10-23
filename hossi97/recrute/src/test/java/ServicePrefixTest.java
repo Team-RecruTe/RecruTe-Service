@@ -7,7 +7,6 @@ import static com.hossi.recrute.common.response.service.MemberCode.MBR001;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ServicePrefixTest {
-
     private final ServiceCodeManager serviceCodeManager = ServiceCodeManager.getInstance();
 
     @Test

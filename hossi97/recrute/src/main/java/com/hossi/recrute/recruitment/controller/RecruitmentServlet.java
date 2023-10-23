@@ -2,10 +2,10 @@ package com.hossi.recrute.recruitment.controller;
 
 import com.google.gson.Gson;
 import com.hossi.recrute.common.auth.Authenticator;
-import com.hossi.recrute.common.response.AttributeContainer;
-import com.hossi.recrute.common.response.ResponseData;
-import com.hossi.recrute.common.response.ResponseUtil;
-import com.hossi.recrute.common.response.ViewResolver;
+import com.hossi.recrute.common.response.util.AttributeContainer;
+import com.hossi.recrute.common.response.data.ResponseData;
+import com.hossi.recrute.common.response.util.ResponseUtil;
+import com.hossi.recrute.common.response.util.ViewResolver;
 import com.hossi.recrute.recruitment.dto.RecruitmentDto;
 import com.hossi.recrute.recruitment.service.RecruitmentService;
 import jakarta.servlet.ServletException;

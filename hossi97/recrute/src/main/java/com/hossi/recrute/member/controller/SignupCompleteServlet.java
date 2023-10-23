@@ -1,9 +1,9 @@
 package com.hossi.recrute.member.controller;
 
 import com.hossi.recrute.common.auth.Authenticator;
-import com.hossi.recrute.common.response.AttributeContainer;
-import com.hossi.recrute.common.response.ResponseUtil;
-import com.hossi.recrute.common.response.ViewResolver;
+import com.hossi.recrute.common.response.util.AttributeContainer;
+import com.hossi.recrute.common.response.util.ResponseUtil;
+import com.hossi.recrute.common.response.util.ViewResolver;
 import com.hossi.recrute.email.service.EmailService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
