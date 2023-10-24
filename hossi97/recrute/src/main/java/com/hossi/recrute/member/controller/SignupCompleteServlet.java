@@ -1,7 +1,7 @@
 package com.hossi.recrute.member.controller;
 
 import com.hossi.recrute.common.util.auth.AuthCookie;
-import com.hossi.recrute.common.util.http.AttributeContainer;
+import com.hossi.recrute.common.util.auth.AuthProcessor;
 import com.hossi.recrute.common.util.http.servlet.ServletHandler;
 import com.hossi.recrute.common.util.http.servlet.ViewResolver;
 import com.hossi.recrute.email.service.EmailService;
@@ -17,21 +17,21 @@ import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 
 @WebServlet(name = "signupCompleteServlet", value = "/signup/complete")
 public class SignupCompleteServlet extends HttpServlet {
-    private final AttributeContainer attributeContainer = new AttributeContainer();
     private final ServletHandler servletHandler = ServletHandler.getINSTANCE();
 
     EmailService emailService = new EmailService();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        attributeContainer.set("mainViewPath", ViewResolver.resolveMainViewPath("signup-complete"));
-        servletHandler.setAttributes(attributeContainer, request);
-        servletHandler.forward(SC_OK, ViewResolver.getMainViewPath(), request, response);
+        servletHandler
+            .setAttribute("mainViewPath", ViewResolver.resolveMainViewPath("signup-complete"), request)
+            .setStatus(SC_OK, response)
+            .forward(ViewResolver.getMainViewPath(), request, response);
     }
 
     // 이메일 보내기
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        AuthCookie authCookie = servletHandler.getAuthCookie(request);
+        AuthCookie authCookie = AuthProcessor.getAuthCookie(servletHandler.getCookies(request));
         Integer id = (Integer)request.getSession().getAttribute(authCookie.getValue());
         emailService.sendEmail(id);
     }

@@ -19,15 +19,18 @@ public class SignoutServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         depriveAuth(request, response);
-        servletHandler.sendRedirect(SC_FOUND, "/", response);
+        servletHandler
+            .setStatus(SC_FOUND, response)
+            .sendRedirect("/", response);
     }
 
     private void depriveAuth(HttpServletRequest request, HttpServletResponse response) {
-        AuthCookie authCookie = servletHandler.getAuthCookie(request);
+        AuthCookie authCookie = AuthProcessor.getAuthCookie(servletHandler.getCookies(request));
         if(authCookie.isActivate()) {
             AuthProcessor.expireAuthCookie(authCookie);
-            servletHandler.removeSession(authCookie, request);
-            servletHandler.setAuthCookie(authCookie, response);
+            servletHandler
+                .removeSession(authCookie.getValue(), request)
+                .setCookie(authCookie.getCookie(), response);
         }
     }
 

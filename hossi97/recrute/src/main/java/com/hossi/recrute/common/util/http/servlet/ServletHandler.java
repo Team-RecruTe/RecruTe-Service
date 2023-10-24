@@ -1,9 +1,6 @@
 package com.hossi.recrute.common.util.http.servlet;
 
 import com.google.common.net.MediaType;
-import com.hossi.recrute.common.util.auth.AuthCookie;
-import com.hossi.recrute.common.util.http.AttributeContainer;
-import com.hossi.recrute.common.util.http.CookieContainer;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,15 +8,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class ServletHandler implements RequestHandler, ResponseHandler, ViewHandler {
-
+public class ServletHandler extends RequestResponseHandler implements RequestHandler, ResponseHandler, ViewHandler {
     private static final ServletHandler INSTANCE = new ServletHandler();
+
     private ServletHandler() {
     }
 
@@ -27,73 +22,88 @@ public class ServletHandler implements RequestHandler, ResponseHandler, ViewHand
         return INSTANCE;
     }
 
-    public String parseJson(HttpServletRequest request) throws IOException {
-        return request.getReader().lines().collect(Collectors.joining());
-    }
-
+    @Override
     public Map<String, String[]> getParameters(HttpServletRequest request) {
         return request.getParameterMap();
     }
 
-    public HttpSession getSession(HttpServletRequest request) {
-        return request.getSession();
+    @Override
+    public Object getSession(String key, HttpServletRequest request) {
+        return request.getSession().getAttribute(key);
     }
 
-    public CookieContainer getCookies(HttpServletRequest request) {
-        return new CookieContainer(request.getCookies());
+    @Override
+    public Map<String, Object> getSessionAll(HttpServletRequest request) {
+        HttpSession httpSession = request.getSession();
+        Map<String, Object> map = new HashMap<>();
+        httpSession.getAttributeNames().asIterator().forEachRemaining(key -> {
+            map.put(key, httpSession.getAttribute(key));
+        });
+        return map;
     }
 
-    public AuthCookie getAuthCookie(HttpServletRequest request) {
-        Optional<Cookie> foundedCookie = Arrays.stream(request.getCookies())
-            .filter(cookie -> cookie.getName().equals("sid"))
-            .findFirst();
-
-        return foundedCookie.map(AuthCookie::new).orElse(new AuthCookie());
+    @Override
+    public Cookie[] getCookies(HttpServletRequest request) {
+        return request.getCookies();
     }
 
-    public void setAttributes(AttributeContainer attributeContainer, HttpServletRequest request) {
-        Map<String, Object> attributes = attributeContainer.getAttributes();
-        attributes.forEach(request::setAttribute);
-        attributes.clear();
+    @Override
+    public String getJson(HttpServletRequest request) throws IOException {
+        return request.getReader().lines().collect(Collectors.joining());
     }
 
-    public void setSession(String key, Object value, HttpServletRequest request) {
+    @Override
+    public ServletHandler setSession(String key, Object value, HttpServletRequest request) {
         request.getSession().setAttribute(key, value);
+        return this;
     }
 
-    public void removeSession(AuthCookie authCookie, HttpServletRequest request) {
-        request.getSession().removeAttribute(authCookie.getValue());
+    @Override
+    public ServletHandler removeSession(String key, HttpServletRequest request) {
+        request.getSession().removeAttribute(key);
+        return this;
     }
 
+    @Override
+    public ServletHandler setCookie(Cookie cookie, HttpServletResponse response) {
+        response.addCookie(cookie);
+        return this;
+    }
 
-    public void sendJson(int status, String json, HttpServletResponse response) throws IOException {
-        response.setStatus(status);
-        response.setContentType(MediaType.JSON_UTF_8.toString());
+    @Override
+    public ServletHandler removeCookie(Cookie cookie, HttpServletResponse response) {
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return this;
+    }
+
+    @Override
+    public ServletHandler setAttribute(String key, Object value, HttpServletRequest request) {
+        request.getSession().setAttribute(key, value);
+        return this;
+    }
+
+    @Override
+    public ServletHandler setJson(MediaType mediaType, String json, HttpServletResponse response) throws IOException {
+        response.setContentType(mediaType.toString());
         response.setContentLength(json.length());
         response.getWriter().write(json);
+        return this;
     }
 
-    public void sendRedirect(int status, String path, HttpServletResponse response) throws IOException {
+    @Override
+    public ServletHandler setStatus(int status, HttpServletResponse response) {
         response.setStatus(status);
+        return this;
+    }
+
+    @Override
+    public void sendRedirect(String path, HttpServletResponse response) throws IOException {
         response.sendRedirect(path);
     }
 
-    public void forward(int status, String path, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setStatus(status);
-        request.setAttribute("errorViewPath", ViewResolver.resolveErrorViewPath("err404"));
+    @Override
+    public void forward(String path, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.getRequestDispatcher(path).forward(request, response);
     }
-
-    public void setCookies(CookieContainer cookieContainer, HttpServletResponse response) {
-        List<Cookie> cookies = cookieContainer.getCookies();
-        cookies.forEach(response::addCookie);
-        cookies.clear();
-    }
-
-    public void setAuthCookie(AuthCookie authCookie, HttpServletResponse response) {
-        response.addCookie(authCookie.getCookie());
-    }
-
-
-
 }

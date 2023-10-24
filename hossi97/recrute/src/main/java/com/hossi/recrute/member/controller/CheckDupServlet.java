@@ -1,7 +1,6 @@
 package com.hossi.recrute.member.controller;
 
 import com.hossi.recrute.common.util.http.JsonManager;
-import com.hossi.recrute.common.util.http.servlet.ResponseHandler;
 import com.hossi.recrute.common.util.http.message.Message;
 import com.hossi.recrute.common.util.http.message.MessageCreator;
 import com.hossi.recrute.common.util.http.message.ResponseData;
@@ -19,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
+import static com.google.common.net.MediaType.JSON_UTF_8;
 import static com.hossi.recrute.common.util.service.ServicePrefix.MBR;
 import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 
@@ -35,6 +35,8 @@ public class CheckDupServlet extends HttpServlet {
             .set("isDup", checkDupResDto.getIsDup())
             .build();
         Message<Map<String, Object>> message = MessageCreator.create(prefix, "003", true, "Not responseData", responseData);
-        servletHandler.sendJson(SC_OK, JsonManager.toJson(message), response);
+        servletHandler
+            .setStatus(SC_OK, response)
+            .setJson(JSON_UTF_8, JsonManager.toJson(message), response);
     }
 }

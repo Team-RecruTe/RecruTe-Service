@@ -1,6 +1,7 @@
 package com.hossi.recrute.common.controller;
 
 import com.hossi.recrute.common.util.auth.AuthCookie;
+import com.hossi.recrute.common.util.auth.AuthProcessor;
 import com.hossi.recrute.common.util.http.JsonManager;
 import com.hossi.recrute.common.util.http.message.Message;
 import com.hossi.recrute.common.util.http.message.MessageCreator;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+import static com.google.common.net.MediaType.JSON_UTF_8;
 import static com.hossi.recrute.common.util.service.ServicePrefix.RCT;
 import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 import static jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
@@ -24,15 +26,17 @@ public class AuthServlet extends HttpServlet {
     private final ServletHandler servletHandler = ServletHandler.getINSTANCE();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-        AuthCookie authCookie = servletHandler.getAuthCookie(request);
+        AuthCookie authCookie = AuthProcessor.getAuthCookie(servletHandler.getCookies(request));
         if(authCookie.isActivate()) {
             Message<String> message = MessageCreator.create(servicePrefix, "002", true, "Authenticated");
-            servletHandler.sendJson(SC_OK, JsonManager.toJson(message), response);
+            servletHandler
+                .setStatus(SC_OK, response)
+                .setJson(JSON_UTF_8, JsonManager.toJson(message), response);
         } else {
             Message<String> message = MessageCreator.create(servicePrefix, "002", false, "Not Authenticated");
-            servletHandler.sendJson(SC_UNAUTHORIZED, JsonManager.toJson(message), response);
+            servletHandler
+                .setStatus(SC_UNAUTHORIZED, response)
+                .setJson(JSON_UTF_8, JsonManager.toJson(message), response);
         }
     }
 }

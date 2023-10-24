@@ -7,5 +7,5 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public interface ViewHandler {
-    void forward(int status, String path, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException;
+    void forward(String path, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException;
 }

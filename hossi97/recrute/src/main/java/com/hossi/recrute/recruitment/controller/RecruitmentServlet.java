@@ -1,7 +1,7 @@
 package com.hossi.recrute.recruitment.controller;
 
 import com.hossi.recrute.common.util.auth.AuthCookie;
-import com.hossi.recrute.common.util.http.AttributeContainer;
+import com.hossi.recrute.common.util.auth.AuthProcessor;
 import com.hossi.recrute.common.util.http.JsonManager;
 import com.hossi.recrute.common.util.http.message.Message;
 import com.hossi.recrute.common.util.http.message.MessageCreator;
@@ -20,13 +20,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
+import static com.google.common.net.MediaType.JSON_UTF_8;
 import static com.hossi.recrute.common.util.service.ServicePrefix.RCT;
 import static jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 
 @WebServlet(name = "recruitmentServlet", urlPatterns = "/recruitments/*")
 public class RecruitmentServlet extends HttpServlet {
-    private static final AttributeContainer attributeContainer = new AttributeContainer();
     private static final ServicePrefix prefix = RCT;
     private final RecruitmentService recruitmentService = new RecruitmentService();
     private final ServletHandler servletHandler = ServletHandler.getINSTANCE();
@@ -39,15 +39,16 @@ public class RecruitmentServlet extends HttpServlet {
         if (isNumeric(lastPiece)) {
             Integer rctId = Integer.parseInt(lastPiece);
             RecruitmentDto recruitment = recruitmentService.getRecruitment(rctId);
-            attributeContainer
-                .set("recruitment", recruitment)
-                .set("mainViewPath", ViewResolver.resolveMainViewPath("recruitment"));
-            servletHandler.setAttributes(attributeContainer, request);
-            servletHandler.forward(SC_OK, ViewResolver.getMainViewPath(), request, response);
+            servletHandler
+                .setAttribute("recruitment", recruitment, request)
+                .setAttribute("mainViewPath", ViewResolver.resolveMainViewPath("recruitment"), request)
+                .setStatus(SC_OK, response)
+                .forward(ViewResolver.getMainViewPath(), request, response);
         } else {
-            attributeContainer.set("errorViewPath", ViewResolver.resolveErrorViewPath("err404"));
-            servletHandler.setAttributes(attributeContainer, request);
-            servletHandler.forward(SC_NOT_FOUND, ViewResolver.getErrorViewPath(), request, response);
+            servletHandler
+                .setAttribute("errorViewPath", ViewResolver.resolveErrorViewPath("err404"), request)
+                .setStatus(SC_NOT_FOUND, response)
+                .forward(ViewResolver.getErrorViewPath(), request, response);
         }
     }
 
@@ -56,17 +57,20 @@ public class RecruitmentServlet extends HttpServlet {
         String[] parsedURI = requestURI.split("recruitments/");
         String lastPiece = parsedURI[parsedURI.length - 1];
         if (isNumeric(lastPiece)) {
-            AuthCookie authCookie = servletHandler.getAuthCookie(request);
+            AuthCookie authCookie = AuthProcessor.getAuthCookie(servletHandler.getCookies(request));
             Integer rctId = Integer.parseInt(lastPiece);
-            Integer id = (Integer) servletHandler.getSession(request).getAttribute(authCookie.getValue());
+            Integer id = (Integer) servletHandler.getSession(authCookie.getValue(), request);
             recruitmentService.applyRecruitment(id, rctId);
             ResponseData responseData = new ResponseData.Builder().set("rctId", 1).build();
             Message<Map<String, Object>> message = MessageCreator.create(prefix, "002", true, "Applied", responseData);
-            servletHandler.sendJson(SC_OK, JsonManager.toJson(message), response);
+            servletHandler
+                .setStatus(SC_OK, response)
+                .setJson(JSON_UTF_8, JsonManager.toJson(message), response);
         } else {
-            attributeContainer.set("errorViewPath", ViewResolver.resolveErrorViewPath("err404"));
-            servletHandler.setAttributes(attributeContainer, request);
-            servletHandler.forward(SC_NOT_FOUND, ViewResolver.getErrorViewPath(), request, response);
+            servletHandler
+                .setAttribute("errorViewPath", ViewResolver.resolveErrorViewPath("err404"), request)
+                .setStatus(SC_NOT_FOUND, response)
+                .forward(ViewResolver.getErrorViewPath(), request, response);
         }
     }
 

@@ -1,14 +1,16 @@
 package com.hossi.recrute.common.util.http.servlet;
 
-import com.hossi.recrute.common.util.auth.AuthCookie;
-import com.hossi.recrute.common.util.http.CookieContainer;
+import com.google.common.net.MediaType;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
 public interface ResponseHandler {
-    void sendJson(int status, String json, HttpServletResponse response) throws IOException;
-    void sendRedirect(int status, String path, HttpServletResponse response) throws IOException;
-    void setCookies(CookieContainer cookieContainer, HttpServletResponse response);
-    void setAuthCookie(AuthCookie authCookie, HttpServletResponse response);
+    <T extends RequestResponseHandler> T setStatus(int status, HttpServletResponse response);
+    <T extends RequestResponseHandler> T setJson(MediaType mediaType, String json, HttpServletResponse response) throws IOException;
+    <T extends RequestResponseHandler> void sendRedirect(String path, HttpServletResponse response) throws IOException;
+    <T extends RequestResponseHandler> T setCookie(Cookie cookie, HttpServletResponse response);
+    <T extends RequestResponseHandler> T removeCookie(Cookie cookie, HttpServletResponse response);
 }
+
