@@ -1,7 +1,7 @@
 package com.blanc.recrute.exam.dao;
 
-import com.blanc.recrute.exam.dto.ExamInfoDTO;
 import com.blanc.recrute.exam.dto.ExaminationDTO;
+import com.blanc.recrute.exam.dto.RecruitInfoDTO;
 import com.blanc.recrute.exam.dto.answer.AnswerData;
 import com.blanc.recrute.mybatis.MybatisConnectionFactory;
 import java.util.List;
@@ -11,10 +11,10 @@ public class ExamDAO {
 
   private static SqlSession sqlSession;
 
-  public ExamInfoDTO getExamContent(Integer examId) {
+  public RecruitInfoDTO getRecruitContent(String aptId) {
     connSql();
 
-    ExamInfoDTO examDTO = sqlSession.selectOne("getRecruitTitle", examId);
+    RecruitInfoDTO examDTO = sqlSession.selectOne("getRecruitTitle", aptId);
 
     sqlSession.close();
     return examDTO;

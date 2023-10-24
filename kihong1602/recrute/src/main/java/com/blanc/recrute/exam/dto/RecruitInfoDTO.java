@@ -2,19 +2,19 @@ package com.blanc.recrute.exam.dto;
 
 import java.time.LocalDate;
 
-public class ExamInfoDTO {
+public class RecruitInfoDTO {
 
   private String title;
   private LocalDate startDate;
   private LocalDate endDate;
 
-  public ExamInfoDTO(String title, LocalDate startDate, LocalDate endDate) {
+  public RecruitInfoDTO(String title, LocalDate startDate, LocalDate endDate) {
     this.title = title;
     this.startDate = startDate;
     this.endDate = endDate;
   }
 
-  public ExamInfoDTO(Builder builder) {
+  public RecruitInfoDTO(Builder builder) {
     this.title = builder.title;
     this.startDate = builder.startDate;
     this.endDate = builder.endDate;
@@ -54,8 +54,8 @@ public class ExamInfoDTO {
       return this;
     }
 
-    public ExamInfoDTO build() {
-      return new ExamInfoDTO(this);
+    public RecruitInfoDTO build() {
+      return new RecruitInfoDTO(this);
     }
   }
 }

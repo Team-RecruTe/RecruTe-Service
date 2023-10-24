@@ -4,7 +4,7 @@ import com.blanc.recrute.common.CookieManager;
 import com.blanc.recrute.common.JsonUtil;
 import com.blanc.recrute.common.ViewResolver;
 import com.blanc.recrute.exam.dto.AptIdDTO;
-import com.blanc.recrute.exam.dto.ExamInfoDTO;
+import com.blanc.recrute.exam.dto.RecruitInfoDTO;
 import com.blanc.recrute.exam.service.ExamService;
 import com.blanc.recrute.member.dto.InvalidDTO;
 import com.google.gson.Gson;
@@ -22,35 +22,37 @@ public class ExamAuthController extends HttpServlet {
 
   private static final Gson GSON = new Gson();
   private static final String EXAM_AUTH = "examAuth";
+  private static final int HOUR = 60 * 60;
   //시험 인증 관련
-  private static ExamService examService = new ExamService();
-  private static ViewResolver viewResolver = new ViewResolver();
-  private static InvalidDTO invalidDTO;
+  private static final ExamService EXAM_SERVICE = new ExamService();
+  private static final ViewResolver VIEW_RESOLVER = new ViewResolver();
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    //파라미터는 recruitment_id와 apt_id가 들어오는걸로
-    String aptId = request.getParameter("aptId");
+    //파라미터는 recruitment_id와 apt_id가 들어오는걸로 임시 지정, recruitId는 구색맞추기 -> 추후 제거예정
     Integer recruitId = Integer.parseInt(request.getParameter("recruitmentId"));
-    ExamInfoDTO examDTO = examService.getExamContent(recruitId);
+
+    String aptId = request.getParameter("aptId");
+    RecruitInfoDTO examDTO = EXAM_SERVICE.getRecruitContent(aptId);
 
     sendExamAuth(request, response, aptId);
     request.setAttribute("examDTO", examDTO);
 
     String path = "exam/exam-auth";
-    request.getRequestDispatcher(viewResolver.viewPath(path)).forward(request, response);
+    request.getRequestDispatcher(VIEW_RESOLVER.viewPath(path)).forward(request, response);
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+      throws IOException {
 
     String parsingJson = JsonUtil.jsonParsing(request);
     AptIdDTO aptIdDTO = GSON.fromJson(parsingJson, AptIdDTO.class);
 
     Cookie examAuth = CookieManager.getCookie(request, EXAM_AUTH);
 
+    InvalidDTO invalidDTO;
     if (examAuth != null) {
       String sessionAptId = CookieManager.getSessionValue(request, examAuth);
 
@@ -74,7 +76,7 @@ public class ExamAuthController extends HttpServlet {
     request.getSession().setAttribute(cookieValue, aptId);
 
     Cookie examAuthCookie = CookieManager.createCookie(ExamAuthController.EXAM_AUTH, cookieValue,
-                                                       60 * 60);
+                                                       HOUR);
     response.addCookie(examAuthCookie);
 
   }

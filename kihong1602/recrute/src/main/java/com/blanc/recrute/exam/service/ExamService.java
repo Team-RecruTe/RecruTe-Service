@@ -1,8 +1,8 @@
 package com.blanc.recrute.exam.service;
 
 import com.blanc.recrute.exam.dao.ExamDAO;
-import com.blanc.recrute.exam.dto.ExamInfoDTO;
 import com.blanc.recrute.exam.dto.ExaminationDTO;
+import com.blanc.recrute.exam.dto.RecruitInfoDTO;
 import com.blanc.recrute.exam.dto.answer.AnswerData;
 import java.util.List;
 
@@ -10,9 +10,9 @@ public class ExamService {
 
   private static ExamDAO examDAO = new ExamDAO();
 
-  public ExamInfoDTO getExamContent(Integer recruitId) {
+  public RecruitInfoDTO getRecruitContent(String aptId) {
 
-    return recruitId != null ? examDAO.getExamContent(recruitId) : null;
+    return aptId != null ? examDAO.getRecruitContent(aptId) : null;
 
   }
 

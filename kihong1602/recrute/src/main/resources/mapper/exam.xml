@@ -3,9 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="exam">
-  <select id="getRecruitTitle" parameterType="Integer" resultType="ExamInfoDTO">
-    select title, start_date as startDate, end_date as endDate from recruitment
-    where id = #{recruitId}
+  <select id="getRecruitTitle" parameterType="String" resultType="RecruitInfoDTO">
+    select r.title as title, r.start_date as startDate, r.end_date as endDate
+    from applicant as ap
+    join recruitment as r
+    on ap.recruitment_id = r.id
+    where ap.apt_id = #{aptId}
   </select>
   <select id="searchRecruitId" parameterType="Integer" resultType="Integer">
     select recruitment_id from exam where id = #{examId}
