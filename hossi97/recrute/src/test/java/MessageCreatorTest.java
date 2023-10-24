@@ -1,16 +1,13 @@
 import com.google.gson.Gson;
-import com.hossi.recrute.common.response.data.Message;
-import com.hossi.recrute.common.response.data.MessageCreator;
-import com.hossi.recrute.common.response.data.ResponseData;
-import com.hossi.recrute.common.response.service.ServicePrefix;
-import com.mysql.cj.protocol.x.OkBuilder;
+import com.hossi.recrute.common.util.http.message.Message;
+import com.hossi.recrute.common.util.http.message.MessageCreator;
+import com.hossi.recrute.common.util.http.message.ResponseData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import static com.hossi.recrute.common.response.service.ServicePrefix.RCT;
+import static com.hossi.recrute.common.util.service.ServicePrefix.RCT;
 
 public class MessageCreatorTest {
 
@@ -34,11 +31,9 @@ public class MessageCreatorTest {
     @Test
     public void testCreateMessageWithData() {
         // given
-
+        ResponseData responseData = new ResponseData.Builder().set("rctId", 1).build();
 
         // when
-        ResponseData responseData = new ResponseData();
-        responseData.set("rctId", 1);
         Message<Map<String, Object>> message = MessageCreator.create(RCT, "002", true, "Applied", responseData);
         String resMessage = new Gson().toJson(message);
 

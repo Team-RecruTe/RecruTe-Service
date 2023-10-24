@@ -1,4 +1,4 @@
-import com.hossi.recrute.common.service.MailSender;
+import com.hossi.recrute.common.util.mail.MailSender;
 import org.apache.ibatis.io.Resources;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import static com.hossi.recrute.common.service.MailType.GOOGLE;
+import static com.hossi.recrute.common.util.mail.MailType.GOOGLE;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MailSendTest {

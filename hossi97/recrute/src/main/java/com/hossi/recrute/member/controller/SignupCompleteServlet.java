@@ -1,15 +1,12 @@
 package com.hossi.recrute.member.controller;
 
-import com.hossi.recrute.common.request.Authenticator;
-import com.hossi.recrute.common.request.RequestUtil;
-import com.hossi.recrute.common.response.AttributeContainer;
-import com.hossi.recrute.common.response.CookieContainer;
-import com.hossi.recrute.common.response.ResponseUtil;
-import com.hossi.recrute.common.response.ViewResolver;
+import com.hossi.recrute.common.util.auth.AuthCookie;
+import com.hossi.recrute.common.util.http.AttributeContainer;
+import com.hossi.recrute.common.util.http.servlet.ServletHandler;
+import com.hossi.recrute.common.util.http.servlet.ViewResolver;
 import com.hossi.recrute.email.service.EmailService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,23 +17,21 @@ import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 
 @WebServlet(name = "signupCompleteServlet", value = "/signup/complete")
 public class SignupCompleteServlet extends HttpServlet {
+    private final AttributeContainer attributeContainer = new AttributeContainer();
+    private final ServletHandler servletHandler = ServletHandler.getINSTANCE();
 
-    private static final AttributeContainer attributeContainer = new AttributeContainer();
-    private static final CookieContainer cookieContainer = new CookieContainer();
     EmailService emailService = new EmailService();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         attributeContainer.set("mainViewPath", ViewResolver.resolveMainViewPath("signup-complete"));
-        ResponseUtil.setAttributes(attributeContainer, request);
-        ResponseUtil.forward(SC_OK, ViewResolver.getMainViewPath(), request, response);
+        servletHandler.setAttributes(attributeContainer, request);
+        servletHandler.forward(SC_OK, ViewResolver.getMainViewPath(), request, response);
     }
 
     // 이메일 보내기
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Authenticator authenticator = new Authenticator();
-        cookieContainer.setCookies(request);
-        Cookie authCookie = authenticator.getAuthCookie(cookieContainer);
+        AuthCookie authCookie = servletHandler.getAuthCookie(request);
         Integer id = (Integer)request.getSession().getAttribute(authCookie.getValue());
         emailService.sendEmail(id);
     }
