@@ -169,5 +169,7 @@ buildNumber.properties
 
 # DB Connection Info
 src/main/resources/config/db.properties
+src/main/resources/config/mail.properties
+src/test/resources/mail.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all,java,maven,macos
