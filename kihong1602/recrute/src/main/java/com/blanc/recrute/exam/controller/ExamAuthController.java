@@ -1,7 +1,9 @@
 package com.blanc.recrute.exam.controller;
 
 import com.blanc.recrute.common.CookieManager;
+import com.blanc.recrute.common.JsonUtil;
 import com.blanc.recrute.common.ViewResolver;
+import com.blanc.recrute.exam.dto.AptIdDTO;
 import com.blanc.recrute.exam.dto.ExamInfoDTO;
 import com.blanc.recrute.exam.service.ExamService;
 import com.blanc.recrute.member.dto.InvalidDTO;
@@ -18,11 +20,11 @@ import java.util.UUID;
 @WebServlet(name = "exam", value = "/exam/auth/*")
 public class ExamAuthController extends HttpServlet {
 
+  private static final Gson GSON = new Gson();
+  private static final String EXAM_AUTH = "examAuth";
   //시험 인증 관련
   private static ExamService examService = new ExamService();
   private static ViewResolver viewResolver = new ViewResolver();
-  private static final Gson GSON = new Gson();
-  private static final String COOKIE_NAME = "examAuth";
   private static InvalidDTO invalidDTO;
 
   @Override
@@ -43,9 +45,25 @@ public class ExamAuthController extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    //post로 들어온 수험번호가, session에 저장된 aptId와 동일하다면
-    //applicant의 recruitID로 exam을 조회 -> exam question을 출력
 
+    String parsingJson = JsonUtil.jsonParsing(request);
+    AptIdDTO aptIdDTO = GSON.fromJson(parsingJson, AptIdDTO.class);
+
+    Cookie examAuth = CookieManager.getCookie(request, EXAM_AUTH);
+
+    if (examAuth != null) {
+      String sessionAptId = CookieManager.getSessionValue(request, examAuth);
+
+      invalidDTO = sessionAptId.equals(aptIdDTO.getAptId()) ? new InvalidDTO("available")
+          : new InvalidDTO("unavailable");
+
+
+    } else {
+      invalidDTO = new InvalidDTO("authFail");
+    }
+
+    String json = GSON.toJson(invalidDTO);
+    JsonUtil.sendJSON(response, json);
   }
 
 
@@ -55,8 +73,8 @@ public class ExamAuthController extends HttpServlet {
     String cookieValue = String.valueOf(UUID.randomUUID());
     request.getSession().setAttribute(cookieValue, aptId);
 
-    Cookie examAuthCookie = CookieManager.createCookie(ExamAuthController.COOKIE_NAME, cookieValue,
-        60 * 60);
+    Cookie examAuthCookie = CookieManager.createCookie(ExamAuthController.EXAM_AUTH, cookieValue,
+                                                       60 * 60);
     response.addCookie(examAuthCookie);
 
   }

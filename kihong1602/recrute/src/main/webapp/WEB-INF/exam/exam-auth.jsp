@@ -24,7 +24,7 @@
     </div>
     <a
             class="group flex items-center justify-between gap-4 rounded-lg border border-teal-600 bg-teal-600 px-5 py-3 transition-colors hover:bg-transparent focus:outline-none focus:ring"
-            href=""
+            href="javascript:sendExaminationEmail();"
     >
   <span
           class="font-medium text-white transition-colors group-hover:text-teal-600 group-active:text-teal-500"
