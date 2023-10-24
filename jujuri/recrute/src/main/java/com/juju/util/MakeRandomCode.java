@@ -13,4 +13,14 @@ public class MakeRandomCode {
 
     return sb.toString();
   }
+
+  public static String randomNum(int range) {
+    StringBuilder sb = new StringBuilder();
+
+    for (int i = 0; i < range; i++) {
+      sb.append((int) (Math.random() * 10));
+    }
+
+    return sb.toString();
+  }
 }

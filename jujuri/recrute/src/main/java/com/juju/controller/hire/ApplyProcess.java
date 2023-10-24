@@ -4,6 +4,7 @@ import java.io.IOException;
 import com.juju.dao.ApplicantDao;
 import com.juju.dto.ApplicantDto;
 import com.juju.dto.MemberDto;
+import com.juju.util.MakeRandomCode;
 import com.juju.util.ScriptWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -33,7 +34,7 @@ public class ApplyProcess extends HttpServlet {
     HttpSession session = request.getSession();
     String userId = (String) session.getAttribute("loggedID");
     int rctId = Integer.parseInt(request.getParameter("id"));
-    String aptId = "rct11021";
+    String aptId = "RCT" + MakeRandomCode.randomNum(8);
     System.out.println("rctId===" + rctId);
     ApplicantDao applicantDao = new ApplicantDao();
     MemberDto memberDto = applicantDao.findMember(userId);

@@ -7,6 +7,7 @@
         <typeAlias alias="MemberDto" type="com.juju.dto.MemberDto"/>
         <typeAlias alias="HireDto" type="com.juju.dto.HireDto"/>
         <typeAlias alias="ApplicantDto" type="com.juju.dto.ApplicantDto"/>
+        <typeAlias alias="ExamDto" type="com.juju.dto.ExamDto"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -23,5 +24,6 @@
         <mapper resource="com/juju/mybatis/member.xml"/>
         <mapper resource="com/juju/mybatis/hire.xml"/>
         <mapper resource="com/juju/mybatis/applicant.xml"/>
+        <mapper resource="com/juju/mybatis/exam.xml"/>
     </mappers>
 </configuration>

@@ -109,4 +109,14 @@
     <servlet-name>EmailCheck</servlet-name>
     <url-pattern>/email-check</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ExamAuthServlet</display-name>
+    <servlet-name>ExamAuthServlet</servlet-name>
+    <servlet-class>com.juju.controller.exam.ExamAuthServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExamAuthServlet</servlet-name>
+    <url-pattern>/exam/*</url-pattern>
+  </servlet-mapping>
 </web-app>
