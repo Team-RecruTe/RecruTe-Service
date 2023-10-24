@@ -7,4 +7,10 @@
     select title, start_date as startDate, end_date as endDate from recruitment
     where id = #{recruitId}
   </select>
+  <select id="searchRecruitId" parameterType="Integer" resultType="Integer">
+    select recruitment_id from exam where id = #{examId}
+  </select>
+  <select id="getExamination" parameterType="Integer" resultType="ExaminationDTO">
+    select question, answer from exam where recruitment_id = #{recruitId}
+  </select>
 </mapper>

@@ -12,6 +12,7 @@
     <typeAlias alias="ExamInfoDTO" type="com.blanc.recrute.exam.dto.ExamInfoDTO"/>
     <typeAlias alias="AptIdDTO" type="com.blanc.recrute.exam.dto.AptIdDTO"/>
     <typeAlias alias="EmailDTO" type="com.blanc.recrute.exam.dto.EmailDTO"/>
+    <typeAlias alias="ExaminationDTO" type="com.blanc.recrute.exam.dto.ExaminationDTO"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">
