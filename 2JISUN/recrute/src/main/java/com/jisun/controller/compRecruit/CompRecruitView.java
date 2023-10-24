@@ -11,12 +11,12 @@ import java.io.IOException;
 import com.jisun.dao.CompRecruitDao;
 import com.jisun.dto.CompRecruitDto;
 
-
-public class compRecruitView extends HttpServlet {
+@WebServlet("/compRecruit/view") // 클래스 이름 변경한 뒤 xml에서 인식못하는 문제 발생 -> 웹 서블릿으로 import
+public class CompRecruitView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public compRecruitView() {
+    public CompRecruitView() {
         super();
     }
 

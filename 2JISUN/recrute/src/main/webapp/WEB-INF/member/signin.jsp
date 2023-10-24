@@ -150,7 +150,8 @@ $("#btnSubmit").on("click",function(e){
 						
 	// ajax 통신
 	// e.preventDefault();
-	// 데이터 담아서 signin-process 서블릿으로 이동 > 성공하면 돌아와서
+	// 데이터 담아서 서블릿으로 이동 > 성공 > success
+	//						   실패 > error
 	$.ajax({
 			type: "post",
 			url:"../member/signin-process",

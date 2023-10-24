@@ -19,9 +19,9 @@
 				   recruitment.salary
 			FROM recruitment LEFT JOIN company 
 			ON recruitment.company_id = company.id;
-			
 	</select>
-		<select id="selectCompRecruitView"
+	
+	<select id="selectCompRecruitView"
 			parameterType="int"
 			resultType="CompRecruitDto"> 
 			

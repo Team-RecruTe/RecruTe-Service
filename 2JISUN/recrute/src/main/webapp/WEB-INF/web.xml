@@ -91,22 +91,19 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>compRecruitList</display-name>
-    <servlet-name>compRecruitList</servlet-name>
-    <servlet-class>com.jisun.controller.compRecruit.compRecruitList</servlet-class>
+    <display-name>CompRecruitList</display-name>
+    <servlet-name>CompRecruitList</servlet-name>
+    <servlet-class>com.jisun.controller.compRecruit.CompRecruitList</servlet-class>
   </servlet>
-  <servlet-mapping>
-    <servlet-name>compRecruitList</servlet-name>
-    <url-pattern>/compRecruit/list</url-pattern>
-  </servlet-mapping>
+
   <servlet>
     <description></description>
-    <display-name>compRecruitView</display-name>
-    <servlet-name>compRecruitView</servlet-name>
-    <servlet-class>com.jisun.controller.compRecruit.compRecruitView</servlet-class>
+    <display-name>ApplicantProcess</display-name>
+    <servlet-name>ApplicantProcess</servlet-name>
+    <servlet-class>com.jisun.controller.applicant.ApplicantProcess</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>compRecruitView</servlet-name>
-    <url-pattern>/compRecruit/view</url-pattern>
+    <servlet-name>ApplicantProcess</servlet-name>
+    <url-pattern>/applicant/applicant-process</url-pattern>
   </servlet-mapping>
 </web-app>

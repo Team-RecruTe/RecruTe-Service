@@ -42,6 +42,7 @@ public class MemberSignupProcess extends HttpServlet {
 		
 		
 		
+		MemberDao memberDao = new MemberDao();
 		MemberDto insertMember = new MemberDto();
 				  insertMember.setMemberID(userId);
 				  insertMember.setPassword(pw);
@@ -51,7 +52,6 @@ public class MemberSignupProcess extends HttpServlet {
 				  insertMember.setGender(gender);
 				  insertMember.setPhoneNum(phoneNum);
 		
-		MemberDao memberDao = new MemberDao();
 		int result = memberDao.insertMember(insertMember); 
 		if(result>0) {
 			response.sendRedirect("../member/signin");

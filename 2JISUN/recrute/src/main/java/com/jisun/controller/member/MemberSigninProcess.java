@@ -63,7 +63,7 @@ public class MemberSigninProcess extends HttpServlet {
 			//세션으로 데이터를 저장 > 로그인상태 유지를 위해 세션 추가
 			HttpSession session = request.getSession();
 						session.setAttribute("loggedMemberId", loggedMember.getMemberID());
-						session.setAttribute("loggedName", loggedMember.getName()); //헤더에 적용
+						session.setAttribute("loggedName", loggedMember.getName()); 
 						session.setAttribute("loggedId", loggedMember.getId()); 
 			
 			//쿠키설정

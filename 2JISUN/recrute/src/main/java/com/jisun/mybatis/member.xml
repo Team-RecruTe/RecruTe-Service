@@ -34,7 +34,7 @@
 	<select id="loginMember"
 			resultType="MemberDto" 
 			parameterType="MemberDto"> 
-	select member_id as memberID , password , name, id
+	select id, member_id as memberID , password , name
 	from member 
 	where member_id = #{memberID} and password = #{password}
 	</select>
