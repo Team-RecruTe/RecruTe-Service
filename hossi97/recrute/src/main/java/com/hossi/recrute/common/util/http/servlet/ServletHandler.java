@@ -1,6 +1,7 @@
 package com.hossi.recrute.common.util.http.servlet;
 
 import com.google.common.net.MediaType;
+import com.google.gson.JsonElement;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ServletHandler extends RequestResponseHandler implements RequestHandler, ResponseHandler, ViewHandler {
+public class ServletHandler implements RequestHandler, ResponseHandler, ViewHandler {
     private static final ServletHandler INSTANCE = new ServletHandler();
 
     private ServletHandler() {
@@ -91,6 +92,14 @@ public class ServletHandler extends RequestResponseHandler implements RequestHan
         return this;
     }
 
+
+    public ServletHandler setJson(MediaType mediaType, JsonElement json, HttpServletResponse response) throws IOException {
+        response.setContentType(mediaType.toString());
+        response.getWriter().write(json.toString());
+        return this;
+    }
+
+
     @Override
     public ServletHandler setStatus(int status, HttpServletResponse response) {
         response.setStatus(status);
@@ -106,4 +115,5 @@ public class ServletHandler extends RequestResponseHandler implements RequestHan
     public void forward(String path, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.getRequestDispatcher(path).forward(request, response);
     }
+
 }

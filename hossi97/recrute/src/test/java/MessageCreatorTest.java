@@ -1,4 +1,5 @@
 import com.google.gson.Gson;
+import com.hossi.recrute.common.util.code.anno.RCT;
 import com.hossi.recrute.common.util.http.message.Message;
 import com.hossi.recrute.common.util.http.message.MessageCreator;
 import com.hossi.recrute.common.util.http.message.ResponseData;
@@ -7,11 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static com.hossi.recrute.common.util.code.ServicePrefix.RCT;
-
 public class MessageCreatorTest {
 
-    @Test
+    @Test @RCT("001")
     public void testCreateMessageWithoutData() {
         // given
 
@@ -23,11 +22,10 @@ public class MessageCreatorTest {
         Assertions.assertEquals(resMessage,
             "{\"code\":\"RCT001\","
             + "\"description\":\"채용공고 상세 페이지 조회\","
-            + "\"result\":{\"success\":true,\"message\":\"Invalid\"},"
             + "\"data\":\"\"}");
     }
 
-    @Test
+    @Test @RCT("002")
     public void testCreateMessageWithData() {
         // given
         ResponseData responseData = new ResponseData.Builder().set("rctId", 1).build();
@@ -40,7 +38,6 @@ public class MessageCreatorTest {
         Assertions.assertEquals(resMessage,
             "{\"code\":\"RCT002\","
             + "\"description\":\"채용공고 지원\","
-            + "\"result\":{\"success\":true,\"message\":\"Applied\"},"
             + "\"data\":{\"rctId\":1}}");
     }
 }

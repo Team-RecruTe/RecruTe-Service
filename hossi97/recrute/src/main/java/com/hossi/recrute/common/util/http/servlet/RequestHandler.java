@@ -12,7 +12,7 @@ public interface RequestHandler {
     Map<String, Object> getSessionAll(HttpServletRequest request);
     Object getSession(String key, HttpServletRequest request);
     Cookie[] getCookies(HttpServletRequest request);
-    <T extends RequestResponseHandler> T setAttribute(String key, Object value, HttpServletRequest request);
-    <T extends RequestResponseHandler> T setSession(String key, Object value, HttpServletRequest request);
-    <T extends RequestResponseHandler> T removeSession(String key, HttpServletRequest request);
+    ServletHandler setAttribute(String key, Object value, HttpServletRequest request);
+    ServletHandler setSession(String key, Object value, HttpServletRequest request);
+    ServletHandler removeSession(String key, HttpServletRequest request);
 }

@@ -1,7 +1,10 @@
 package com.hossi.recrute.recruitment.controller;
 
 import com.hossi.recrute.common.util.auth.AuthCookie;
-import com.hossi.recrute.common.util.auth.AuthProcessor;
+import com.hossi.recrute.common.util.auth.Authenticator;
+import com.hossi.recrute.common.util.auth.processor.AuthManager;
+import com.hossi.recrute.common.util.auth.util.AuthProcessor;
+import com.hossi.recrute.common.util.auth.util.AuthStream;
 import com.hossi.recrute.common.util.http.JsonManager;
 import com.hossi.recrute.common.util.http.message.Message;
 import com.hossi.recrute.common.util.http.message.MessageCreator;
@@ -19,8 +22,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.google.common.net.MediaType.JSON_UTF_8;
+import static com.hossi.recrute.common.util.auth.AuthType.COOKIE;
 import static jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 
@@ -31,6 +36,8 @@ public class RecruitmentServlet extends HttpServlet {
 
     @Override @RCT("001")
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Optional<Authenticator> authenticator = AuthManager.renewIfAuth(COOKIE, new AuthStream(request, response));
+
         String requestURI = request.getRequestURI();
         String[] parsedURI = requestURI.split("recruitments/");
         String lastPiece = parsedURI[parsedURI.length - 1];
@@ -52,6 +59,8 @@ public class RecruitmentServlet extends HttpServlet {
 
     @Override @RCT("002")
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Optional<Authenticator> authenticator = AuthManager.renewIfAuth(COOKIE, new AuthStream(request, response));
+
         String requestURI = request.getRequestURI();
         String[] parsedURI = requestURI.split("recruitments/");
         String lastPiece = parsedURI[parsedURI.length - 1];

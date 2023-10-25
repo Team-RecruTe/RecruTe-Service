@@ -4,19 +4,16 @@ import com.hossi.recrute.recruitment.dao.RecruitmentDao;
 import com.hossi.recrute.recruitment.dto.ApplicantDto;
 import com.hossi.recrute.recruitment.dto.RecruitmentDto;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class RecruitmentService {
     private final RecruitmentDao recruitmentDao = new RecruitmentDao();
 
     public RecruitmentDto getRecruitment(Integer rctId) {
-        return recruitmentDao.getRecruitmentByRctId(rctId);
+        return recruitmentDao.findRecruitment(rctId);
     }
 
     public void applyRecruitment(Integer id, Integer rctId) {
@@ -26,7 +23,7 @@ public class RecruitmentService {
             .id(id)
             .rctId(rctId)
             .build();
-        recruitmentDao.setRecruitment(applicantDto);
+        recruitmentDao.saveRecruitment(applicantDto);
     }
 
     private String createAptId(Integer id, Integer rctId){

@@ -1,7 +1,5 @@
 package com.hossi.recrute.recruitment.dto;
 
-import com.hossi.recrute.member.dto.request.SigninDto;
-
 public class ApplicantDto {
     private final String aptId;
     private final Integer id;

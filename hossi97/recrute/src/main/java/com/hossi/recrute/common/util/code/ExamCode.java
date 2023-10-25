@@ -12,16 +12,7 @@ public enum ExamCode implements ServiceCode {
 
      ExamCode(String description) {
          this.description = description;
-         setErrorMessage();
      }
-
-    private void setErrorMessage() {
-        switch (this) {
-            case EXM001 -> ErrorMessage.setErrorMsg(EXM001, "Invalid Email");
-            case EXM003 -> ErrorMessage.setErrorMsg(EXM003, "Invalid aptId");
-            default -> ErrorMessage.setErrorMsg(this, "Server Error");
-        }
-    }
 
     public String getDescription() {
         return description;

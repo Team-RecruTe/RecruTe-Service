@@ -2,34 +2,37 @@ package com.hossi.recrute.common.util.auth;
 
 import jakarta.servlet.http.Cookie;
 
-public class AuthCookie implements Authenticator {
-    private Cookie cookie;
+import static com.hossi.recrute.common.util.auth.AuthType.COOKIE;
 
-    public AuthCookie() {
-        cookie = null;
-    }
+public class AuthCookie implements Authenticator {
+    private final Cookie cookie;
 
     public AuthCookie(Cookie cookie) {
         this.cookie = cookie;
     }
 
-    public boolean isActivate() {
-        return (cookie != null && cookie.getMaxAge() > 0);
+    @Override
+    public boolean isActive() {
+        return cookie.getMaxAge() > 0;
     }
 
+    @Override
     public void setMaxAge(int age) {
         cookie.setMaxAge(age);
     }
 
-    public Cookie getCookie() {
+    @Override
+    public Object get() {
         return cookie;
     }
 
-    public String getValue() {
-        return cookie.getValue();
+    @Override
+    public AuthType getType() {
+        return COOKIE;
     }
 
-    public String getKey() {
-        return cookie.getName();
+    @Override
+    public String getValue() {
+        return cookie.getValue();
     }
 }

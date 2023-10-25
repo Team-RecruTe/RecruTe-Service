@@ -12,11 +12,6 @@ public enum RecruitmentCode implements ServiceCode {
 
     RecruitmentCode(String description) {
         this.description = description;
-        setErrorMessage();
-    }
-
-    private void setErrorMessage() {
-        ErrorMessage.setErrorMsg(this, "Server Error");
     }
 
     public String getDescription() {

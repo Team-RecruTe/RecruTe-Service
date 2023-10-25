@@ -2,9 +2,9 @@ package com.hossi.recrute.member.dto.request;
 
 import java.time.LocalDate;
 
-public class SignupDto {
+public class SignupReqDto {
     private final Integer id;
-    private final String memberId;
+    private final String username;
     private final String email;
     private final String name;
     private final Integer gender;
@@ -17,8 +17,8 @@ public class SignupDto {
         return id;
     }
 
-    public String getMemberId() {
-        return memberId;
+    public String getUsername() {
+        return username;
     }
 
     public String getEmail() {
@@ -50,9 +50,9 @@ public class SignupDto {
     }
 
 
-    public SignupDto(Builder builder) {
+    public SignupReqDto(Builder builder) {
         this.id = builder.id;
-        this.memberId = builder.memberId;
+        this.username = builder.username;
         this.email = builder.email;
         this.name = builder.name;
         this.gender = builder.gender;
@@ -64,7 +64,7 @@ public class SignupDto {
 
     public static class Builder {
         private Integer id = null;
-        private String memberId = null;
+        private String username = null;
         private String email = null;
         private String name = null;
         private Integer gender = null;
@@ -75,8 +75,8 @@ public class SignupDto {
         public Builder() {
         }
 
-        public Builder memberId(String val) {
-            memberId = val;
+        public Builder username(String val) {
+            username = val;
             return this;    // 이렇게 하면 . 으로 체인을 이어갈 수 있다.
         }
         public Builder email(String val) {
@@ -111,8 +111,8 @@ public class SignupDto {
             return this;
         }
 
-        public SignupDto build() {
-            return new SignupDto(this);
+        public SignupReqDto build() {
+            return new SignupReqDto(this);
         }
     }
 }

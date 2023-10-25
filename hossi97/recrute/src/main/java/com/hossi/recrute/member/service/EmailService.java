@@ -14,6 +14,6 @@ public class EmailService {
     }
 
     private String getEmail(Integer id) {
-        return memberDao.getEmailById(id);
+        return memberDao.findEmail(id);
     }
 }

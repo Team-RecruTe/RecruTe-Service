@@ -42,7 +42,7 @@ const isNotEmpty = (id, password) => {
 
 const sendData = (idVal, passwordVal) => {
     const info = {
-        memberId: idVal,
+        username: idVal,
         password: passwordVal
     }
 

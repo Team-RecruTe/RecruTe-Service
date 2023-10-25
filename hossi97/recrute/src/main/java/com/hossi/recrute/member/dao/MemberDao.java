@@ -2,44 +2,46 @@ package com.hossi.recrute.member.dao;
 
 import com.hossi.recrute.common.util.mybatis.MyBatisConnectionManager;
 import com.hossi.recrute.member.dto.request.CheckDupReqDto;
-import com.hossi.recrute.member.dto.request.SigninDto;
-import com.hossi.recrute.member.dto.request.SignupDto;
+import com.hossi.recrute.member.dto.request.SigninReqDto;
+import com.hossi.recrute.member.dto.request.SignupReqDto;
 import com.hossi.recrute.member.dto.response.CheckDupResDto;
+import com.hossi.recrute.member.dto.response.SigninResDto;
+import com.hossi.recrute.member.dto.response.SignupResDto;
 import org.apache.ibatis.session.SqlSession;
 
 public class MemberDao {
-    public Integer register(SignupDto signupDto) {
+    public SignupResDto saveMember(SignupReqDto signupReqDto) {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
-        Integer id = sqlSession.insert("saveMember", signupDto);
+        SignupResDto signupResDto = sqlSession.insert("insertMember", signupReqDto);
         sqlSession.close();
 
-        return id;
+        return signupResDto;
     }
 
-    public Integer getIdByMemberId(SigninDto signinDto) {
+    public SigninResDto findIdAndCertification(SigninReqDto signinReqDto) {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
-        Integer id = sqlSession.selectOne("selectIdByMemberIdAndPassword", signinDto);
+        SigninResDto signinResDto = sqlSession.selectOne("selectIdAndCertificationByUsernameAndPassword", signinReqDto);
         sqlSession.close();
 
-        return id;
+        return signinResDto;
     }
 
-    public CheckDupResDto getCountByMemberId(CheckDupReqDto checkDupReqDto) {
+    public CheckDupResDto getCount(CheckDupReqDto checkDupReqDto) {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
-        Integer count = sqlSession.selectOne("selectCountByMemberId", checkDupReqDto);
+        Integer count = sqlSession.selectOne("selectCountByUsername", checkDupReqDto);
         CheckDupResDto checkDupResDto = new CheckDupResDto(count > 0);
         sqlSession.close();
 
         return checkDupResDto;
     }
 
-    public void activeAuthStatus(Integer id) {
+    public void updateCerification(Integer id) {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
-        sqlSession.update("updateAuthStatusById", id);
+        sqlSession.update("updateCertificationById", id);
         sqlSession.close();
     }
 
-    public String getEmailById(Integer id) {
+    public String findEmail(Integer id) {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         String email = sqlSession.selectOne("selectEmailById", id);
         sqlSession.close();

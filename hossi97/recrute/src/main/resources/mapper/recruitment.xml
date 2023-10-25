@@ -13,7 +13,7 @@
             end_date as endDate,
             salary,
             location,
-            work_form as workForm,
+            contract_type as contractType,
             job,
             skills,
             career
@@ -22,7 +22,7 @@
             join rct_detail as rd on r.id = rd.recruitment_id
         where r.id = #{rctId}
     </select>
-    <insert id="saveApplicant" parameterType="ApplicantDto">
+    <insert id="insertApplicant" parameterType="ApplicantDto">
         insert into applicant(apt_id, member_id, recruitment_id)
             values(#{aptId}, #{id}, #{rctId})
     </insert>

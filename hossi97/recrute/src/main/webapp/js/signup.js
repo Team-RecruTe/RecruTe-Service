@@ -104,11 +104,11 @@ const checkDuplicate = (id, checked) => {
         alert("아이디 형식이 올바르지 않습니다.")
         id.focus()
     } else {
-        const path = `/signup/check-duplicate?memberId=${id.value}`
+        const path = `/signup/check-duplicate?username=${id.value}`
         fetch(path)
             .then(res => res.json())
-            .then(data => {
-                if (data.isDup) {
+            .then(json => {
+                if (json.data.isDup) {
                     alert("중복된 아이디입니다.")
                     id.focus();
                 } else {

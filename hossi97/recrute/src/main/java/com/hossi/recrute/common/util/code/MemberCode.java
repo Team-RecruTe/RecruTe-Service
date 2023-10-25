@@ -15,15 +15,6 @@ public enum MemberCode implements ServiceCode {
 
     MemberCode(String description) {
         this.description = description;
-        setErrorMessage();
-    }
-
-    private void setErrorMessage() {
-        switch (this) {
-            case MBR003 -> ErrorMessage.setErrorMsg(MBR003, "duplicated username");
-            case MBR102 -> ErrorMessage.setErrorMsg(MBR102, "Invalid ID/PW");
-            default -> ErrorMessage.setErrorMsg(this, "Server Error");
-        }
     }
 
     public String getDescription() {
