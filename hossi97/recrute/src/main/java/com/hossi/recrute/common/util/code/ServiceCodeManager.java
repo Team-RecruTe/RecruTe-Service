@@ -1,4 +1,4 @@
-package com.hossi.recrute.common.util.service;
+package com.hossi.recrute.common.util.code;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,10 +8,10 @@ public class ServiceCodeManager {
     private final Map<ServicePrefix, Map<String, ServiceCode>> serviceCodeMap = new HashMap<>();
 
     private ServiceCodeManager() {
-        mapServiceCode(CommonCode.getPrefix(), CommonCode.getCodeBox());
-        mapServiceCode(ExamCode.getPrefix(), ExamCode.getCodeBox());
-        mapServiceCode(MemberCode.getPrefix(), MemberCode.getCodeBox());
-        mapServiceCode(RecruitmentCode.getPrefix(), RecruitmentCode.getCodeBox());
+        mapServiceCode(CommonCode.getPrefix(), CommonCode.getCodes());
+        mapServiceCode(ExamCode.getPrefix(), ExamCode.getCodes());
+        mapServiceCode(MemberCode.getPrefix(), MemberCode.getCodes());
+        mapServiceCode(RecruitmentCode.getPrefix(), RecruitmentCode.getCodes());
     }
 
     public static ServiceCodeManager getInstance() {

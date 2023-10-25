@@ -2,6 +2,7 @@ package com.hossi.recrute.common.controller;
 
 import com.hossi.recrute.common.util.http.servlet.ServletHandler;
 import com.hossi.recrute.common.util.http.servlet.ViewResolver;
+import com.hossi.recrute.common.util.code.anno.CMN;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,7 +17,8 @@ import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 public class HomeServlet extends HttpServlet {
     private final ServletHandler servletHandler = ServletHandler.getINSTANCE();
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    @Override @CMN("001")
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         servletHandler
             .setAttribute("mainViewPath", ViewResolver.resolveMainViewPath("home"), request)
             .setStatus(SC_OK, response)

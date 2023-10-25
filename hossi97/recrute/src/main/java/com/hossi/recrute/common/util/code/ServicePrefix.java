@@ -1,4 +1,4 @@
-package com.hossi.recrute.common.util.service;
+package com.hossi.recrute.common.util.code;
 
 public enum ServicePrefix {
     CMN("공통 서비스"),

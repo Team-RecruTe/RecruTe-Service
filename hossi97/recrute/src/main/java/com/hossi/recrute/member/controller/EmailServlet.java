@@ -1,8 +1,9 @@
-package com.hossi.recrute.email.controller;
+package com.hossi.recrute.member.controller;
 
 import com.hossi.recrute.common.util.auth.AuthCookie;
 import com.hossi.recrute.common.util.auth.AuthProcessor;
 import com.hossi.recrute.common.util.http.servlet.ServletHandler;
+import com.hossi.recrute.common.util.code.anno.MBR;
 import com.hossi.recrute.member.service.MemberService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,7 +18,8 @@ public class EmailServlet extends HttpServlet {
     private final MemberService memberService = new MemberService();
     private final ServletHandler servletHandler = ServletHandler.getINSTANCE();
 
-    @Override
+
+    @Override @MBR("303")
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AuthCookie authCookie = AuthProcessor.getAuthCookie(servletHandler.getCookies(request));
         if (authCookie.isActivate()) {

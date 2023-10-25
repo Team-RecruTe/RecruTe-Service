@@ -5,6 +5,7 @@ import com.hossi.recrute.common.util.auth.AuthCookie;
 import com.hossi.recrute.common.util.auth.AuthProcessor;
 import com.hossi.recrute.common.util.http.servlet.ServletHandler;
 import com.hossi.recrute.common.util.http.servlet.ViewResolver;
+import com.hossi.recrute.common.util.code.anno.MBR;
 import com.hossi.recrute.member.dto.request.SignupDto;
 import com.hossi.recrute.member.service.MemberService;
 import com.hossi.recrute.member.vo.Gender;
@@ -25,14 +26,16 @@ public class SignupServlet extends HttpServlet {
     private final MemberService memberService = new MemberService();
     private final ServletHandler servletHandler = ServletHandler.getINSTANCE();
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    @Override @MBR("001")
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         servletHandler
             .setAttribute("mainViewPath", ViewResolver.resolveMainViewPath("signup"), request)
             .setStatus(SC_OK, response)
             .forward(ViewResolver.getMainViewPath(), request, response);
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    @Override @MBR("002")
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Gender gender = request.getParameter("gender").equals("male") ? Gender.MALE : Gender.FEMALE;
         String birthStr = request.getParameter("birth");
         String[] yymmdd = birthStr.split("-");

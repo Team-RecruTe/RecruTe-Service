@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static com.hossi.recrute.common.util.service.ServicePrefix.RCT;
+import static com.hossi.recrute.common.util.code.ServicePrefix.RCT;
 
 public class MessageCreatorTest {
 
@@ -15,9 +15,8 @@ public class MessageCreatorTest {
     public void testCreateMessageWithoutData() {
         // given
 
-
         // when
-        Message<String> message = MessageCreator.create(RCT, "001", true, "Invalid");
+        Message<String> message = MessageCreator.create();
         String resMessage = new Gson().toJson(message);
 
         // then
@@ -34,7 +33,7 @@ public class MessageCreatorTest {
         ResponseData responseData = new ResponseData.Builder().set("rctId", 1).build();
 
         // when
-        Message<Map<String, Object>> message = MessageCreator.create(RCT, "002", true, "Applied", responseData);
+        Message<Map<String, Object>> message = MessageCreator.create(responseData);
         String resMessage = new Gson().toJson(message);
 
         // then

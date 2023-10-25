@@ -1,12 +1,11 @@
 package com.hossi.recrute.common.util.http;
 
 import com.google.gson.Gson;
-import com.hossi.recrute.common.util.http.message.Message;
 
 public class JsonManager {
     private static final Gson gson = new Gson();
 
-    public static String toJson(Message<?> message) {
+    public static String toJson(Object message) {
         return gson.toJson(message);
     }
 

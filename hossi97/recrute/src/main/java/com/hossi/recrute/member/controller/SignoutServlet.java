@@ -3,6 +3,7 @@ package com.hossi.recrute.member.controller;
 import com.hossi.recrute.common.util.auth.AuthCookie;
 import com.hossi.recrute.common.util.auth.AuthProcessor;
 import com.hossi.recrute.common.util.http.servlet.ServletHandler;
+import com.hossi.recrute.common.util.code.anno.MBR;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,7 +18,8 @@ import static jakarta.servlet.http.HttpServletResponse.SC_FOUND;
 public class SignoutServlet extends HttpServlet {
     private final ServletHandler servletHandler = ServletHandler.getINSTANCE();
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    @Override @MBR("103")
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         depriveAuth(request, response);
         servletHandler
             .setStatus(SC_FOUND, response)

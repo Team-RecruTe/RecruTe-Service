@@ -1,4 +1,4 @@
-package com.hossi.recrute.email.service;
+package com.hossi.recrute.member.dto;
 
 public class EmailDto {
     private final Integer id;

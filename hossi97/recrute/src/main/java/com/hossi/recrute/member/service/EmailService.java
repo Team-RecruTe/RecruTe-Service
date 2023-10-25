@@ -1,4 +1,4 @@
-package com.hossi.recrute.email.service;
+package com.hossi.recrute.member.service;
 
 import com.hossi.recrute.common.util.mail.MailSender;
 import com.hossi.recrute.member.dao.MemberDao;
