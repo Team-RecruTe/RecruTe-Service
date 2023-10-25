@@ -42,18 +42,14 @@ public class MemberSigninProcess extends HttpServlet {
 		String userId = request.getParameter("userId"); 
 		String pw = request.getParameter("pw"); 
 		
-		MemberDto loginMember = new MemberDto();
-				  loginMember.setMemberID(userId);
-				  loginMember.setPassword(pw);
+		MemberDto memberDto = new MemberDto();
+				  memberDto.setMemberID(userId);
+				  memberDto.setPassword(pw);
 
-					
-		
 		//dao( mybatisConn -> 쿼리xml )
 		//dto(loginMember)를 dao(쿼리)를 통해 db와 맵핑하여 dto(loggedMember)로 저장
 		MemberDao memberDao = new MemberDao();
-		
-		
-		MemberDto loggedMember = memberDao.loginMember(loginMember);
+		MemberDto loggedMember = memberDao.loginMember(memberDto); //select id, member_id as memberID , password , name, email
 		
 		
 		
@@ -64,6 +60,7 @@ public class MemberSigninProcess extends HttpServlet {
 			HttpSession session = request.getSession();
 						session.setAttribute("loggedMemberId", loggedMember.getMemberID());
 						session.setAttribute("loggedName", loggedMember.getName()); 
+						session.setAttribute("loggedEmail", loggedMember.getEmail());
 						session.setAttribute("loggedId", loggedMember.getId()); 
 			
 			//쿠키설정
@@ -72,7 +69,7 @@ public class MemberSigninProcess extends HttpServlet {
 			//페이지 방문 경험이 있고 로그인을 해본경우
 				if(saveId.equals("rememberMe")) { //saveId value="rememberMe"일 경우
 					//토글 on
-					CookieManager.createCookie(response, "saveIdCookie", userId, 60*60*24*365); //
+					CookieManager.createCookie(response, "saveIdCookie", userId, 60*60*24*365); //1년
 				} else { 
 					//토글 off
 					CookieManager.deleteCookie(response, "saveIdCookie");

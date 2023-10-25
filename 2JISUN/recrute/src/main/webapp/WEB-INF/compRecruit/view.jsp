@@ -15,18 +15,28 @@
 	<input type="hidden"
 		   id="loggedMemberId"
 		   name="loggedMemberId"
-		   value="${loggedMemberId}"> <!-- 세션의 로그인아이디 -->
+		   value="${loggedMemberId}"> <!-- 세션의 로그인 아이디 -->
+		   
+	<input type="hidden"
+		   id="loggedEmail"
+		   name="loggedEmail"
+		   value="${loggedEmail}"> <!-- 세션의 로그인 이메일 -->
 		   
    	<input type="hidden"
 		   id="loggedId"
 		   name="loggedId"
-		   value="${loggedId}"> <!-- member테이블의 인덱스 -->
+		   value="${loggedId}"> <!-- 세션의 member테이블의 인덱스 -->
 	
-	<!-- from CompRecruitView -->
+	<!-- from dao(compRecruitView) -->
 	<input type="hidden"
 		   id="id_recruitIndex"
 		   name="id_recruitIndex"
-		   value="${compRecruitView.id_recruitIndex}"> <!-- recruitment테이블의 인덱스 -->
+		   value="${compRecruitView.id_recruitIndex}"> <!-- dao(compRecruitView)의 comprecruit테이블(join)의 인덱스 -->
+	
+	<input type="hidden"
+		   id="company_name"
+		   name="company_name"
+		   value="${compRecruitView.company_name}"> <!-- dao(compRecruitView)의 comprecruit테이블(join)의 인덱스 -->
 
 	
 	<div>
@@ -134,11 +144,16 @@
 const loggedId = $("#loggedId").val();
 
 $("#btnApplicant").on("click",function(e){
+	
+	console.log($("#loggedEmail").val());
 	 if(loggedId === null || loggedId.trim()===""){
 		 alert("로그인 후 지원하실 수 있습니다.");
 	 	 return false;
 	 } 
 }) 
+
+
+
 
 </script>
 

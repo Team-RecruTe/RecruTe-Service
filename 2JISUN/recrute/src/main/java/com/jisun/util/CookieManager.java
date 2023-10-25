@@ -8,8 +8,8 @@ public class CookieManager {
 	
 	//cookie create 생성
 	public static void createCookie(HttpServletResponse response, //http로 데이터 보낼 때
-									String cookieName, //쿠키 이름 (saveId-Cookie)
-									String cookieValue, //쿠키 값 (userId)
+									String cookieName, //쿠키 이름 (saveIDCookie)
+									String cookieValue, //쿠키 값 (userId : love, mark)
 									int time) { //쿠키 시간
 		// 새로운 쿠키 객체를 생성합니다.
 		Cookie cookie = new Cookie(cookieName, cookieValue);	
