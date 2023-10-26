@@ -1,5 +1,6 @@
 package com.hossi.recrute.member.service;
 
+import com.hossi.recrute.common.mybatis.ResultType;
 import com.hossi.recrute.member.dao.MemberDao;
 import com.hossi.recrute.member.dto.request.CheckDupReqDto;
 import com.hossi.recrute.member.dto.request.SigninReqDto;
@@ -25,8 +26,8 @@ public class MemberService {
         return memberDao.findIdAndCertification(signinReqDto);
     }
 
-    public void authMail(Integer id) {
-        memberDao.updateCerification(id);
+    public ResultType authMail(Integer id) {
+        return memberDao.updateCerification(id);
     }
 
     private boolean validatePassword(String pw1, String pw2) {

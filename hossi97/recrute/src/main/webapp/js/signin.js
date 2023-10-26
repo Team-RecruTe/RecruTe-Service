@@ -57,16 +57,10 @@ const sendData = (idVal, passwordVal) => {
 
     fetch(window.location.href, msg)
         .then((res) => {
-            if (res.redirected) {
-                window.location.href = res.url
-            } else {
-                return res.json();
-            }
-        }).then((json) => {
-            if (json.code === "USR-04") {
-                alert("아이디와 비밀번호를 다시 확인해주세요.")
-            }
-    })
+            if (res.ok) document.location.href="/"
+            else alert("아이디와 비밀번호를 다시 확인해주세요.")
+        }
+    )
 }
 
 const checkAndSend = (e, id, password) => {

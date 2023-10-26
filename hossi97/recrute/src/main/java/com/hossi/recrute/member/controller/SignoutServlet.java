@@ -1,30 +1,26 @@
 package com.hossi.recrute.member.controller;
 
-import com.hossi.recrute.common.util.auth.Authenticator;
-import com.hossi.recrute.common.util.auth.processor.AuthManager;
-import com.hossi.recrute.common.util.auth.util.AuthStream;
-import com.hossi.recrute.common.util.code.anno.MBR;
-import com.hossi.recrute.common.util.http.servlet.ServletHandler;
+import com.hossi.recrute.common.auth.Authenticator;
+import com.hossi.recrute.common.auth.processor.AuthManager;
+import com.hossi.recrute.common.auth.util.AuthStream;
+import com.hossi.recrute.common.service.anno.MBR;
+import com.hossi.recrute.common.servlet.HttpController;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.Optional;
 
-import static com.hossi.recrute.common.util.auth.AuthType.COOKIE;
 import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 
 @WebServlet(name = "signoutServlet", value = "/signout")
-public class SignoutServlet extends HttpServlet {
-    private final ServletHandler servletHandler = ServletHandler.getINSTANCE();
+public class SignoutServlet extends HttpController {
 
-    @Override @MBR("103")
+    @Override @MBR(value = "103", description = "로그아웃")
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Optional<Authenticator> authenticator = AuthManager.getIfAuth(COOKIE, new AuthStream(request, response));
-        authenticator.ifPresent(AuthManager::expireAuth);
-        servletHandler
+        Authenticator authenticator = getAuthenticator(request);
+        AuthManager.expireAuth(authenticator, new AuthStream(request, response));
+        servletSetter()
             .setStatus(SC_OK, response)
             .sendRedirect("", response);
     }

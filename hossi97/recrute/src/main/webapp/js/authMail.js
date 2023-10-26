@@ -1,14 +1,14 @@
 const authBtn = document.querySelector("#auth-btn")
 
 const authMail = () => {
-    const path = `/signup/complete`
+    const path = `/member/email`
     const msg = {
         method: 'POST'
     }
     fetch(path, msg)
         .then(res => res.json())
         .then(data => {
-            console.log("굿")
+            console.log(data)
         });
 }
 

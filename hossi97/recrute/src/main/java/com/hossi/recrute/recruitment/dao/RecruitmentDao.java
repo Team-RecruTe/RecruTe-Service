@@ -1,9 +1,13 @@
 package com.hossi.recrute.recruitment.dao;
 
-import com.hossi.recrute.common.util.mybatis.MyBatisConnectionManager;
-import com.hossi.recrute.recruitment.dto.ApplicantDto;
+import com.hossi.recrute.common.mybatis.MyBatisConnectionManager;
+import com.hossi.recrute.common.mybatis.ResultType;
+import com.hossi.recrute.recruitment.dto.ApplicantReqDto;
 import com.hossi.recrute.recruitment.dto.RecruitmentDto;
 import org.apache.ibatis.session.SqlSession;
+
+import static com.hossi.recrute.common.mybatis.ResultType.FAILURE;
+import static com.hossi.recrute.common.mybatis.ResultType.SUCCESS;
 
 public class RecruitmentDao {
     public RecruitmentDto findRecruitment(Integer rctId) {
@@ -14,9 +18,11 @@ public class RecruitmentDao {
         return recruitmentDto;
     }
 
-    public void saveRecruitment(ApplicantDto applicantDto) {
+    public ResultType saveRecruitment(ApplicantReqDto applicantDto) {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
-        sqlSession.insert("insertApplicant", applicantDto);
+        int result = sqlSession.insert("insertApplicant", applicantDto);
         sqlSession.close();
+
+        return SUCCESS.equals(result) ? SUCCESS : FAILURE;
     }
 }

@@ -1,6 +1,7 @@
 package com.hossi.recrute.member.dao;
 
-import com.hossi.recrute.common.util.mybatis.MyBatisConnectionManager;
+import com.hossi.recrute.common.mybatis.MyBatisConnectionManager;
+import com.hossi.recrute.common.mybatis.ResultType;
 import com.hossi.recrute.member.dto.request.CheckDupReqDto;
 import com.hossi.recrute.member.dto.request.SigninReqDto;
 import com.hossi.recrute.member.dto.request.SignupReqDto;
@@ -9,10 +10,15 @@ import com.hossi.recrute.member.dto.response.SigninResDto;
 import com.hossi.recrute.member.dto.response.SignupResDto;
 import org.apache.ibatis.session.SqlSession;
 
+import static com.hossi.recrute.common.mybatis.ResultType.FAILURE;
+import static com.hossi.recrute.common.mybatis.ResultType.SUCCESS;
+
 public class MemberDao {
+
     public SignupResDto saveMember(SignupReqDto signupReqDto) {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
-        SignupResDto signupResDto = sqlSession.insert("insertMember", signupReqDto);
+        Integer id = sqlSession.insert("insertMember", signupReqDto);
+        SignupResDto signupResDto = sqlSession.selectOne("selectIdAndCertificationById", id);
         sqlSession.close();
 
         return signupResDto;
@@ -35,10 +41,12 @@ public class MemberDao {
         return checkDupResDto;
     }
 
-    public void updateCerification(Integer id) {
+    public ResultType updateCerification(Integer id) {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
-        sqlSession.update("updateCertificationById", id);
+        int result = sqlSession.update("updateCertificationById", id);
         sqlSession.close();
+
+        return SUCCESS.equals(result) ? SUCCESS : FAILURE;
     }
 
     public String findEmail(Integer id) {

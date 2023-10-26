@@ -1,5 +1,7 @@
-import com.hossi.recrute.common.util.mail.MailSender;
+import com.hossi.recrute.common.mail.MailSender;
+import com.hossi.recrute.common.mybatis.ResultType;
 import org.apache.ibatis.io.Resources;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -7,8 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import static com.hossi.recrute.common.util.mail.MailType.GOOGLE;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.hossi.recrute.common.mail.MailType.GOOGLE;
+import static com.hossi.recrute.common.mybatis.ResultType.SUCCESS;
 
 public class MailSendTest {
     MailSender mailSender = new MailSender(GOOGLE);
@@ -30,9 +32,9 @@ public class MailSendTest {
         String userEmail = properties.get("mail").toString();
 
         // when
-        boolean actual = mailSender.sendEmail(userEmail);
+        ResultType result = mailSender.sendEmail(userEmail, "title", "content");
 
         // then
-        assertTrue(actual);
+        Assertions.assertEquals(result, SUCCESS);
     }
 }

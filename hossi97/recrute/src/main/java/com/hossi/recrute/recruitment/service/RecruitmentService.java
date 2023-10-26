@@ -1,7 +1,8 @@
 package com.hossi.recrute.recruitment.service;
 
+import com.hossi.recrute.common.mybatis.ResultType;
 import com.hossi.recrute.recruitment.dao.RecruitmentDao;
-import com.hossi.recrute.recruitment.dto.ApplicantDto;
+import com.hossi.recrute.recruitment.dto.ApplicantReqDto;
 import com.hossi.recrute.recruitment.dto.RecruitmentDto;
 
 import java.time.LocalTime;
@@ -16,18 +17,15 @@ public class RecruitmentService {
         return recruitmentDao.findRecruitment(rctId);
     }
 
-    public void applyRecruitment(Integer id, Integer rctId) {
-        String aptId = createAptId(id, rctId);
-        ApplicantDto applicantDto = new ApplicantDto.Builder()
-            .aptId(aptId)
-            .id(id)
-            .rctId(rctId)
-            .build();
-        recruitmentDao.saveRecruitment(applicantDto);
+    public ResultType applyRecruitment(ApplicantReqDto applicantReqDto) {
+        createAndSetAptId(applicantReqDto);
+        return recruitmentDao.saveRecruitment(applicantReqDto);
     }
 
-    private String createAptId(Integer id, Integer rctId){
+    private void createAndSetAptId(ApplicantReqDto applicantReqDto){
         StringBuilder sb = new StringBuilder();
+        Integer id = applicantReqDto.getId();
+        Integer rctId = applicantReqDto.getRctId();
 
         int num = (id + rctId) % 10000;
 
@@ -40,6 +38,8 @@ public class RecruitmentService {
         String comb = sb.toString();
         String[] time = comb.split("[:.]");
 
-        return Arrays.stream(time).sorted(Comparator.reverseOrder()).collect(Collectors.joining());
+        applicantReqDto.setAptId(Arrays.stream(time)
+            .sorted(Comparator.reverseOrder())
+            .collect(Collectors.joining()));
     }
 }

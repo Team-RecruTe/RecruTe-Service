@@ -1,9 +1,9 @@
-import com.hossi.recrute.common.util.code.ServiceCode;
-import com.hossi.recrute.common.util.code.ServiceCodeManager;
-import com.hossi.recrute.common.util.code.ServicePrefix;
+import com.hossi.recrute.common.service.code.ServiceCode;
+import com.hossi.recrute.common.service.code.ServiceCodeManager;
+import com.hossi.recrute.common.service.code.ServicePrefix;
 import org.junit.jupiter.api.Test;
 
-import static com.hossi.recrute.common.util.code.MemberCode.MBR001;
+import static com.hossi.recrute.common.service.code.MemberCode.MBR001;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ServicePrefixTest {
