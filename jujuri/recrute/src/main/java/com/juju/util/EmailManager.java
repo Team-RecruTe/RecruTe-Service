@@ -16,8 +16,9 @@ public class EmailManager {
   public static boolean mailSend(String hostName, String receiveEmail, String title, String msg) {
 
     Properties props = setProperties(hostName);
+    boolean result = props != null && sendEmail(receiveEmail, props, title, msg);
 
-    return props != null && sendEmail(receiveEmail, props, title, msg);
+    return result;
   }
 
   private static Properties setProperties(String hostName) {
@@ -57,6 +58,7 @@ public class EmailManager {
         return new PasswordAuthentication("0612000ljy@naver.com", "fuxxit:3");
       }
     });
+
     // 메일 작성
     try {
       Message message = new MimeMessage(session);
@@ -67,7 +69,7 @@ public class EmailManager {
       message.setSubject(title);
       message.setText(msg);
 
-
+      message.setContent(msg, "text/html;charset=UTF-8");
       Transport.send(message);
 
     } catch (MessagingException e) {

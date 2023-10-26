@@ -119,4 +119,14 @@
     <servlet-name>ExamAuthServlet</servlet-name>
     <url-pattern>/exam/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ExamEmailSend</display-name>
+    <servlet-name>ExamEmailSend</servlet-name>
+    <servlet-class>com.juju.controller.exam.ExamEmailSend</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExamEmailSend</servlet-name>
+    <url-pattern>/exam-email</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -1,5 +1,7 @@
 package com.juju.dao;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import com.juju.dto.MemberDto;
 import com.juju.mybatis.MybatisConnectionFactory;
@@ -32,5 +34,23 @@ public class MemberDao implements MemberService {
     sqlSession.close();
     return result;
 
+  }
+
+  @Override
+  public MemberDto findMember(String userId) {
+    MemberDto findDto = null;
+    SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
+    findDto = sqlSession.selectOne("findMember", userId);
+    sqlSession.close();
+    return findDto;
+  }
+
+  @Override
+  public List<MemberDto> getEmails(String recruitmentId) {
+    List<MemberDto> emailDto = new ArrayList<>();
+    SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
+    emailDto = sqlSession.selectList("getEmails", recruitmentId);
+    sqlSession.close();
+    return emailDto;
   }
 }

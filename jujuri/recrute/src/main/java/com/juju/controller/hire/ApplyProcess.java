@@ -2,6 +2,7 @@ package com.juju.controller.hire;
 
 import java.io.IOException;
 import com.juju.dao.ApplicantDao;
+import com.juju.dao.MemberDao;
 import com.juju.dto.ApplicantDto;
 import com.juju.dto.MemberDto;
 import com.juju.util.MakeRandomCode;
@@ -36,17 +37,17 @@ public class ApplyProcess extends HttpServlet {
     int rctId = Integer.parseInt(request.getParameter("id"));
     String aptId = "RCT" + MakeRandomCode.randomNum(8);
     System.out.println("rctId===" + rctId);
-    ApplicantDao applicantDao = new ApplicantDao();
-    MemberDto memberDto = applicantDao.findMember(userId);
+    MemberDao memberDao = new MemberDao();
+    MemberDto memberDto = memberDao.findMember(userId);
     // System.out.println(memberDto.toString());
     int memberId = memberDto.getId();
 
-
+    ApplicantDao applicantDao = new ApplicantDao();
     ApplicantDto applicantDto = new ApplicantDto();
     applicantDto.setMember_id(memberId);
     applicantDto.setRecruitment_id(rctId);
     applicantDto.setApt_id(aptId);
-
+    // 같은 사용자가 여러 번을 지원하면 데베에 중복입력이 가능함 -> 이 문제 고칠 것
     int result = applicantDao.insertApplicant(applicantDto);
     if (result > 0) {
       ScriptWriter.alertAndNext(response, "applied to the company successfully",
