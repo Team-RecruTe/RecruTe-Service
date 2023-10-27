@@ -20,7 +20,8 @@ public class ExamEmailSend extends HttpServlet {
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
+    long beforeTime = System.currentTimeMillis();
+    System.out.println(beforeTime);
     String recruitmentId = request.getParameter("recruitmentId");
     ApplicantDao applicantDao = new ApplicantDao();
     int count = applicantDao.countApplicant(recruitmentId);
@@ -28,16 +29,25 @@ public class ExamEmailSend extends HttpServlet {
     MemberDao memberDao = new MemberDao();
     List<MemberDto> emailList = new ArrayList<>();
     emailList = memberDao.getEmails(recruitmentId);
-
+    long runTime = 0;
+    System.out.println("count====" + count);
     for (int i = 0; i < count; i++) {
-      System.out.println(emailList.get(i).getEmail());
       String email = emailList.get(i).getEmail();
-      // EmailSendAsync 클래스 만들어서 여기에다가 아래코드 넣기... 말이 안되는데?
       CompletableFuture.runAsync(() -> {
         EmailManager.mailSend("naver", email, "시험 응시하기",
             "<a href='http://localhost:8080/recrute/exam/1/auth'>여기를 클릭하시면 시험페이지로 이동합니다.</a>");
-      });
+      }); // 비동기 처리
+
+
+
+      /*
+       * EmailManager.mailSend("naver", email, "시험 응시하기",
+       * "<a href='http://localhost:8080/recrute/exam/1/auth'>여기를 클릭하시면 시험페이지로 이동합니다.</a>");
+       */
     }
+    long afterTime = System.currentTimeMillis();
+    runTime = afterTime - beforeTime;
+    System.out.println("runtime===" + runTime);
 
   }
 
