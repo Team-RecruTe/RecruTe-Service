@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+<mapper namespace="com.jisun.mybatis"> 
+
+	<select id="selectCompRecruitList"
+			parameterType="CompRecruitDto"
+			resultType="CompRecruitDto"> 
+			
+			SELECT company.id as id_comIndex, 
+				   company.company_name,
+				   recruitment.id as id_recruitIndex,
+				   recruitment.company_id,
+				   recruitment.title,
+				   recruitment.job,
+				   recruitment.salary
+			FROM recruitment LEFT JOIN company 
+			ON recruitment.company_id = company.id;
+	</select>
+	
+	<select id="selectCompRecruitView"
+			parameterType="int"
+			resultType="CompRecruitDto"> 
+			
+			SELECT company.id as id_comIndex, 
+				   company.company_name,
+				   recruitment.id as id_recruitIndex,
+				   recruitment.company_id,
+				   recruitment.title,
+				   recruitment.start_date,
+				   recruitment.end_date,
+				   recruitment.salary,
+				   recruitment.location,
+				   recruitment.work_form,
+				   recruitment.job,
+				   recruitment.skills,
+				   recruitment.career
+			FROM recruitment LEFT JOIN company 
+			ON recruitment.company_id = company.id
+			where recruitment.id = #{id_recruitIndex};
+	</select>
+	
+	
+	<select id="selectCompRecruitTitle"
+			parameterType="int"
+			resultType="String">
+		SELECT recruitment.title
+		FROM recruitment JOIN applicant ON applicant.recruitment_id = recruitment.id
+		WHERE applicant.member_id = #{member_id};
+	</select>
+	
+</mapper>
