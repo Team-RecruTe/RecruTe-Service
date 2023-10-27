@@ -7,6 +7,7 @@
 
   <dependencies>
 
+
 	<dependency>
 	    <groupId>mysql</groupId>
 	    <artifactId>mysql-connector-java</artifactId>
@@ -53,6 +54,8 @@
 		<artifactId>javax.mail</artifactId>
 		<version>1.6.2</version>
 	</dependency>
+	
+	
   </dependencies>
   
     

@@ -9,9 +9,12 @@
 			parameterType="ApplicantDto"> 
 			
 	INSERT INTO applicant (apt_id, member_id, recruitment_id)
-	VALUES (2,#{member_id},#{recruitment_id});
+	VALUES (#{apt_id},#{member_id},#{recruitment_id});
 
 	</insert>
+	
+
+
 			
 
 

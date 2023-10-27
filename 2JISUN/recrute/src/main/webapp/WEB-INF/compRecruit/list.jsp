@@ -8,6 +8,7 @@
 
 <div class="overflow-x-auto">
   <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+  	<!-- 채용공고 목록 타이틀 -->
     <thead class="ltr:text-left rtl:text-right">
       <tr>
         <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
@@ -31,6 +32,7 @@
       </tr>
     </thead>
 
+	<!-- 채용공고 -->
     <tbody class="divide-y divide-gray-200">
     <c:forEach items="${compRecruitList}" var="list" varStatus="status">
       <tr class="odd:bg-gray-50">

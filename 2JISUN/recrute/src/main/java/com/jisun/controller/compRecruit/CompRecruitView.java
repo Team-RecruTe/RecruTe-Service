@@ -32,9 +32,9 @@ public class CompRecruitView extends HttpServlet {
 		//dao(sql열기)->xml->dao->어떻게가져올건지=dto(데이터형식)
 		CompRecruitDao compRecruitDao = new CompRecruitDao();
 		
-		CompRecruitDto compRecruitView = compRecruitDao.selectCompRecruitView(id_recruitIndex);
+		CompRecruitDto compRecruitDto = compRecruitDao.selectCompRecruitView(id_recruitIndex);
 		
-		request.setAttribute("compRecruitView", compRecruitView);
+		request.setAttribute("compRecruitView", compRecruitDto);
 		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/compRecruit/view.jsp");

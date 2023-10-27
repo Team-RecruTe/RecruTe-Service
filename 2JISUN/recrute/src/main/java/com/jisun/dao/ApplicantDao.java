@@ -9,7 +9,7 @@ import com.jisun.mybatis.MybatisConnectionFactory;
 public class ApplicantDao {
 	
 	/*
-	 * 회원이 채용공고 지원하기를 눌렀을 때
+	 * [insert] 회원이 채용공고 지원하기를 눌렀을 때 지원자 정보를 삽입 
 	 * */
 	public int insertAppliacnt(ApplicantDto applicantDto) {
 		SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();

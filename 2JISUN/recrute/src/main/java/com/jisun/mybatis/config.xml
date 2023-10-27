@@ -13,6 +13,8 @@
 	 			type="com.jisun.dto.CompRecruitDto"/>
 	 <typeAlias alias="ApplicantDto" 	
 	 			type="com.jisun.dto.ApplicantDto"/>
+ 	 <typeAlias alias="ExamDto" 	
+	 			type="com.jisun.dto.ExamDto"/>		
  </typeAliases>
 
 
@@ -33,6 +35,7 @@
      <mapper resource="com/jisun/mybatis/member.xml"/>
      <mapper resource="com/jisun/mybatis/compRecruit.xml"/>
      <mapper resource="com/jisun/mybatis/applicant.xml"/>
+     <mapper resource="com/jisun/mybatis/exam.xml"/>
   </mappers>
   
   
