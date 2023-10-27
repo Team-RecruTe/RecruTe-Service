@@ -1,9 +1,9 @@
 package com.blanc.recrute.member.controller;
 
+import com.blanc.recrute.common.ViewResolver;
 import com.blanc.recrute.member.dto.MemberDTO;
 import com.blanc.recrute.member.service.MemberService;
 import com.blanc.recrute.member.service.MemberServiceImpl;
-import com.blanc.recrute.member.view.ViewResolver;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
