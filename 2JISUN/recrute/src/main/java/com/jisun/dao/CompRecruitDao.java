@@ -47,5 +47,17 @@ public class CompRecruitDao {
 		return compRecruitView;
 	}
 	
-
+	/*
+	 * 채용공고title만 가져오기
+	 * 
+	 * 
+	 * */
+	
+	public String selectCompRecruitTitle (int loggedId) {
+		SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
+		String title = null;
+		title = sqlSession.selectOne("selectCompRecruitTitle", loggedId);
+		sqlSession.close();
+		return title;
+	}
 }

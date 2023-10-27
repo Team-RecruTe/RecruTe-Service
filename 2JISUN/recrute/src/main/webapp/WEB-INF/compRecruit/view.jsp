@@ -15,28 +15,28 @@
 	<input type="hidden"
 		   id="loggedMemberId"
 		   name="loggedMemberId"
-		   value="${loggedMemberId}"> <!-- 세션의 로그인 아이디 -->
+		   value="${loggedMemberId}"> 
 		   
 	<input type="hidden"
 		   id="loggedEmail"
 		   name="loggedEmail"
-		   value="${loggedEmail}"> <!-- 세션의 로그인 이메일 -->
+		   value="${loggedEmail}"> 
 		   
    	<input type="hidden"
 		   id="loggedId"
 		   name="loggedId"
-		   value="${loggedId}"> <!-- 세션의 member테이블의 인덱스 -->
+		   value="${loggedId}"> 
 	
 	<!-- from dao(compRecruitView) -->
 	<input type="hidden"
 		   id="id_recruitIndex"
 		   name="id_recruitIndex"
-		   value="${compRecruitView.id_recruitIndex}"> <!-- dao(compRecruitView)의 comprecruit테이블(join)의 인덱스 -->
+		   value="${compRecruitView.id_recruitIndex}"> 
 	
 	<input type="hidden"
 		   id="company_name"
 		   name="company_name"
-		   value="${compRecruitView.company_name}"> <!-- dao(compRecruitView)의 comprecruit테이블(join)의 인덱스 -->
+		   value="${compRecruitView.company_name}"> 
 
 	
 	<div>

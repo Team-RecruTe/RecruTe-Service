@@ -41,6 +41,15 @@
 			FROM recruitment LEFT JOIN company 
 			ON recruitment.company_id = company.id
 			where recruitment.id = #{id_recruitIndex};
-			
 	</select>
+	
+	
+	<select id="selectCompRecruitTitle"
+			parameterType="int"
+			resultType="String">
+		SELECT recruitment.title
+		FROM recruitment JOIN applicant ON applicant.recruitment_id = recruitment.id
+		WHERE applicant.member_id = #{member_id};
+	</select>
+	
 </mapper>

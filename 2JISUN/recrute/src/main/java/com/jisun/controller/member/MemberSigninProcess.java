@@ -58,10 +58,10 @@ public class MemberSigninProcess extends HttpServlet {
 		if(loggedMember!=null) {
 			//세션으로 데이터를 저장 > 로그인상태 유지를 위해 세션 추가
 			HttpSession session = request.getSession();
+						session.setAttribute("loggedId", loggedMember.getId()); 
 						session.setAttribute("loggedMemberId", loggedMember.getMemberID());
 						session.setAttribute("loggedName", loggedMember.getName()); 
 						session.setAttribute("loggedEmail", loggedMember.getEmail());
-						session.setAttribute("loggedId", loggedMember.getId()); 
 			
 			//쿠키설정
 			//input > type(checkbox) > value속성의 값과 일치할 경우 쿠키를 생성한다.
