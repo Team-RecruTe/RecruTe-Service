@@ -13,42 +13,34 @@ public class CompRecruitDao {
 	
 	/*
 	 * 채용공고List
-	 * 메서드 : 쿼리에서 1개의 row를 list로 담는다. 
-	 * 		  				 list안의 값들은 [dto, dto, ..]이다 = param
-	 * @param : 
-	 * @return : 
-	 * 
-	 * 
+	 * 모든 채용공고 목록을 보여주는 메서드
+	 * 多rows -> 1row를 List에 저장
 	 * */
-	public List<CompRecruitDto> selectCompRecruitList(CompRecruitDto compRecruitDto){
+	public List<CompRecruitDto> selectCompRecruitList(){
+		List<CompRecruitDto> resultList = null;
 		SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
-		List<CompRecruitDto> compRecruitList = null;
-							 compRecruitList = sqlSession.selectList("selectCompRecruitList", compRecruitDto);
+		resultList = sqlSession.selectList("selectCompRecruitList");
 		sqlSession.close();
-		return compRecruitList;
+		return resultList;
 
 	}
 	
 	/*
 	 * 채용공고View
-	 * 메서드 : 쿼리에서 1개의 row를 dto로 담는다.
-	 * 						 dto
-	 * @param : 
-	 * @return : 
-	 * 
-	 * 
+	 * 선택된 채용공고를 보여주는 메서드
+	 * 1row -> 1컬럼을 Dto에 저장
 	 * */
-	
-	public CompRecruitDto selectCompRecruitView (int id_recruitIndex) {
+	public CompRecruitDto selectCompRecruitView (int recruitmenttbl_id) {
+		CompRecruitDto resultDto = null;
 		SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
-		CompRecruitDto compRecruitView = null;
-					   compRecruitView = sqlSession.selectOne("selectCompRecruitView", id_recruitIndex);
+		resultDto = sqlSession.selectOne("selectCompRecruitView", recruitmenttbl_id);
 		sqlSession.close();
-		return compRecruitView;
+		return resultDto;
 	}
 	
+	
 	/*
-	 * 채용공고title만 가져오기
+	 * 채용공고title
 	 * 
 	 * 
 	 * */

@@ -57,23 +57,44 @@
     	<!-- 문제 풀기 -->
 
         <div class="question">
-            <strong>1. ${examInfo.question}</strong>
+            <strong>1. ${examQuestion.question}</strong>
         </div>
         <div class="radio-group">
             <input type="radio" 
 		            name="question1" 
-		            value="${examInfo.answer}" 
+		            value="" 
 		            id="q1a">
-            <label for="q1a">1. ${examInfo.answer}</label>
+            <label for="q1a">1. 볼드모트 영혼 아마도 많이 쪼개짐</label>
             <br>
+            
+            <input type="radio" 
+		            name="question1" 
+		            value="" 
+		            id="q1a">
+            <label for="q1a">2. 아무도 안알려줌</label>
+            <br>
+            
+            <input type="radio" 
+		            name="question1" 
+		            value="" 
+		            id="q1a">
+
+            <label for="q1a">3. 7개</label>
+            <br>
+            
+            <input type="radio" 
+		            name="question1" 
+		            value="" 
+		            id="q1a">
+
+            <label for="q1a">4. 배고파</label>
+            <br>
+
         </div>
-
-
 
 		<!-- 정답 제출 -->
         <input type="submit" value="제출">
-        
-        
+
     </form>
 </body>
 

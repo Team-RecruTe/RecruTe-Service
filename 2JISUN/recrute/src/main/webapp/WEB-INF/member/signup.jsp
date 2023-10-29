@@ -18,29 +18,26 @@
         
           <!-- 아이디 -->
           <div>
-            <label class="sr-only" for="name">아이디</label>
             <input
 	              class="w-full rounded-lg border-gray-200 p-3 text-sm"
 	              placeholder="아이디"
 	              type="text"
-	              name="userId"
-	              id="userId"/>
+	              name="member_id"
+	              id="member_id"/>
           </div>
           
           <!-- 비밀번호 -->
           <div>
-            <label class="sr-only" for="name">비밀번호</label>
             <input
 	              class="w-full rounded-lg border-gray-200 p-3 text-sm"
 	              placeholder="비밀번호"
 	              type="password"
-	              name="pw"
-	              id="pw"/>
+	              name="password"
+	              id="password"/>
           </div>
           
           <!-- 비밀번호 확인 -->
           <div>
-            <label class="sr-only" for="name">비밀번호 확인</label>
             <input
 	              class="w-full rounded-lg border-gray-200 p-3 text-sm"
 	              placeholder="비밀번호 확인"
@@ -52,18 +49,16 @@
           
           <!-- 이름 -->
           <div>
-            <label class="sr-only" for="username">이름</label>
             <input
               class="w-full rounded-lg border-gray-200 p-3 text-sm"
               placeholder="이름"
               type="text"
-              name="username"
-              id="username"/>
+              name="name"
+              id="name"/>
           </div>
           
           <!-- 생년월일 -->
           <div>
-            <label class="sr-only" for="name">생년월일</label>
             <input
               class="w-full rounded-lg border-gray-200 p-3 text-sm"
               type="date"
@@ -78,9 +73,17 @@
 		
 		 <div >
             <div>
-               <input type="radio" id="gender" name="gender" value="0" checked="checked" />
+               <input type="radio" 
+		               id="gender" 
+		               name="gender" 
+		               value="0" 
+		               checked="checked" />
                <label name="gender" for="ag1">남자</label>
-               <input type="radio" id="gender" name="gender" value="1" />
+               
+               <input type="radio" 
+		               id="gender" 
+		               name="gender" 
+		               value="1" />
                <label name="gender" for="ag2">여자</label>
             </div>
           </div>
@@ -90,21 +93,18 @@
           
           <!-- 전화번호 -->
           <div>
-              <label class="sr-only" for="phone">전화번호</label>
               <input
                 class="w-full rounded-lg border-gray-200 p-3 text-sm"
                 placeholder="전화번호"
                 type="tel"
-                name="phoneNum"
-                id="phoneNum"
+                name="phone_number"
+                id="phone_number"
               />
             </div>
             
             
             <!-- 이메일 -->
             <div class="relative">
-			  <label for="UserEmail" class="sr-only"> 이메일 </label>
-			
 			  <input
 			  	class="w-full rounded-lg border-gray-200 p-3 text-sm"
 			    placeholder="flea@rhcp.com"
@@ -112,7 +112,6 @@
 			    name="email"
 			    id="email"
 			  />
-			
 			</div>
 			
 			
@@ -149,8 +148,7 @@
 <script>
 
 //아이디 중복을 확인합니다.
-let isIDCheck = false;
-
+let isIDCheck = false; 
 $("#btnIdCheck").on("click",function(e){
 	console.log("click");
 	
@@ -159,21 +157,21 @@ $("#btnIdCheck").on("click",function(e){
 		url:"../member/idCheck",
 		dataType: "json",
 		data: {
-				userId : $("#userId").val(),
+			member_id : $("#member_id").val(),
 		},
 		
 		success:function(data){
 			console.log(data)
 			if(data.count>0) {
 				alert("사용할 수 없는 아이디 입니다.")
-			} else if($("#userId").val().trim() === ""){
+			} else if($("#member_id").val().trim() === ""){
 				alert("아이디를 입력해주세요.")
 			} else {
 				//Yes, No 확인 창
 				const userIdPossible = confirm("쓸 수 있는 아이디 입니다. 사용하시겠어요?"); 
 				// 사용자가 아이디를 사용하겠다고 확인한 경우
 				if(userIdPossible) { 
-					$("#userId").attr("readonly",true); // 아이디 입력란을 읽기 전용으로 설정합니다.
+					$("#member_id").attr("readonly",true); // 아이디 입력란을 읽기 전용으로 설정합니다.
 					isIDCheck=true; // 아이디 중복 확인이 완료되었음을 나타내는 변수를 설정합니다.
 				} 
 			}
@@ -189,7 +187,7 @@ $("#btnIdCheck").on("click",function(e){
 
 //비밀번호 일치를 확인합니다.
 $("#pwConfirm").on("keyup",function(){
-	if( $("#pw").val() !== $("#pwConfirm").val() ) {
+	if( $("#password").val() !== $("#pwConfirm").val() ) {
 		$(".pwConfirmTxt").show();
 		$(".pwConfirmTxt").text("비밀번호가 일치하지 않습니다.");
 	} else {
@@ -203,29 +201,29 @@ $("#pwConfirm").on("keyup",function(){
 
 //필수입력사항을 확인합니다. (전부)
 $('#btnSignupCheck').on("click", function(){
-	if($("#userId").val().trim() === ""){
+	if($("#member_id").val().trim() === ""){
 		alert("아이디는 필수입력 사항입니다.");
-		$("#userID").focus();
+		$("#member_id").focus();
 		return false;
-	} else if($("#pw").val().trim() === ""){
+	} else if($("#password").val().trim() === ""){
 		alert("비밀번호는 필수입력 사항입니다.");
-		$("#pw").focus();
+		$("#password").focus();
 		return false;
 	} else if($("#pwConfirm").val().trim() === ""){
 		alert("비밀번호는 필수입력 사항입니다.");
 		$("#pwConfirm").focus();
 		return false;
-	} else if($("#username").val().trim() === ""){
+	} else if($("#name").val().trim() === ""){
 		alert("이름은 필수입력 사항입니다.");
-		$("#username").focus();
+		$("#name").focus();
 		return false;
 	} else if($("#birth").val().trim() === ""){
 		alert("생년월일은 필수입력 사항입니다.");
 		$("#birth").focus();
 		return false;
-	} else if($("#phoneNum").val().trim() === ""){
+	} else if($("#phone_number").val().trim() === ""){
 		alert("전화번호는 필수입력 사항입니다.");
-		$("#").focus();
+		$("#phone_number").focus();
 		return false;
 	} else if($("#email").val().trim() === ""){
 		alert("이메일은 필수입력 사항입니다.");
@@ -236,11 +234,6 @@ $('#btnSignupCheck').on("click", function(){
 		return false;
 	}
 });
-
-
-
-
-
 
 
 

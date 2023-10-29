@@ -27,57 +27,48 @@ public class ExamIdAuthProcess extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		
 
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		/*From. session*/
-		int loggedId = 0;
+		/*데이터 get : From Session (by 로그인ing)*/
 		HttpSession session = request.getSession();
-		String loggedIdStr = String.valueOf(session.getAttribute("loggedId"));
+		int loggedId = 0;
+		String loggedIdStr = String.valueOf(session.getAttribute("loggedId")); 
 		if(loggedIdStr!=null && !loggedIdStr.isEmpty()) {
 			loggedId = Integer.parseInt(loggedIdStr);
 		}
 		
-		/*From. client*/
+		/*데이터 get : From Client (by form)*/
 		int apt_id= 0;
 		if(request.getParameter("apt_id")!=null && !request.getParameter("apt_id").isEmpty()) {
 			apt_id = Integer.parseInt(request.getParameter("apt_id"));
 		}
 		
 		
-		
-		ExamDto examDto = new ExamDto();
-				examDto.setMember_id(loggedId);
-				examDto.setApt_id(apt_id);
-				
-				
-				
-		/*로직*/	
+		/*데이터 trans : Dao -> int (수험번호 일치)
+		 * 			   Dao -> Dto (시험문제 전달)*/
 		ExamDao examDao = new ExamDao();
+		ExamDto examDto = new ExamDto();
+				examDto.setMembertbl_id(loggedId);
+				examDto.setApt_id(apt_id);
+
+		int resultInt = examDao.selectAptIdCheck(examDto); //수험번호 일치
+		ExamDto resultDto = examDao.selectExamQuestion(examDto); //시험문제 전달
+
 		
-		int result = examDao.selectAptIdCheck(examDto); //0 or 1 > 잘됨
-		ExamDto examInfo = examDao.selectExamInfo(examDto); //exam테이블의 id, 문제, 4지선다형 > 필드명 수정필요
-		
-		
-		
-		/*To. client*/
-		request.setAttribute("examInfo", examInfo);
-		
-		
-		
-		
-		if(result>0) {
+		if(resultInt>0) {
+			/*데이터 set : To Client*/
+			request.setAttribute("examQuestion", resultDto);
 			ScriptWriter.alertAndNext(response, "시험시작합니다", "../exam/exam");
 		} else {
 			ScriptWriter.alertAndBack(response, "수험번호를 다시 입력해주세요");
 			
 		}
+
 
 	}
 

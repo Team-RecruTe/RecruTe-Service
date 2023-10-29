@@ -22,38 +22,39 @@ public class MemberIdCheck extends HttpServlet {
 
     public MemberIdCheck() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 
 
 	protected void doGet(HttpServletRequest request, 
 						 HttpServletResponse response) throws ServletException, IOException {
+		/*데이터 get : From client(by ajax)*/
+		String member_id = request.getParameter("member_id");
 		
-		//jsp(id속성->ajax)값을 dto에 저장
-		String userId = request.getParameter("userId");
 		
-				  
-		//dao(쿼리)를 통해 db와 맵핑하여 int로 저장
+		
+		/*데이터 trans : dao->int->map*/
 		MemberDao memberDao = new MemberDao();
-		int count = memberDao.idCheck(userId); //0 or 1
+		int count = memberDao.selectIdCheck(member_id); //0 or 1
 		
-		//클라이언트 요청 방식 : json으로 저장
-		Gson gson = new Gson();
+		Gson gson = new Gson(); //클라이언트 요청 방식 : json으로 저장
 		Map<String, Integer> map = new HashMap<>();
 							 map.put("count", count);
-		String resultJson = gson.toJson(map); //{count: 0 or 1}
-		//request.setAttribute("클라이언트가 받을 것", resultJson);
+		String resultJson = gson.toJson(map); //{"count": 0 or 1}
+
+		
+		
+		/*데이터 set : To client*/
 		request.setAttribute("resultJson", resultJson);
 		
-		//페이지 맵핑
+		
+		/*페이지 연결*/
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/member/idCheckJson.jsp");
 		dispatcher.forward(request, response);
 		
 		//성공시 jsp로 돌아가서 ajax의 success처리
 		//실패시 jsp로 돌아가서 ajax의 error처리
-		
-		
+
 	}
 
 

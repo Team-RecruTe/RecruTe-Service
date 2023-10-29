@@ -24,18 +24,16 @@ public class CompRecruitList extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*데이터 가져오기*/
-		//1. 클라이언트(jsp)
-		//없음
+		/*데이터 get : From DB*/
+		/*데이터 trans : Dao -> (Dto) -> List*/
+		CompRecruitDao compRecruitDao = new CompRecruitDao();   
+		List<CompRecruitDto> resultList = compRecruitDao.selectCompRecruitList();
 		
-		//2. DB(dao -> xml -> 데이터변환(dto->list))
-		CompRecruitDao compRecruitDao = new CompRecruitDao();
-		CompRecruitDto CompRecruitDto = new CompRecruitDto();	   
-		List<CompRecruitDto> compRecruitList = compRecruitDao.selectCompRecruitList(CompRecruitDto);
+		/*데이터 set : To client*/
+		request.setAttribute("compRecruitList", resultList);
 		
-		request.setAttribute("compRecruitList", compRecruitList);
 		
-
+		/*페이지 연결*/
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/compRecruit/list.jsp");
 		dispatcher.forward(request, response);
 	}

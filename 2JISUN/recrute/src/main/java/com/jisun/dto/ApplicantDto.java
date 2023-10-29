@@ -1,40 +1,47 @@
 package com.jisun.dto;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 public class ApplicantDto {
+	/*applicant*/
+	public int applicanttbl_id; //auto
+	private int apt_id; //수험번호
+	private LocalDate created_date;  
+	private LocalDate modified_date; 
+	private int membertbl_id; //외래키
+	private int recruitmenttbl_id; //외래키
 	
-	public int id; //지원자정보의 id auto_increment
-	private int apt_id; //수험번호 > landom으로 생성
-	private Timestamp created_date;  
-	private Timestamp modified_date; 
-	private int member_id; //멤버테이블의 id
-	private int recruitment_id; //채용공고테이블의 id
 	
 	@Override
 	public String toString() {
-		return "ApplicantDto [id=" + id + ", apt_id=" + apt_id + ", created_date=" + created_date + ", modified_date="
-				+ modified_date + ", member_id=" + member_id + ", recruitment_id=" + recruitment_id + "]";
+		return "ApplicantDto [applicanttbl_id=" + applicanttbl_id + ", apt_id=" + apt_id + ", created_date="
+				+ created_date + ", modified_date=" + modified_date + ", membertbl_id=" + membertbl_id
+				+ ", recruitmenttbl_id=" + recruitmenttbl_id + "]";
 	}
-	public ApplicantDto(int id, int apt_id, Timestamp created_date, Timestamp modified_date, int member_id,
-			int recruitment_id) {
+	
+	
+	public ApplicantDto(int applicanttbl_id, int apt_id, LocalDate created_date, LocalDate modified_date,
+			int membertbl_id, int recruitmenttbl_id) {
 		super();
-		this.id = id;
+		this.applicanttbl_id = applicanttbl_id;
 		this.apt_id = apt_id;
 		this.created_date = created_date;
 		this.modified_date = modified_date;
-		this.member_id = member_id;
-		this.recruitment_id = recruitment_id;
+		this.membertbl_id = membertbl_id;
+		this.recruitmenttbl_id = recruitmenttbl_id;
 	}
+	
+	
 	public ApplicantDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public int getId() {
-		return id;
+	public int getApplicanttbl_id() {
+		return applicanttbl_id;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setApplicanttbl_id(int applicanttbl_id) {
+		this.applicanttbl_id = applicanttbl_id;
 	}
 	public int getApt_id() {
 		return apt_id;
@@ -42,30 +49,31 @@ public class ApplicantDto {
 	public void setApt_id(int apt_id) {
 		this.apt_id = apt_id;
 	}
-	public Timestamp getCreated_date() {
+	public LocalDate getCreated_date() {
 		return created_date;
 	}
-	public void setCreated_date(Timestamp created_date) {
+	public void setCreated_date(LocalDate created_date) {
 		this.created_date = created_date;
 	}
-	public Timestamp getModified_date() {
+	public LocalDate getModified_date() {
 		return modified_date;
 	}
-	public void setModified_date(Timestamp modified_date) {
+	public void setModified_date(LocalDate modified_date) {
 		this.modified_date = modified_date;
 	}
-	public int getMember_id() {
-		return member_id;
+	public int getMembertbl_id() {
+		return membertbl_id;
 	}
-	public void setMember_id(int member_id) {
-		this.member_id = member_id;
+	public void setMembertbl_id(int membertbl_id) {
+		this.membertbl_id = membertbl_id;
 	}
-	public int getRecruitment_id() {
-		return recruitment_id;
+	public int getRecruitmenttbl_id() {
+		return recruitmenttbl_id;
 	}
-	public void setRecruitment_id(int recruitment_id) {
-		this.recruitment_id = recruitment_id;
+	public void setRecruitmenttbl_id(int recruitmenttbl_id) {
+		this.recruitmenttbl_id = recruitmenttbl_id;
 	}
+	
 	
 
 }

@@ -21,25 +21,30 @@ public class CompRecruitView extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//jsp에서 데이터 가져오기
-		String strId_recruitIndex = request.getParameter("id_recruitIndex"); //얘는 url 에서 오는건지???
-		int id_recruitIndex = 0;
-		if (strId_recruitIndex!=null && !strId_recruitIndex.isEmpty()) {
-			id_recruitIndex = Integer.parseInt(strId_recruitIndex);
+		/*데이터 get : From Client(by a스트링)*/
+		String recruitmenttbl_id_str = request.getParameter("recruitmenttbl_id"); 
+		int recruitmenttbl_id = 0;
+		if (recruitmenttbl_id_str!=null && !recruitmenttbl_id_str.isEmpty()) {
+			recruitmenttbl_id = Integer.parseInt(recruitmenttbl_id_str);
 		}
 		
-		//db에서 데이터 가져오기
-		//dao(sql열기)->xml->dao->어떻게가져올건지=dto(데이터형식)
+		
+		
+		/*데이터 get : From DB*/
+		/*데이터 trans : Dao -> Dto -> Dto*/
 		CompRecruitDao compRecruitDao = new CompRecruitDao();
-		
-		CompRecruitDto compRecruitDto = compRecruitDao.selectCompRecruitView(id_recruitIndex);
-		
-		request.setAttribute("compRecruitView", compRecruitDto);
+		CompRecruitDto resultDto = compRecruitDao.selectCompRecruitView(recruitmenttbl_id);
 		
 		
+		
+		/*데이터 set : To Client*/
+		request.setAttribute("compRecruitView", resultDto);
+		
+		
+		
+		/*페이지 연결*/
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/compRecruit/view.jsp");
 		dispatcher.forward(request, response);
-		
 	}
 
 

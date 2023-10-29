@@ -5,24 +5,7 @@
   
 <mapper namespace="com.jisun.mybatis"> 
 
-	
-	<!-- exam테이블의 id, 문제, 4지선다 문항(보기) get  -->
-	<select id="selectExamInfo"
-			parameterType="ExamDto"
-			resultType="ExamDto"> 
-	SELECT exam.id as examTbl_id,
-		   exam.question,
-		   exam.answer 
-	FROM exam 
-	JOIN recruitment ON exam.recruitment_id = recruitment.id
-	JOIN applicant   ON recruitment.id = applicant.recruitment_id
-	WHERE applicant.apt_id = #{apt_id} AND applicant.member_id = #{member_id};
-	</select>
-	
-	
-	
-	
-	
+
 	<!-- 수험번호 일치 확인  -->
 	<select id="selectAptIdcheck"
 			parameterType="ExamDto"
@@ -31,8 +14,29 @@
 	FROM exam 
 	JOIN recruitment ON exam.recruitment_id = recruitment.id
 	JOIN applicant   ON recruitment.id = applicant.recruitment_id
-	WHERE applicant.apt_id = #{apt_id} AND applicant.member_id = #{member_id};
+	WHERE applicant.apt_id = #{apt_id} AND 
+		  applicant.member_id = #{membertbl_id};
 	</select>
+
+	
+	<!-- 시험문제 가져오기 -->
+	<select id="selectExamQuestion"
+			parameterType="ExamDto"
+			resultType="ExamDto"> 
+	SELECT exam.id as examtbl_id,
+		   exam.question
+	FROM exam 
+	JOIN recruitment ON exam.recruitment_id = recruitment.id
+	JOIN applicant   ON recruitment.id = applicant.recruitment_id
+	WHERE applicant.apt_id = #{apt_id} AND 
+		  applicant.member_id = #{membertbl_id};
+	</select>
+	
+	
+	
+	
+	
+
 	
 	
 	
