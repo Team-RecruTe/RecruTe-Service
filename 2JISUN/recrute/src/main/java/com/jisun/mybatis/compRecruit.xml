@@ -6,14 +6,12 @@
   
 <mapper namespace="com.jisun.mybatis"> 
 
+	<!-- 채용공고 목록 -->
 	<select id="selectCompRecruitList"
-			parameterType="CompRecruitDto"
 			resultType="CompRecruitDto"> 
-			
-			SELECT company.id as id_comIndex, 
-				   company.company_name,
-				   recruitment.id as id_recruitIndex,
-				   recruitment.company_id,
+			SELECT company.company_name,
+				   recruitment.id as recruitmenttbl_id,
+				   recruitment.company_id as companytbl_id,
 				   recruitment.title,
 				   recruitment.job,
 				   recruitment.salary
@@ -21,14 +19,13 @@
 			ON recruitment.company_id = company.id;
 	</select>
 	
+	<!-- 채용공고 뷰 -->
 	<select id="selectCompRecruitView"
 			parameterType="int"
 			resultType="CompRecruitDto"> 
-			
-			SELECT company.id as id_comIndex, 
-				   company.company_name,
-				   recruitment.id as id_recruitIndex,
-				   recruitment.company_id,
+			SELECT company.company_name,
+				   recruitment.id as recruitmenttbl_id,
+				   recruitment.company_id as companytbl_id,
 				   recruitment.title,
 				   recruitment.start_date,
 				   recruitment.end_date,
@@ -40,7 +37,7 @@
 				   recruitment.career
 			FROM recruitment LEFT JOIN company 
 			ON recruitment.company_id = company.id
-			where recruitment.id = #{id_recruitIndex};
+			where recruitment.id = #{recruitmenttbl_id};
 	</select>
 	
 	

@@ -5,38 +5,52 @@
   
 <mapper namespace="com.jisun.mybatis"> 
 
-	<select id="idCheck"
+	<!-- 회원가입 > 아이디 중복 확인 -->
+	<select id="selectIdCheck"
 			resultType="int" 
 			parameterType="String"> 
 	select count(*) as count
 	from member 
-	where member_id = #{memberID}
+	where member_id = #{member_id}
 	</select>
 
 
 
 
 
-
-	<insert id="insertMember"
+	<!-- 회원가입 > 성공시 db에 삽입 -->
+	<insert id="insertInfoMember"
 			parameterType="MemberDto">
-	insert into member (member_id,password,email,name,birth,gender,phone_number)
-        		values (#{memberID},
+	insert into member (member_id,
+						password,
+						email,
+						name,
+						birth,
+						gender,
+						phone_number)
+        		values (#{membertbl_id},
 		        		#{password},
 		        		#{email},
 		        		#{name},
 		        		#{birth},
 		        		#{gender},
-		        		#{phoneNum})
+		        		#{phone_number})
 	</insert>
 			
 			
-	<select id="loginMember"
+	<!-- 로그인 > 아이디, 비밀번호 일치 확인 
+	 		  > 세션에 저장할 회원 정보 선택 -->
+	<select id="selectLoginMember"
 			resultType="MemberDto" 
 			parameterType="MemberDto"> 
-	select id, member_id as memberID , password , name, email
+	select id as membertbl_id , 
+		   member_id , 
+		   password , 
+		   name, 
+		   email
 	from member 
-	where member_id = #{memberID} and password = #{password}
+	where member_id = #{member_id} and 
+		  password = #{password}
 	</select>
 	
 </mapper>

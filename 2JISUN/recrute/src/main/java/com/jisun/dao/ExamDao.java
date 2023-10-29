@@ -10,15 +10,30 @@ import com.jisun.dto.ExamDto;
 import com.jisun.mybatis.MybatisConnectionFactory;
 
 public class ExamDao {
+	/*
+	 * 수험번호 일치
+	 * 회원아이디와 수험번호가 일치하는지 확인하는 메서드 
+	 * 1row -> 1컬럼 -> 1컬럼을 int에 저장
+	 * */
+	public int selectAptIdCheck (ExamDto ExamDto) {
+		int resultInt = 0;
+		SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
+		resultInt = sqlSession.selectOne("selectAptIdcheck",ExamDto); //exam테이블의 1row의 exam_id이 있으면1 없으면0
+		sqlSession.close();
+		return resultInt;
+		
+	}
+	
 	
 	/*
-	 * [select] exam테이블의 id, 문제, 4지선다 문항(보기) get 
-	 * 
+	 * 시험문제 가져오기 
+	 * 회원아이디와 수험번호가 일치하면 시험문제를 제공
+	 * 多rows --> 多컬럼 -> List로 치환하면 좋겠지만,, 우선 데이터만 보여주면 되므로 .,
 	 * */
-	public ExamDto selectExamInfo (ExamDto ExamDto) {
-		SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
+	public ExamDto selectExamQuestion (ExamDto ExamDto) {
 		ExamDto resultDto = null;
-				resultDto = sqlSession.selectOne("selectExamInfo", ExamDto); //exam테이블의 1row(selectOne)의 값 자체
+		SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
+		resultDto = sqlSession.selectOne("selectExamQuestion", ExamDto);
 		sqlSession.close();
 		return resultDto;
 	}
@@ -57,18 +72,7 @@ public class ExamDao {
 		
 	}
 	
-	/*
-	 * [select] 수험번호 일치 
-	 * selectAptIdcheck
-	 * */
-	public int selectAptIdCheck (ExamDto ExamDto) {
-		SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
-		int resultInt = 0;
-		resultInt = sqlSession.selectOne("selectAptIdcheck",ExamDto); //exam테이블의 1row의 exam_id이 있으면1 없으면0
-		sqlSession.close();
-		return resultInt;
-		
-	}
+
 	
 	
 	

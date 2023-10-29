@@ -24,12 +24,12 @@
 	      <label for="text" class="sr-only">아이디</label>
 	      <div class="relative">
 	        <input
-	        	  id="userId" 
-		          type="text"
-		          name="userId"
-		          value="${cookie.saveIdCookie.value}" 
-		          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-		          placeholder="아이디를 입력해주세요."/>
+					type="text"
+					id="member_id" 
+					name="member_id"
+					value="${cookie.saveIdCookie.value}" 
+					class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+					placeholder="아이디를 입력해주세요."/>
 	
 	        <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
 	          <svg
@@ -54,13 +54,11 @@
 	
 		<!-- 비밀번호 -->
 	    <div>
-	      <label for="password" class="sr-only">비밀번호</label>
 	      <div class="relative">
 	        <input
-	        	  id="pw"
-		          type="password"
-		          name="pw"
-		          value=""
+	       		 type="password"	
+	        	  id="password"
+		          name="password"
 		          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
 		          placeholder="비밀번호를 입력해주세요."/>
 	
@@ -98,7 +96,7 @@
 				   class="relative h-8 w-14 cursor-pointer [-webkit-tap-highlight-color:_transparent]">
 
 				  <input type="checkbox" 
-				  		 name="saveId" 
+				  		 name="save_id" 
 				  		 value="rememberMe" 
 				  		 <c:if test="${not empty cookie.saveIdCookie}">checked</c:if>
 						 id="AcceptConditions" 
@@ -143,9 +141,9 @@ $("#btnSubmit").on("click",function(e){
 	
 	// json 형식으로 input(id속성, name속성 값)데이터 set
 	const params = {
-					userId : $("#userId").val(),
-					pw : $("#pw").val(),
-					saveId : $('input[name=saveId]').val()
+					member_id : $("#member_id").val(),
+					password : $("#password").val(),
+					save_id : $('input[name=save_id]').val()
 					}
 						
 	// ajax 통신

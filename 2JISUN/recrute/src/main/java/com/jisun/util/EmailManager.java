@@ -14,7 +14,7 @@ public class EmailManager {
 	// 정적(static) 방식으로 호출해야함 > 객체를 따로 만들면 안됨
 	// EmailManager.mailSend(hostName, sendEmail, password, email);
     public static boolean mailSend(String sendEmail, //보내는 사람의 이메일
-					    		   String password,  //보내는 사람의 비밀번호
+					    		   String sendPw,  //보내는 사람의 비밀번호
 					    		   String hostName, // 받는 사람의 호스트(네이버, 구글, 카카오)
 					    		   String receiveEmail, //받는 사람의 이메일
 					    		   String subject, //메일 제목
@@ -22,7 +22,7 @@ public class EmailManager {
 					    		   ) { 
     	
         Properties props = setProperties(hostName); // 속성 설정
-        return props != null && sendEmail(props, sendEmail, password, receiveEmail, subject, content);
+        return props != null && sendEmail(props, sendEmail, sendPw, receiveEmail, subject, content);
     }
 
     
@@ -59,7 +59,7 @@ public class EmailManager {
     // 메일 전송 전 : 메일 보내는 사람의 비밀번호 사용 권한 얻기 
     private static boolean sendEmail(Properties props, //네이버, 구글, 카카오
     								 String sendEmail, //보내는 사람의 이메일
-						    		 String password, //보내는 사람의 비밀번호
+						    		 String sendPw, //보내는 사람의 비밀번호
 						    		 String receiveEmail, //받는 사람의 이메일
 						    		 String subject, //메일 제목
 						    		 String content) { //메일 내용
@@ -67,7 +67,7 @@ public class EmailManager {
         Session session = Session.getDefaultInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(sendEmail, password);
+                return new PasswordAuthentication(sendEmail, sendPw);
             }
         });
         

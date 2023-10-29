@@ -30,9 +30,7 @@
 <form action="../exam/idAuth-process"
 	  method="post">
 
-
 <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-
 	
   <div class="mx-auto max-w-lg text-center">
     <h1 class="text-2xl font-bold sm:text-3xl">지원하신 회사의 채용시험</h1>

@@ -10,8 +10,13 @@
 <form action="../applicant/applicant-process" 
       method="post">
 
-	<!-- 히든설정 -->
-	<!-- from 세션 -->
+	<!-- 데이터 전달 방식 : input type="hidden" (비공개) -->
+	<!-- 데이터 get : From Session(by 로그인ing) -->
+	<input type="hidden"
+		   id="loggedId"
+		   name="loggedId"
+		   value="${loggedId}"> 
+	
 	<input type="hidden"
 		   id="loggedMemberId"
 		   name="loggedMemberId"
@@ -22,23 +27,19 @@
 		   name="loggedEmail"
 		   value="${loggedEmail}"> 
 		   
-   	<input type="hidden"
-		   id="loggedId"
-		   name="loggedId"
-		   value="${loggedId}"> 
-	
-	<!-- from dao(compRecruitView) -->
+	<!-- 데이터 get : From DB (by dao) -->
 	<input type="hidden"
-		   id="id_recruitIndex"
-		   name="id_recruitIndex"
-		   value="${compRecruitView.id_recruitIndex}"> 
+		   id="recruitmenttbl_id"
+		   name="recruitmenttbl_id"
+		   value="${compRecruitView.recruitmenttbl_id}"> 
 	
 	<input type="hidden"
 		   id="company_name"
 		   name="company_name"
 		   value="${compRecruitView.company_name}"> 
 
-	
+
+	<!-- 데이터 전달 방식 : 공개 -->
 	<div>
 	  <div class="px-4 sm:px-0">
 	    <h3 class="text-base font-semibold leading-7 text-gray-900">
@@ -137,23 +138,14 @@
 
 
 <script>
-// 로그인한 아이디가 있을 경우 > 알림창 > 확인 > 데이터를 insert
-//								 취소 > 알림창 끄기
-// 로그인한 아이디가 없을 경우 > 알림창 : "로그인 후 지원가능합니다."
-
-const loggedId = $("#loggedId").val();
-
+// 로그인 확인
+const loggedId = $("#loggedId").val(); //멤버tbl의 id (not member_id)
 $("#btnApplicant").on("click",function(e){
-	
-	console.log($("#loggedEmail").val());
 	 if(loggedId === null || loggedId.trim()===""){
 		 alert("로그인 후 지원하실 수 있습니다.");
 	 	 return false;
 	 } 
 }) 
-
-
-
 
 </script>
 

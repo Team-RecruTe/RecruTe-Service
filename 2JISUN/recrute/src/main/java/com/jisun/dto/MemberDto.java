@@ -5,183 +5,110 @@ import java.time.LocalDate;
 
 public class MemberDto {
 	
-	private int id; //auto_increment
-	private String memberID;
+	private int membertbl_id; //auto
+	private String member_id;
 	private String password;
 	private String name;
 	private LocalDate birth;
 	private int gender;
-	private String phoneNum;
+	private String phone_number;
 	private String email;
-	private Timestamp created_date; //default
-	private Timestamp modified_date; //default 
-	 
-
-
-	public MemberDto(int id, 
-					String memberID, 
-					String password, 
-					String name, 
-					LocalDate birth, 
-					int gender,
-					String phoneNum, 
-					String email, 
-					Timestamp created_date, 
-					Timestamp modified_date) {
-
-		this.id = id;
-		this.memberID = memberID;
+	private LocalDate created_date; 
+	private LocalDate modified_date;
+	
+	
+	
+	@Override
+	public String toString() {
+		return "MemberDto [membertbl_id=" + membertbl_id + ", member_id=" + member_id + ", password=" + password
+				+ ", name=" + name + ", birth=" + birth + ", gender=" + gender + ", phone_number=" + phone_number
+				+ ", email=" + email + ", created_date=" + created_date + ", modified_date=" + modified_date + "]";
+	}
+	
+	
+	public MemberDto(int membertbl_id, String member_id, String password, String name, LocalDate birth, int gender,
+			String phone_number, String email, LocalDate created_date, LocalDate modified_date) {
+		super();
+		this.membertbl_id = membertbl_id;
+		this.member_id = member_id;
 		this.password = password;
 		this.name = name;
 		this.birth = birth;
 		this.gender = gender;
-		this.phoneNum = phoneNum;
+		this.phone_number = phone_number;
 		this.email = email;
 		this.created_date = created_date;
 		this.modified_date = modified_date;
 	}
 	
 	
-
-
 	public MemberDto() {
 		super();
-
+		// TODO Auto-generated constructor stub
 	}
-
-
-
-
-	@Override
-	public String toString() {
-		return "MemberDto [id=" + id + ", memberID=" + memberID + ", password=" + password + ", name=" + name
-				+ ", birth=" + birth + ", gender=" + gender + ", phoneNum=" + phoneNum + ", email=" + email
-				+ ", created_date=" + created_date + ", modified_date=" + modified_date + "]";
+	
+	
+	public int getMembertbl_id() {
+		return membertbl_id;
 	}
-
-
-
-	public int getId() {
-		return id;
+	public void setMembertbl_id(int membertbl_id) {
+		this.membertbl_id = membertbl_id;
 	}
-
-
-
-	public void setId(int id) {
-		this.id = id;
+	public String getMember_id() {
+		return member_id;
 	}
-
-
-
-	public String getMemberID() {
-		return memberID;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
-
-
-
-	public void setMemberID(String memberID) {
-		this.memberID = memberID;
-	}
-
-
-
 	public String getPassword() {
 		return password;
 	}
-
-
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-
-
 	public String getName() {
 		return name;
 	}
-
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
-
 	public LocalDate getBirth() {
 		return birth;
 	}
-
-
-
 	public void setBirth(LocalDate birth) {
 		this.birth = birth;
 	}
-
-
-
 	public int getGender() {
 		return gender;
 	}
-
-
-
 	public void setGender(int gender) {
 		this.gender = gender;
 	}
-
-
-
-	public String getPhoneNum() {
-		return phoneNum;
+	public String getPhone_number() {
+		return phone_number;
 	}
-
-
-
-	public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
+	public void setPhone_number(String phone_number) {
+		this.phone_number = phone_number;
 	}
-
-
-
 	public String getEmail() {
 		return email;
 	}
-
-
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
-
-	public Timestamp getCreated_date() {
+	public LocalDate getCreated_date() {
 		return created_date;
 	}
-
-
-
-	public void setCreated_date(Timestamp created_date) {
+	public void setCreated_date(LocalDate created_date) {
 		this.created_date = created_date;
 	}
-
-
-
-	public Timestamp getModified_date() {
+	public LocalDate getModified_date() {
 		return modified_date;
 	}
-
-
-
-	public void setModified_date(Timestamp modified_date) {
+	public void setModified_date(LocalDate modified_date) {
 		this.modified_date = modified_date;
-	}
-	
-	
-	
-	
+	} 
+	 
 
 	
 }

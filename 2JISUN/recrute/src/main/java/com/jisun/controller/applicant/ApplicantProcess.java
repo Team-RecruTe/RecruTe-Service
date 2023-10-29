@@ -34,32 +34,23 @@ public class ApplicantProcess extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//1. 데이터 가져오기
-		//jsp
-		//[from] session
-		int loggedId = 0;
+		/*데이터 get : From Session (by 로그인ing)*/
 		HttpSession session = request.getSession();
+		int loggedId = 0;
 		String loggedIdStr = String.valueOf(session.getAttribute("loggedId"));
 		if(loggedIdStr!=null && !loggedIdStr.isEmpty()) {
 			loggedId = Integer.parseInt(loggedIdStr);
 		}
+		//String loggedMemberId = String.valueOf(session.getAttribute("loggedMemberId")); 
+		String loggedEmail = String.valueOf(session.getAttribute("loggedEmail"));
+
 		
-		
-		
-		
-		
-		String loggedMemberId = request.getParameter("loggedMemberId"); //loggedMemberId
-		String loggedEmail = request.getParameter("loggedEmail");
-		
-		//[from] dao(compRecruitView)
-		int id_recruitIndex = 0;
-			if(request.getParameter("id_recruitIndex")!=null && !request.getParameter("id_recruitIndex").isEmpty()) {
-				id_recruitIndex = Integer.parseInt(request.getParameter("id_recruitIndex"));
+		/*데이터 get : From Client (by form)*/
+		int recruitmenttbl_id = 0;
+			if(request.getParameter("recruitmenttbl_id")!=null && !request.getParameter("recruitmenttbl_id").isEmpty()) {
+				recruitmenttbl_id = Integer.parseInt(request.getParameter("recruitmenttbl_id"));
 			}
 		
-
-			
-			
 			
 		// 메일을 보내기 위한 변수 할당
 		String hostName = null;
@@ -69,41 +60,33 @@ public class ApplicantProcess extends HttpServlet {
         	hostName = emailParts[1].replace(".com", ""); // .com 제거 > naver /google
         }
         String sendEmail = "snm03097@naver.com";
-        String password = "Universe96";
-        String subjectCompany = request.getParameter("company_name");
-        String subjectText = "의 시험응시 페이지로 이동하기";
-        String subject = subjectCompany + subjectText;
-        
+        String sendPw 	 = "Universe96";
+        String subject 	 = "회원님 지원하신 " 
+        					+ request.getParameter("company_name") 
+        					+ "의 수험번호와 시험응시 페이지 링크를 전달드립니다.";
+
         int apt_id = RandomGenerator.RandomNum(); //랜덤숫자 생성(1000~9999)
         
-        
-		//ExamDao examDao = new ExamDao();
-		//ExamDto examDto = examDao.selectExamId(id_recruitIndex);
-		//int examId = examDto.getExamTbl_id(); // 실제 exam_id 변수를 여기에 할당
 		String url = "http://localhost:8080/recrute02/exam/idAuth";
-		String content = "당신의 수험번호를 아래 링크에 입력하세요 " 
+		String content = "수험번호를 아래 페이지에서 입력하세요" 
 						+ "\n"
-						+"수험번호 : " + apt_id 
+						+ "회원님의 수험번호 : " + apt_id 
 						+ "\n" 
 						+ "시험 보러 가기: " + url;
-		
-		
+
 			
-		//2. db(dao) 연결
+		/*데이터 trans : Dao -> Dto -> int */
 		ApplicantDao applicantDao = new ApplicantDao();
 		ApplicantDto applicantDto = new ApplicantDto();
-					 applicantDto.setApt_id(apt_id); //수험번호 생성
-					 applicantDto.setMember_id(loggedId);
-					 applicantDto.setRecruitment_id(id_recruitIndex);
-					 
-
-		//3. 데이터를 db에 넣기		 	
-		int result = applicantDao.insertAppliacnt(applicantDto);
+					 applicantDto.setApt_id(apt_id); 
+					 applicantDto.setMembertbl_id(loggedId);
+					 applicantDto.setRecruitmenttbl_id(recruitmenttbl_id);;	 	
+		int resultInt = applicantDao.insertAppliacnt(applicantDto);
 		
 		
-		//4. 실행
-		if (result>0) {
-			EmailManager.mailSend(sendEmail, password, hostName, loggedEmail, subject, content);
+		/*결과 : 메서드 수행*/
+		if (resultInt>0) {
+			EmailManager.mailSend(sendEmail, sendPw, hostName, loggedEmail, subject, content);
 			ScriptWriter.alertAndBack(response, "지원 성공! 회원님의 이메일로 시험링크가 발송되었습니다. 행운을 빌어요~🍀");
 		} else {
 			ScriptWriter.alertAndBack(response, "서버 오류 입니다.");
