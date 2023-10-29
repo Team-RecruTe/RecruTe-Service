@@ -3,8 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+  <settings>
+    <setting name="cacheEnabled" value="true"/>
+    <setting name="localCacheScope" value="SESSION"/>
+  </settings>
   <typeAliases>
     <typeAlias alias="MemberDTO" type="com.blanc.recrute.member.dto.MemberDTO"/>
+    <typeAlias alias="MemberInfoDTO" type="com.blanc.recrute.member.dto.MemberInfoDTO"/>
     <typeAlias alias="RecruitDTO" type="com.blanc.recrute.recruitment.dto.RecruitDTO"/>
     <typeAlias alias="RctDetDTO" type="com.blanc.recrute.recruitment.dto.RctDetDTO"/>
     <typeAlias alias="ApplyDTO" type="com.blanc.recrute.recruitment.dto.ApplyDTO"/>
@@ -22,6 +27,7 @@
         <property name="url" value="jdbc:mysql://localhost:3306/recrute"/>
         <property name="username" value="blanc"/>
         <property name="password" value="blanc1234"/>
+        <property name="poolMaximumActiveConnections" value="20"/>
       </dataSource>
     </environment>
   </environments>
