@@ -9,11 +9,14 @@ public class Authenticater {
   private Cookie authCookie;
 
   public boolean isAuthenticated(HttpServletRequest request) {
-    for (Cookie cookie : request.getCookies()) {
-      if (cookie.getName().equals("sid")) {
-        renewAuthCookie(cookie);
-        return true;
+    if (request.getCookies() != null) {
+      for (Cookie cookie : request.getCookies()) {
+        if (cookie != null && cookie.getName().equals("sid")) {
+          renewAuthCookie(cookie);
+          return true;
+        }
       }
+
     }
     return false;
   }

@@ -6,10 +6,11 @@ import jakarta.servlet.http.HttpServletRequest;
 public class CookieManager {
 
   public static Cookie getCookie(HttpServletRequest request, String cookieName) {
-
-    for (Cookie cookie : request.getCookies()) {
-      if (cookie.getName().equals(cookieName)) {
-        return cookie;
+    if (request.getCookies() != null) {
+      for (Cookie cookie : request.getCookies()) {
+        if (cookie.getName().equals(cookieName)) {
+          return cookie;
+        }
       }
     }
     return null;

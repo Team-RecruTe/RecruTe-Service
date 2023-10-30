@@ -13,10 +13,19 @@ public class ExamDAO {
 
   public RecruitInfoDTO getRecruitContent(String aptId) {
     connSql();
+    RecruitInfoDTO examDTO = null;
+    try {
+      examDTO = sqlSession.selectOne("getRecruitTitle", aptId);
+      sqlSession.commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+      sqlSession.rollback();
+    } finally {
+      if (sqlSession != null) {
+        closeSql();
+      }
+    }
 
-    RecruitInfoDTO examDTO = sqlSession.selectOne("getRecruitTitle", aptId);
-
-    sqlSession.close();
     return examDTO;
   }
 
@@ -27,19 +36,39 @@ public class ExamDAO {
    */
   public List<ExaminationDTO> getExamination(Integer recruitId) {
     connSql();
+    List<ExaminationDTO> examinationDTOList = null;
+    try {
+      examinationDTOList = sqlSession.selectList("getExamination", recruitId);
 
-    List<ExaminationDTO> examinationDTOList = sqlSession.selectList("getExamination", recruitId);
+      sqlSession.commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+      sqlSession.rollback();
+    } finally {
+      if (sqlSession != null) {
+        closeSql();
+      }
+    }
 
-    sqlSession.close();
     return examinationDTOList;
   }
 
   public Integer getRecruitId(Integer examId) {
     connSql();
+    Integer recruitId = null;
+    try {
+      recruitId = sqlSession.selectOne("searchRecruitId", examId);
 
-    Integer recruitId = sqlSession.selectOne("searchRecruitId", examId);
+      sqlSession.commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+      sqlSession.rollback();
+    } finally {
+      if (sqlSession != null) {
+        closeSql();
+      }
+    }
 
-    sqlSession.close();
     return recruitId;
   }
 
@@ -52,4 +81,8 @@ public class ExamDAO {
     sqlSession = MybatisConnectionFactory.getSqlSession();
   }
 
+  private void closeSql() {
+    sqlSession.close();
+    MybatisConnectionFactory.closeSqlSession();
+  }
 }

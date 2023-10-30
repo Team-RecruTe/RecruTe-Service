@@ -9,7 +9,7 @@ function submitExamination(answers) {
     answers: answers
   }
 
-  fetch(`exam/'+'${examId}`, {
+  fetch(`exam/${examId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

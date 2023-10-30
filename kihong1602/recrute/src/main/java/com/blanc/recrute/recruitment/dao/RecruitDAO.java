@@ -8,36 +8,77 @@ import org.apache.ibatis.session.SqlSession;
 
 public class RecruitDAO {
 
-    private static SqlSession sqlSession;
+  private static SqlSession sqlSession;
 
-    public DetailDTO selectDetail(RecruitDTO recruitDTO) {
-        connSql();
+  public DetailDTO selectDetail(RecruitDTO recruitDTO) {
+    connSql();
+    DetailDTO detailDTO = null;
 
-        DetailDTO detailDTO = sqlSession.selectOne("selectDetail", recruitDTO);
+    try {
+      detailDTO = sqlSession.selectOne("selectDetail", recruitDTO);
 
-        sqlSession.close();
-        return detailDTO;
+      sqlSession.commit();
+    } catch (Exception e) {
+
+      e.printStackTrace();
+      sqlSession.rollback();
+
+    } finally {
+      if (sqlSession != null) {
+        closeSql();
+      }
     }
 
-    public int applyRecruit(ApplyDTO applyDTO) {
-        connSql();
+    return detailDTO;
+  }
 
-        int result = sqlSession.insert("applyRecruit", applyDTO);
+  public int applyRecruit(ApplyDTO applyDTO) {
+    connSql();
+    int result = 0;
+    try {
+      result = sqlSession.insert("applyRecruit", applyDTO);
 
-        sqlSession.close();
-        return result;
+      sqlSession.commit();
+    } catch (Exception e) {
+
+      e.printStackTrace();
+      sqlSession.rollback();
+
+    } finally {
+      if (sqlSession != null) {
+        closeSql();
+      }
     }
 
-    public Integer searchMemberId(String memberRealId) {
-        connSql();
+    return result;
+  }
 
-        Integer id = sqlSession.selectOne("searchMemberRealId", memberRealId);
+  public Integer searchMemberId(String memberRealId) {
+    connSql();
+    Integer id = null;
+    try {
+      id = sqlSession.selectOne("searchMemberRealId", memberRealId);
+      sqlSession.commit();
+    } catch (Exception e) {
 
-        sqlSession.close();
-        return id;
+      e.printStackTrace();
+      sqlSession.rollback();
+
+    } finally {
+      if (sqlSession != null) {
+        closeSql();
+      }
     }
 
-    private void connSql() {
-        sqlSession = MybatisConnectionFactory.getSqlSession();
-    }
+    return id;
+  }
+
+  private void connSql() {
+    sqlSession = MybatisConnectionFactory.getSqlSession();
+  }
+
+  private void closeSql() {
+    sqlSession.close();
+    MybatisConnectionFactory.closeSqlSession();
+  }
 }

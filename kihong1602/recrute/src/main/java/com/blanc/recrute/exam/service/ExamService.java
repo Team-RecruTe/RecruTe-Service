@@ -1,5 +1,6 @@
 package com.blanc.recrute.exam.service;
 
+import com.blanc.recrute.common.Word;
 import com.blanc.recrute.exam.dao.ExamDAO;
 import com.blanc.recrute.exam.dto.ExaminationDTO;
 import com.blanc.recrute.exam.dto.RecruitInfoDTO;
@@ -8,7 +9,8 @@ import java.util.List;
 
 public class ExamService {
 
-  private static ExamDAO examDAO = new ExamDAO();
+  private static final ExamDAO examDAO = new ExamDAO();
+
 
   public RecruitInfoDTO getRecruitContent(String aptId) {
 
@@ -23,9 +25,7 @@ public class ExamService {
   }
 
   public String saveExamination(AnswerData answerData) {
-    if (examDAO.saveExamination(answerData) != null) {
-      return "success";
-    }
-    return "fail";
+
+    return examDAO.saveExamination(answerData) != null ? Word.SUCCESS : Word.FAIL;
   }
 }

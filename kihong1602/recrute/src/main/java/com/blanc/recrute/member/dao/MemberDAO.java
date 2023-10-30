@@ -1,15 +1,17 @@
 package com.blanc.recrute.member.dao;
 
 import com.blanc.recrute.member.dto.MemberDTO;
+import com.blanc.recrute.member.dto.MemberInfoDTO;
 
 public interface MemberDAO {
-    int insertMember(MemberDTO memberDTO);
 
-    String loginCheck(MemberDTO memberDTO);
+  int insertMember(MemberInfoDTO memberDTO);
 
-    int idCheck(String id);
+  String loginCheck(MemberDTO memberDTO);
 
-    String searchMember(MemberDTO memberDTO);
+  int idCheck(String id);
 
-    int authGrantMember(MemberDTO memberDTO);
+  String searchMember(MemberDTO memberDTO);
+
+  int authGrantMember(MemberDTO memberDTO);
 }

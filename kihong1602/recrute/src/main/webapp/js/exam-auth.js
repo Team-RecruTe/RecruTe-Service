@@ -1,14 +1,15 @@
 function sendExaminationEmail() {
   let aptId = document.getElementById('apt-id').value;
   let examId = parsingURL();
-  fetch(`/exam/auth/'+'${examId}`, {
+  fetch(`/exam/auth/${examId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       aptId: `${aptId}`
-    })
+    }),
+    timeout: 50000
   })
   .then(response => response.text())
   .then(data => {
@@ -22,7 +23,7 @@ function sendExaminationEmail() {
         alert('수험번호가 다릅니다. 다시 입력해주세요.');
         aptId.value = "";
         break;
-      case "authFail":
+      case "fail":
         alert('인증정보가 없습니다. 시험응시를 해주세요.');
         history.back();
         break;
@@ -31,7 +32,7 @@ function sendExaminationEmail() {
 }
 
 function parsingURL() {
-  const currentURL = window.location.href;
-  const splitURL = currentURL.split("/");
-  return splitURL[splitURL.length - 1];
+  const url = new URL(window.location.href);
+  const uri = url.pathname.split("/");
+  return uri[uri.length - 1];
 }
