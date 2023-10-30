@@ -24,8 +24,8 @@ import static com.hossi.recrute.common.mybatis.ResultType.SUCCESS;
 import static com.hossi.recrute.member.vo.Certification.CERTIFIED;
 import static jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
-@WebServlet(name = "emailServlet", value = "/member/email/auth")
-public class EmailAuthProcessServlet extends HttpController {
+@WebServlet(name = "authEmailProcessServlet", value = "/member/email/auth")
+public class AuthEmailProcessServlet extends HttpController {
     private final MemberService memberService = new MemberService();
 
     @Override @MBR(value = "302", description = "이메일 인증")

@@ -12,6 +12,7 @@
         <typeAlias alias="CheckDupDto" type="com.hossi.recrute.member.dto.request.CheckDupReqDto"/>
         <typeAlias alias="RecruitmentDto" type="com.hossi.recrute.recruitment.dto.RecruitmentDto"/>
         <typeAlias alias="ApplicantDto" type="com.hossi.recrute.recruitment.dto.ApplicantReqDto"/>
+        <typeAlias alias="SendExamEmailDto" type="com.hossi.recrute.exam.dto.SendExamEmailDto"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -27,5 +28,6 @@
     <mappers>
         <mapper resource="mapper/member.xml"/>
         <mapper resource="mapper/recruitment.xml"/>
+        <mapper resource="mapper/exam.xml"/>
     </mappers>
 </configuration>

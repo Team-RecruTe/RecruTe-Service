@@ -22,8 +22,8 @@ import static com.hossi.recrute.common.mybatis.ResultType.SUCCESS;
 import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 import static jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
-@WebServlet(name = "signupCompleteServlet", value = "/member/email")
-public class EmailAuthServlet extends HttpController {
+@WebServlet(name = "sendAuthEmailServlet", value = "/member/email")
+public class SendAuthEmailServlet extends HttpController {
     private final EmailService emailService = new EmailService();
 
     @Override @MBR(value = "301", description = "인증 이메일 전송")
