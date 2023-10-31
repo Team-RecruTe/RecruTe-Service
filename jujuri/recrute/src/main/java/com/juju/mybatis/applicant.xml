@@ -14,4 +14,7 @@
 	<select id="countApplicant" resultType = "int" parameterType="String">
 		select count(*) from applicant where recruitment_id = #{recruitmentId}
 	</select>
+	<select id="checkApplicant" resultType = "int" parameterType="String">
+		select count(*) from applicant a, member m where m.member_id = #{userId} and a.member_id = m.id;
+	</select>
 </mapper>

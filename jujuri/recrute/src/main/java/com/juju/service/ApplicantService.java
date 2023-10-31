@@ -6,4 +6,6 @@ public interface ApplicantService {
   int insertApplicant(ApplicantDto applicantDto);
 
   int countApplicant(String recruitmentId);
+
+  int checkApplicant(String userId);
 }

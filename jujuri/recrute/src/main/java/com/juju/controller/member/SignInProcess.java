@@ -35,7 +35,7 @@ public class SignInProcess extends HttpServlet {
     String userId = request.getParameter("userId");
     String pw = request.getParameter("pw");
     String saveID = request.getParameter("saveID");
-    System.out.println("saveID===" + saveID);
+    // System.out.println("saveID===" + saveID);
 
     MemberDto memberDto = new MemberDto();
     memberDto.setMember_id(userId);

@@ -22,4 +22,12 @@ public class ApplicantDao implements ApplicantService {
     return result;
   }
 
+  @Override
+  public int checkApplicant(String userId) {
+    int count = 0;
+    SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
+    count = sqlSession.selectOne("checkApplicant", userId);
+    return count;
+  }
+
 }

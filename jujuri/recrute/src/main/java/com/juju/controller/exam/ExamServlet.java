@@ -12,11 +12,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/// exam/{exam_id}/auth
-public class ExamAuthServlet extends HttpServlet {
+public class ExamServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public ExamAuthServlet() {
+  public ExamServlet() {
     super();
 
   }
@@ -24,21 +23,16 @@ public class ExamAuthServlet extends HttpServlet {
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     String[] url = request.getRequestURI().split("/");
-    // System.out.println(url[4]);
     // ex) /recrute/exam/1/auth ==> [, recrute, exam, 1, auth]
 
     if (url.length > 3) {
-      if (url[4].equals("auth")) {
-
-        String examId = url[3];
-        request.setAttribute("examId", examId);
+      if (url[3].equals("auth")) {
         RequestDispatcher dispatcher =
             request.getRequestDispatcher("/WEB-INF/exam/authorization.jsp");
         dispatcher.forward(request, response);
       }
     } else {
       String aptId = request.getParameter("aptId");
-      String examId = request.getParameter("examId");
 
       ExamDao examDao = new ExamDao();
       List<ExamDto> examList = new ArrayList<>();
@@ -47,7 +41,6 @@ public class ExamAuthServlet extends HttpServlet {
       System.out.println(examList);
 
       if (!examList.isEmpty()) {
-        request.setAttribute("examId", examId);
         request.setAttribute("examList", examList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/exam/exam-view.jsp");
         dispatcher.forward(request, response);

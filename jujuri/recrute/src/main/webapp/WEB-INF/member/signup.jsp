@@ -192,6 +192,7 @@ $("#btnIdCheck").on("click", function() {
 					$("#userId").attr("readonly", true);
 					btnIdCheck = true;
 				}
+				$("#btnIdCheck").attr("disabled", true);
 			}
 		},
 		complete : function(data) {

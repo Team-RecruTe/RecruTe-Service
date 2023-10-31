@@ -4,7 +4,7 @@ public class EmailTest {
   public static void main(String[] args) {
 
     EmailManager.mailSend("naver", "0612000ljy@naver.com", "시험 응시하기",
-        "<a href='http://localhost:8080/recrute/exam/1/auth'>여기를 클릭하시면 시험페이지로 이동합니다.</a>");
+        "<a href='http://localhost:8080/recrute/exam/auth'>여기를 클릭하시면 시험페이지로 이동합니다.</a>");
 
 
 

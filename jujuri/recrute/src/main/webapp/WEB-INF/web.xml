@@ -111,12 +111,12 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ExamAuthServlet</display-name>
-    <servlet-name>ExamAuthServlet</servlet-name>
-    <servlet-class>com.juju.controller.exam.ExamAuthServlet</servlet-class>
+    <display-name>ExamServlet</display-name>
+    <servlet-name>ExamServlet</servlet-name>
+    <servlet-class>com.juju.controller.exam.ExamServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ExamAuthServlet</servlet-name>
+    <servlet-name>ExamServlet</servlet-name>
     <url-pattern>/exam/*</url-pattern>
   </servlet-mapping>
   <servlet>
@@ -128,5 +128,15 @@
   <servlet-mapping>
     <servlet-name>ExamEmailSend</servlet-name>
     <url-pattern>/exam-email</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ApplyCheck</display-name>
+    <servlet-name>ApplyCheck</servlet-name>
+    <servlet-class>com.juju.controller.hire.ApplyCheck</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ApplyCheck</servlet-name>
+    <url-pattern>/apply-check</url-pattern>
   </servlet-mapping>
 </web-app>
