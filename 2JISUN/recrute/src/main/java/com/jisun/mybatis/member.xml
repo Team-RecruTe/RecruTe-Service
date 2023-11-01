@@ -28,7 +28,7 @@
 						birth,
 						gender,
 						phone_number)
-        		values (#{membertbl_id},
+        		values (#{member_id},
 		        		#{password},
 		        		#{email},
 		        		#{name},
