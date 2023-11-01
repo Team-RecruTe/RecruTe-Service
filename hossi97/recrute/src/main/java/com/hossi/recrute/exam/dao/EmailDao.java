@@ -11,7 +11,7 @@ public class EmailDao {
     public List<SendExamEmailDto> findExamInfos(Integer recruitmentId) {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         List<SendExamEmailDto> sendExamEmailDtos = sqlSession.selectList("selectUserEmailAndAptIdAndCompanyName", recruitmentId);
-        sqlSession.close();
+        MyBatisConnectionManager.closeSqlSession(sqlSession);
 
         return sendExamEmailDtos;
     }

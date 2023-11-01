@@ -13,7 +13,7 @@ public class RecruitmentDao {
     public RecruitmentDto findRecruitment(Integer rctId) {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         RecruitmentDto recruitmentDto = sqlSession.selectOne("selectRecruitmentByRctId", rctId);
-        sqlSession.close();
+        MyBatisConnectionManager.closeSqlSession(sqlSession);
 
         return recruitmentDto;
     }
@@ -21,7 +21,7 @@ public class RecruitmentDao {
     public ResultType saveRecruitment(ApplicantReqDto applicantDto) {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         int result = sqlSession.insert("insertApplicant", applicantDto);
-        sqlSession.close();
+        MyBatisConnectionManager.closeSqlSession(sqlSession);
 
         return SUCCESS.equals(result) ? SUCCESS : FAILURE;
     }

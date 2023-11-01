@@ -12,7 +12,7 @@ import java.io.IOException;
 
 import static jakarta.servlet.http.HttpServletResponse.SC_OK;
 
-@WebServlet(name="signupServlet", value="/signup/complete")
+@WebServlet(name="signupCompleteServlet", value="/signup/complete")
 public class SignupCompletServlet extends HttpController {
     @Override @MBR(value = "004", description = "회원가입 완료 페이지 조회")
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

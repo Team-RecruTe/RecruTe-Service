@@ -45,7 +45,7 @@ public class SignupReqDto {
         return phoneNumber;
     }
 
-    public LocalDate  getBirth() {
+    public LocalDate getBirth() {
         return birth;
     }
 

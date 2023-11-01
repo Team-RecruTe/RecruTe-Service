@@ -16,9 +16,16 @@ import static com.hossi.recrute.common.mybatis.ResultType.SUCCESS;
 public class MemberDao {
 
     public SignupResDto saveMember(SignupReqDto signupReqDto) {
+
+        SignupResDto signupResDto = null;
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
-        Integer id = sqlSession.insert("insertMember", signupReqDto);
-        SignupResDto signupResDto = sqlSession.selectOne("selectIdAndCertificationById", id);
+        try {
+            Integer id = sqlSession.insert("insertMember", signupReqDto);
+            signupResDto = sqlSession.selectOne("selectIdAndCertificationById", id);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         sqlSession.close();
 
         return signupResDto;
@@ -27,7 +34,7 @@ public class MemberDao {
     public SigninResDto findIdAndCertification(SigninReqDto signinReqDto) {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         SigninResDto signinResDto = sqlSession.selectOne("selectIdAndCertificationByUsernameAndPassword", signinReqDto);
-        sqlSession.close();
+        MyBatisConnectionManager.closeSqlSession(sqlSession);
 
         return signinResDto;
     }
@@ -36,7 +43,7 @@ public class MemberDao {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         Integer count = sqlSession.selectOne("selectCountByUsername", checkDupReqDto);
         CheckDupResDto checkDupResDto = new CheckDupResDto(count > 0);
-        sqlSession.close();
+        MyBatisConnectionManager.closeSqlSession(sqlSession);
 
         return checkDupResDto;
     }
@@ -44,7 +51,7 @@ public class MemberDao {
     public ResultType updateCerification(Integer id) {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         int result = sqlSession.update("updateCertificationById", id);
-        sqlSession.close();
+        MyBatisConnectionManager.closeSqlSession(sqlSession);
 
         return SUCCESS.equals(result) ? SUCCESS : FAILURE;
     }
@@ -52,7 +59,7 @@ public class MemberDao {
     public String findEmail(Integer id) {
         SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
         String email = sqlSession.selectOne("selectEmailById", id);
-        sqlSession.close();
+        MyBatisConnectionManager.closeSqlSession(sqlSession);
 
         return email;
     }
