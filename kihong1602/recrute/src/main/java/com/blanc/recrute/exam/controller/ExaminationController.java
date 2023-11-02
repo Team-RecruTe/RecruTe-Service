@@ -3,6 +3,7 @@ package com.blanc.recrute.exam.controller;
 import com.blanc.recrute.common.JsonUtil;
 import com.blanc.recrute.common.URLParser;
 import com.blanc.recrute.common.ViewResolver;
+import com.blanc.recrute.common.Word;
 import com.blanc.recrute.exam.dto.ExaminationDTO;
 import com.blanc.recrute.exam.dto.answer.AnswerData;
 import com.blanc.recrute.exam.service.ExamService;
@@ -18,24 +19,21 @@ import java.util.List;
 
 @WebServlet(name = "exam/*", value = "/exam/*")
 public class ExaminationController extends HttpServlet {
-
   //시험 응시 페이지 뷰, 시험응시 제출
-  private static final ExamService EXAM_SERVICE = new ExamService();
-  private static final ViewResolver VIEW_RESOLVER = new ViewResolver();
-  private static final Gson GSON = new Gson();
-  private static InvalidDTO invalidDTO;
+  private final ExamService EXAM_SERVICE = new ExamService();
+  private final Gson GSON = new Gson();
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     String path = "exam/examination";
 
-    Integer examId = URLParser.getExamId(request);
+    Integer examId = URLParser.getLastURI(request);
     List<ExaminationDTO> list = EXAM_SERVICE.getExamination(examId);
 
     request.setAttribute("ExamList", list);
     request.setAttribute("size", list.size());
-    request.getRequestDispatcher(VIEW_RESOLVER.viewPath(path)).forward(request, response);
+    ViewResolver.render(path, request, response);
   }
 
   /*
@@ -52,8 +50,9 @@ public class ExaminationController extends HttpServlet {
 
     String result = EXAM_SERVICE.saveExamination(answerData);
 
-    invalidDTO =
-        result.equals("success") ? new InvalidDTO("available") : new InvalidDTO("unavailable");
+    InvalidDTO invalidDTO =
+        result.equals(Word.SUCCESS) ? new InvalidDTO(Word.AVAILABLE)
+            : new InvalidDTO(Word.UNAVAILABLE);
 
     String json = GSON.toJson(invalidDTO);
     JsonUtil.sendJSON(response, json);

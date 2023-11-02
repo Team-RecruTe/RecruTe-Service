@@ -7,6 +7,8 @@ import java.util.UUID;
 public class Authenticater {
 
   private Cookie authCookie;
+  private final int HOUR = 60*60;
+  private final int ZERO = 0;
 
   public boolean isAuthenticated(HttpServletRequest request) {
     if (request.getCookies() != null) {
@@ -22,12 +24,12 @@ public class Authenticater {
   }
 
   private void renewAuthCookie(Cookie cookie) {
-    cookie.setMaxAge(3600);
+    cookie.setMaxAge(HOUR);
     authCookie = cookie;
   }
 
   public Cookie expireAuthCookie() {
-    authCookie.setMaxAge(0);
+    authCookie.setMaxAge(ZERO);
     return authCookie;
   }
 
@@ -36,7 +38,7 @@ public class Authenticater {
     Cookie cookie = new Cookie("sid", uuid);
     request.getSession().setAttribute(uuid, id);
     cookie.setHttpOnly(true);
-    cookie.setMaxAge(3600);
+    cookie.setMaxAge(HOUR);
     authCookie = cookie;
   }
 
