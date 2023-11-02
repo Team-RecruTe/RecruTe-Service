@@ -29,8 +29,4 @@ public class MyBatisConnectionManager {
     public static SqlSession getSqlSession() {
         return sqlSessionFactory.openSession(false);
     }
-
-    public static void closeSqlSession(SqlSession sqlSession) {
-        sqlSession.close();
-    }
 }
