@@ -67,17 +67,17 @@ public class ExamDAO {
 
 
   public List<String> getEmailList(RecruitIdDTO recruitIdDTO) {
-
+    List<String> emailList = null;
     try (SqlSession sqlSession = MybatisConnectionFactory.getSqlSession()) {
       ExamMapper examMapper = sqlSession.getMapper(ExamMapper.class);
 
-      List<String> emailList = examMapper.getApplicantEmail(recruitIdDTO);
+      emailList = examMapper.getApplicantEmail(recruitIdDTO);
+
       sqlSession.commit();
-      return emailList;
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, Word.ERROR, e);
     }
-    return null;
+    return emailList;
   }
 
   public String saveExamination(AnswerData answerData) {
