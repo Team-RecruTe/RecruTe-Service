@@ -98,7 +98,6 @@
 	$("#btnApply").on("click", function() {
 		console.log("log");
 		$.ajax({
-			//url : "../recrute/apply-check",
 			url : "/recrute/apply-check",
 			method : "get",
 			dataType : "json",
@@ -107,10 +106,8 @@
 				console.log(data);
 				if (data.count > 0) {
 					alert("you have already applied to this company");
-					//code = data.code;
 				} else {
 					$("#sendForm").submit();
-					//location.href = "/recrute/apply-process"
 				}
 			},
 			complete : function(data) {
