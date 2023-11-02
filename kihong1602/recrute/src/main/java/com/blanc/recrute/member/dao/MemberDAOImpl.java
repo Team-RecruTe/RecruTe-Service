@@ -1,34 +1,51 @@
 package com.blanc.recrute.member.dao;
 
+import com.blanc.recrute.common.Word;
 import com.blanc.recrute.member.dto.MemberDTO;
 import com.blanc.recrute.member.dto.MemberInfoDTO;
+import com.blanc.recrute.mybatis.MemberMapper;
 import com.blanc.recrute.mybatis.MybatisConnectionFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.ibatis.session.SqlSession;
 
 public class MemberDAOImpl implements MemberDAO {
 
-  private static SqlSession sqlSession;
+  private final Logger LOGGER = Logger.getLogger(MemberDAOImpl.class.getName());
 
   @Override
-  public int insertMember(MemberInfoDTO memberDTO) {
-    connSql();
-    int result = 0;
+  public int idCheck(String id) {
 
-    try {
+    MemberDTO memberDTO = new MemberDTO.Builder().memberId(id).build();
+    Integer result = 0;
 
-      result = sqlSession.insert("saveMember", memberDTO);
+    try (SqlSession sqlSession = MybatisConnectionFactory.getSqlSession()) {
+      MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+
+      result = memberMapper.duplicateId(memberDTO);
 
       sqlSession.commit();
     } catch (Exception e) {
+      LOGGER.log(Level.SEVERE, Word.ERROR, e);
+    }
 
-      e.printStackTrace();
-      sqlSession.rollback();
+    return result;
+  }
 
-    } finally {
+  @Override
+  public int insertMember(MemberInfoDTO memberDTO) {
+    int result = 0;
 
-      if (sqlSession != null) {
-        closeSql();
-      }
+    try (SqlSession sqlSession = MybatisConnectionFactory.getSqlSession()) {
+      MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+
+//      memberMapper = sqlSession.getMapper(MemberMapper.class);
+      result = memberMapper.saveMember(memberDTO);
+//      result = sqlSession.insert("saveMember", memberDTO);
+
+      sqlSession.commit();
+    } catch (Exception e) {
+      LOGGER.log(Level.SEVERE, Word.ERROR, e);
 
     }
 
@@ -37,77 +54,33 @@ public class MemberDAOImpl implements MemberDAO {
 
   @Override
   public String loginCheck(MemberDTO memberDTO) {
-    connSql();
     String memberId = null;
 
-    try {
+    try (SqlSession sqlSession = MybatisConnectionFactory.getSqlSession()) {
+      MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 
-      memberId = sqlSession.selectOne("loginCheck", memberDTO);
+      memberId = memberMapper.loginCheck(memberDTO);
 
       sqlSession.commit();
     } catch (Exception e) {
-
-      e.printStackTrace();
-      sqlSession.rollback();
-
-    } finally {
-
-      if (sqlSession != null) {
-        closeSql();
-      }
-
+      LOGGER.log(Level.SEVERE, Word.ERROR, e);
     }
     return memberId;
   }
 
-  @Override
-  public int idCheck(String id) {
-    connSql();
-    MemberDTO memberDTO = new MemberDTO.Builder().memberId(id).build();
-    int result = 0;
-
-    try {
-
-      result = sqlSession.selectOne("idCheck", memberDTO);
-
-      sqlSession.commit();
-    } catch (Exception e) {
-
-      e.printStackTrace();
-      sqlSession.rollback();
-
-    } finally {
-
-      if (sqlSession != null) {
-        closeSql();
-      }
-
-    }
-
-    return result;
-  }
 
   @Override
-  public String searchMember(MemberDTO memberDTO) {
-    connSql();
+  public String findEmail(MemberDTO memberDTO) {
     String findEmail = null;
 
-    try {
+    try (SqlSession sqlSession = MybatisConnectionFactory.getSqlSession()) {
+      MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 
-      findEmail = sqlSession.selectOne("searchMember", memberDTO);
+      findEmail = memberMapper.findEmailById(memberDTO);
 
       sqlSession.commit();
     } catch (Exception e) {
-
-      e.printStackTrace();
-      sqlSession.rollback();
-
-    } finally {
-
-      if (sqlSession != null) {
-        closeSql();
-      }
-
+      LOGGER.log(Level.SEVERE, Word.ERROR, e);
     }
 
     return findEmail;
@@ -115,34 +88,19 @@ public class MemberDAOImpl implements MemberDAO {
 
   @Override
   public int authGrantMember(MemberDTO memberDTO) {
-    connSql();
     int result = 0;
 
-    try {
+    try (SqlSession sqlSession = MybatisConnectionFactory.getSqlSession()) {
+      MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 
-      result = sqlSession.update("emailAuth", memberDTO);
+      result = memberMapper.emailAuth(memberDTO);
 
       sqlSession.commit();
     } catch (Exception e) {
-
-      e.printStackTrace();
-      sqlSession.rollback();
-
-    } finally {
-      if (sqlSession != null) {
-        closeSql();
-      }
+      LOGGER.log(Level.SEVERE, Word.ERROR, e);
     }
 
     return result;
   }
 
-  private void connSql() {
-    sqlSession = MybatisConnectionFactory.getSqlSession();
-  }
-
-  private void closeSql() {
-    sqlSession.close();
-    MybatisConnectionFactory.closeSqlSession();
-  }
 }

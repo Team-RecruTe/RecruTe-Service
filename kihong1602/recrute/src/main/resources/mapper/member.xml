@@ -7,13 +7,13 @@
     insert into member (member_id,password,name,birth,gender,phone_number,email)
     values (#{memberId},#{password},#{name},#{birth},#{gender},#{phoneNumber},#{email})
   </insert>
-  <select id="duplicateId" parameterType="MemberDTO" resultType="Integer" useCache="true">
-    select count(member_id) from member where member_id = #{memberId}
+  <select id="duplicateId" parameterType="MemberDTO" resultType="Integer">
+    select count(*) from member where member_id = #{memberId}
   </select>
-  <select id="findEmailById" parameterType="MemberDTO" resultType="String" useCache="true">
+  <select id="findEmailById" parameterType="MemberDTO" resultType="String">
     select email from member where member_id = #{memberId}
   </select>
-  <select id="loginCheck" parameterType="MemberDTO" resultType="String" useCache="true">
+  <select id="loginCheck" parameterType="MemberDTO" resultType="String">
     select member_id from member where member_id = #{memberId} and password = #{password}
   </select>
   <update id="emailAuth" parameterType="MemberDTO">

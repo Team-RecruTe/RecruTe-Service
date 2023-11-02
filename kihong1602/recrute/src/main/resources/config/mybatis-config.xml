@@ -4,8 +4,10 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <settings>
+    <setting name="lazyLoadingEnabled" value="false"/>
+    <setting name="useGeneratedKeys" value="false"/>
     <setting name="cacheEnabled" value="true"/>
-    <setting name="localCacheScope" value="SESSION"/>
+    <!--    <setting name="localCacheScope" value="STATEMENT"/>-->
   </settings>
   <typeAliases>
     <typeAlias alias="MemberDTO" type="com.blanc.recrute.member.dto.MemberDTO"/>
@@ -18,6 +20,7 @@
     <typeAlias alias="AptIdDTO" type="com.blanc.recrute.exam.dto.AptIdDTO"/>
     <typeAlias alias="EmailDTO" type="com.blanc.recrute.exam.dto.EmailDTO"/>
     <typeAlias alias="ExaminationDTO" type="com.blanc.recrute.exam.dto.ExaminationDTO"/>
+    <typeAlias alias="RecruitIdDTO" type="com.blanc.recrute.exam.dto.RecruitIdDTO"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -27,12 +30,6 @@
         <property name="url" value="jdbc:mysql://localhost:3306/recrute"/>
         <property name="username" value="blanc"/>
         <property name="password" value="blanc1234"/>
-        <property name="poolMaximumActiveConnections" value="300"/>
-        <property name="poolMaximumIdleConnections" value="30"/>
-        <property name="poolPingEnabled" value="true"/>
-        <property name="poolPingQuery" value="select 1"/>
-        <property name="poolPingConnectionsNotUsedFor" value="10000"/>
-        <property name="poolTimeToWait" value="15000"/>
       </dataSource>
     </environment>
   </environments>

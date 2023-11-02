@@ -1,31 +1,31 @@
 package com.blanc.recrute.exam.dao;
 
+import com.blanc.recrute.common.Word;
 import com.blanc.recrute.exam.dto.ExaminationDTO;
+import com.blanc.recrute.exam.dto.RecruitIdDTO;
 import com.blanc.recrute.exam.dto.RecruitInfoDTO;
 import com.blanc.recrute.exam.dto.answer.AnswerData;
+import com.blanc.recrute.mybatis.ExamMapper;
 import com.blanc.recrute.mybatis.MybatisConnectionFactory;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.ibatis.session.SqlSession;
 
 public class ExamDAO {
 
-  private static SqlSession sqlSession;
+  private final Logger LOGGER = Logger.getLogger(ExamDAO.class.getName());
 
   public RecruitInfoDTO getRecruitContent(String aptId) {
-    connSql();
+
     RecruitInfoDTO examDTO = null;
-    try {
-      examDTO = sqlSession.selectOne("getRecruitTitle", aptId);
+    try (SqlSession sqlSession = MybatisConnectionFactory.getSqlSession()) {
+      ExamMapper examMapper = sqlSession.getMapper(ExamMapper.class);
+      examDTO = examMapper.getRecruitTitleByAptId(aptId);
       sqlSession.commit();
     } catch (Exception e) {
-      e.printStackTrace();
-      sqlSession.rollback();
-    } finally {
-      if (sqlSession != null) {
-        closeSql();
-      }
+      LOGGER.log(Level.SEVERE, Word.ERROR, e);
     }
-
     return examDTO;
   }
 
@@ -35,41 +35,49 @@ public class ExamDAO {
    * 리팩토링시 테이블 분리 예정이며 해당시점에는 examId를 통해 question 과 answer 조회예정
    */
   public List<ExaminationDTO> getExamination(Integer recruitId) {
-    connSql();
+
     List<ExaminationDTO> examinationDTOList = null;
-    try {
-      examinationDTOList = sqlSession.selectList("getExamination", recruitId);
+    try (SqlSession sqlSession = MybatisConnectionFactory.getSqlSession()) {
+      ExamMapper examMapper = sqlSession.getMapper(ExamMapper.class);
+
+      examinationDTOList = examMapper.getExaminationById(recruitId);
 
       sqlSession.commit();
     } catch (Exception e) {
-      e.printStackTrace();
-      sqlSession.rollback();
-    } finally {
-      if (sqlSession != null) {
-        closeSql();
-      }
+      LOGGER.log(Level.SEVERE, Word.ERROR, e);
     }
-
     return examinationDTOList;
   }
 
   public Integer getRecruitId(Integer examId) {
-    connSql();
+
     Integer recruitId = null;
-    try {
-      recruitId = sqlSession.selectOne("searchRecruitId", examId);
+    try (SqlSession sqlSession = MybatisConnectionFactory.getSqlSession()) {
+      ExamMapper examMapper = sqlSession.getMapper(ExamMapper.class);
+
+      recruitId = examMapper.findRecruitIdByExamId(examId);
 
       sqlSession.commit();
     } catch (Exception e) {
-      e.printStackTrace();
-      sqlSession.rollback();
-    } finally {
-      if (sqlSession != null) {
-        closeSql();
-      }
+      LOGGER.log(Level.SEVERE, Word.ERROR, e);
     }
 
     return recruitId;
+  }
+
+
+  public List<String> getEmailList(RecruitIdDTO recruitIdDTO) {
+
+    try (SqlSession sqlSession = MybatisConnectionFactory.getSqlSession()) {
+      ExamMapper examMapper = sqlSession.getMapper(ExamMapper.class);
+
+      List<String> emailList = examMapper.getApplicantEmail(recruitIdDTO);
+      sqlSession.commit();
+      return emailList;
+    } catch (Exception e) {
+      LOGGER.log(Level.SEVERE, Word.ERROR, e);
+    }
+    return null;
   }
 
   public String saveExamination(AnswerData answerData) {
@@ -77,12 +85,4 @@ public class ExamDAO {
     return answerData.toString();
   }
 
-  private void connSql() {
-    sqlSession = MybatisConnectionFactory.getSqlSession();
-  }
-
-  private void closeSql() {
-    sqlSession.close();
-    MybatisConnectionFactory.closeSqlSession();
-  }
 }

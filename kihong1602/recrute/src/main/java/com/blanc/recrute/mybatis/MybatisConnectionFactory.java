@@ -1,6 +1,6 @@
 package com.blanc.recrute.mybatis;
 
-import java.io.IOException;
+import com.blanc.recrute.common.Word;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,43 +11,21 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class MybatisConnectionFactory {
 
-  private static final Logger logger = Logger.getLogger(MybatisConnectionFactory.class.getName());
+  private static SqlSessionFactory sqlSessionFactory;
+  private static final Logger LOGGER = Logger.getLogger(MybatisConnectionFactory.class.getName());
 
-  private static ThreadLocal<SqlSession> sqlSessionThreadLocal = ThreadLocal.withInitial(
-      () -> null);
-
-  private MybatisConnectionFactory() {
-  }
-
-  private static SqlSessionFactory initializeSqlSessionFactory() {
-
+  static {
     try {
       String resource = "config/mybatis-config.xml";
       InputStream inputStream = Resources.getResourceAsStream(resource);
-      return new SqlSessionFactoryBuilder().build(inputStream);
-    } catch (IOException e) {
-      logger.log(Level.SEVERE, "Error!", e);
-      throw new RuntimeException("Failed to initialize MyBatis", e);
+      sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+    } catch (Exception e) {
+      LOGGER.log(Level.SEVERE, Word.ERROR, e);
     }
   }
 
   public static SqlSession getSqlSession() {
-    SqlSession sqlSession = sqlSessionThreadLocal.get();
-    if (sqlSession == null) {
-      sqlSession = initializeSqlSessionFactory().openSession();
-      sqlSessionThreadLocal.set(sqlSession);
-    }
-    return sqlSession;
+    return sqlSessionFactory.openSession(false);
   }
-
-
-  public static void closeSqlSession() {
-    SqlSession sqlSession = sqlSessionThreadLocal.get();
-    if (sqlSession != null) {
-      sqlSessionThreadLocal.remove();
-      sqlSession.close();
-    }
-  }
-
 
 }
