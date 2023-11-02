@@ -12,7 +12,7 @@ public interface MemberService {
 
   boolean loginCheck(LoginDTO loginDTO);
 
-  MemberDTO searchMember(String memberId);
+  MemberDTO findEmail(String memberId);
 
   String authGrantMember(String email);
 }

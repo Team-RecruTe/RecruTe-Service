@@ -9,13 +9,14 @@ import com.blanc.recrute.member.dto.MemberInfoDTO;
 
 public class MemberServiceImpl implements MemberService {
 
-  MemberDAO memberDAO = new MemberDAOImpl();
+  private final MemberDAO MEMBER_DAO = new MemberDAOImpl();
+  private final int NONE = 0;
 
   @Override
   public int insertMember(MemberInfoDTO memberDTO) {
     int result = 0;
     if (memberDTO != null) {
-      result = memberDAO.insertMember(memberDTO);
+      result = MEMBER_DAO.insertMember(memberDTO);
     }
 
     return result;
@@ -28,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
       return Word.BLANK;
     }
 
-    return memberDAO.idCheck(id) <= 0 ? Word.NONE : Word.EXIST;
+    return MEMBER_DAO.idCheck(id) <= 0 ? Word.NONE : Word.EXIST;
   }
 
   @Override
@@ -36,16 +37,16 @@ public class MemberServiceImpl implements MemberService {
 
     MemberDTO memberDTO = new MemberDTO.Builder().memberId(loginDTO.getMemberId())
                                                  .password(loginDTO.getPassword()).build();
-    String memberId = memberDAO.loginCheck(memberDTO);
+    String memberId = MEMBER_DAO.loginCheck(memberDTO);
 
     return memberId != null;
 
   }
 
   @Override
-  public MemberDTO searchMember(String memberId) {
+  public MemberDTO findEmail(String memberId) {
 
-    String findEmail = memberDAO.searchMember(new MemberDTO.Builder().memberId(memberId).build());
+    String findEmail = MEMBER_DAO.findEmail(new MemberDTO.Builder().memberId(memberId).build());
 
     return new MemberDTO.Builder().email(findEmail).build();
   }
@@ -53,8 +54,8 @@ public class MemberServiceImpl implements MemberService {
   @Override
   public String authGrantMember(String email) {
 
-    int result = memberDAO.authGrantMember(new MemberDTO.Builder().email(email).build());
+    int result = MEMBER_DAO.authGrantMember(new MemberDTO.Builder().email(email).build());
 
-    return result > 0 ? Word.SUCCESS : Word.FAIL;
+    return result > NONE ? Word.SUCCESS : Word.FAIL;
   }
 }
