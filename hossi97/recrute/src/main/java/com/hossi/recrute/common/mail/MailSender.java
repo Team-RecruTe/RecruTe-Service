@@ -5,10 +5,8 @@ import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import static com.hossi.recrute.common.mybatis.ResultType.FAILURE;
 import static com.hossi.recrute.common.mybatis.ResultType.SUCCESS;
@@ -43,6 +41,7 @@ public class MailSender {
             msg.setSubject(title);
             msg.setText(content);
             msg.setContent(content, "text/html;charset=UTF-8");
+
             Transport.send(msg);
 
             return SUCCESS;

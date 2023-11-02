@@ -43,7 +43,7 @@ public class ExamService {
     }
 
     private void sendEmails(List<SendExamEmailDto> sendExamEmailDtos, Integer rctId) {
-        ExecutorService executorService = Executors.newFixedThreadPool(50);
+        ExecutorService executorService = Executors.newFixedThreadPool(70);
         sendExamEmailDtos.forEach(dto -> executorService.execute(() -> sendEmail(dto, rctId)));
         executorService.shutdown();
         try {

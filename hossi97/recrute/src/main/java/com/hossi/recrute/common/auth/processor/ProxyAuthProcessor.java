@@ -1,7 +1,7 @@
 package com.hossi.recrute.common.auth.processor;
 
-import com.hossi.recrute.common.auth.Authenticator;
 import com.hossi.recrute.common.auth.AuthType;
+import com.hossi.recrute.common.auth.Authenticator;
 
 import java.util.Optional;
 

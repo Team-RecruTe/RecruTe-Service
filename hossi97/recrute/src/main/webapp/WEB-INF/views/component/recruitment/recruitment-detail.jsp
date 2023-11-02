@@ -17,7 +17,7 @@ This component comes with some `rtl` classes. Please remove them if they are not
         <div>
             <h1 class="text-3xl font-bold sm:text-4xl">채용1</h1>
         </div>
-        <div class="lg:fixed lg:top-48 flex flex-col justify-start">
+        <div class="lg:fixed lg:top-48 flex flex-col justify-start p-4 border-2 rounded-md">
             <div class="lg:py-2 flex justify-start items-center">
                 <h3 class="w-24 text-xl font-bold sm:text-xl">채용 기간</h3>
                 <p class="text-gray-600 font-bold text-base sm:text-lg">
@@ -56,14 +56,14 @@ This component comes with some `rtl` classes. Please remove them if they are not
             </div>
             <div class="lg:py-2 flex justify-start items-center">
                 <button id="apply-btn" type="button"
-                   class="inline-block rounded bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-yellow-400">
-                    Get Started Today
+                   class="px-36 inline-block rounded bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-yellow-400">
+                    지원하기
                 </button>
             </div>
         </div>
 
 
-        <div class="lg:ml-80 lg:px-8 lg:py-4 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
+        <div class="lg:ml-96 lg:px-8 lg:py-4 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
             <div class="lg:py-4">
                 <h2 class="text-3xl font-bold sm:text-4xl">상세 내용</h2>
 

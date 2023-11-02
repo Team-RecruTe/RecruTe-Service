@@ -25,7 +25,6 @@ import static jakarta.servlet.http.HttpServletResponse.*;
 
 @WebServlet(name = "AuthExamServlet", value = "/exam/auth/*")
 public class AuthExamServlet extends HttpController {
-    private final ExamService examService = new ExamService();
 
     @Override @EXM(value = "002", description = "시험 권한 인증 페이지 조회")
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
