@@ -19,7 +19,7 @@
             <p class="text-center text-lg font-medium">Sign in to your account</p>
 
             <div class=""><label for="id">ID</label>
-                <div class="relative w-full flex justify-stretch gap-4"><input id="id" name="id" type="text"
+                <div class="relative w-full flex justify-stretch gap-4"><input id="id" name="username" type="text"
                                                                                class="grow rounded-lg border-gray-200 p-4 pe-4 text-sm shadow-sm"
                                                                                placeholder="Enter ID">
                     <button id="check-btn" type="button" class="rounded-lg border-gray-100 border-2 p-4">ID 중복 확인

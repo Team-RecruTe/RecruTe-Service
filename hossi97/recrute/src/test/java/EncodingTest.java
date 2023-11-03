@@ -1,6 +1,3 @@
-import com.hossi.recrute.common.mybatis.MyBatisConnectionManager;
-import com.hossi.recrute.member.dto.request.CheckDupReqDto;
-import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;

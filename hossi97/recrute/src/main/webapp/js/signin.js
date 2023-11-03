@@ -1,4 +1,4 @@
-const id = document.querySelector('input[name="id"]')
+const id = document.querySelector('input[name="username"]')
 const password = document.querySelector('input[name="password"]')
 const submitBtn = document.querySelector('#submit-btn')
 

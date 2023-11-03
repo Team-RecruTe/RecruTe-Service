@@ -19,7 +19,7 @@
             <div class="">
                 <label for="id">ID</label>
                 <div class="relative w-full">
-                    <input id="id" name="id" type="text" class="w-full rounded-lg border-gray-200 p-4 pe-4 text-sm shadow-sm" placeholder="Enter ID">
+                    <input id="id" name="username" type="text" class="w-full rounded-lg border-gray-200 p-4 pe-4 text-sm shadow-sm" placeholder="Enter ID">
                 </div>
             </div>
             <div class="">
