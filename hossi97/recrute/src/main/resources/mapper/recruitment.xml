@@ -13,17 +13,17 @@
             end_date as endDate,
             salary,
             location,
-            work_form as workForm,
+            contract_type as contractType,
             job,
             skills,
             career
         from recruitment as r
             join company as c on r.company_id = c.id
-            join rct_detail as rd on r.id = rd.recruitment_id
+            join recruitment_detail as rd on r.id = rd.recruitment_id
         where r.id = #{rctId}
     </select>
-    <insert id="saveApplicant" parameterType="ApplicantDto">
-        insert into applicant(apt_id, member_id, recruitment_id)
+    <insert id="insertApplicant" parameterType="ApplicantDto">
+        insert ignore into applicant(apt_id, member_id, recruitment_id)
             values(#{aptId}, #{id}, #{rctId})
     </insert>
 </mapper>
