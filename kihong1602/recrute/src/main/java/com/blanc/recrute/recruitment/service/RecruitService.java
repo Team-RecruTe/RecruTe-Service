@@ -1,6 +1,7 @@
 package com.blanc.recrute.recruitment.service;
 
 import com.blanc.recrute.common.AptIdFactory;
+import com.blanc.recrute.common.Word;
 import com.blanc.recrute.recruitment.dao.RecruitDAO;
 import com.blanc.recrute.recruitment.dto.ApplyDTO;
 import com.blanc.recrute.recruitment.dto.ApplyInfoDTO;
@@ -9,30 +10,30 @@ import com.blanc.recrute.recruitment.dto.RecruitDTO;
 
 public class RecruitService {
 
-    private static final RecruitDAO recruitDAO = new RecruitDAO();
+  private final RecruitDAO RECRUIT_DAO = new RecruitDAO();
+  private final int NONE = 0;
 
-    public DetailDTO selectDetail(Integer id) {
+  public DetailDTO findRctDetail(Integer id) {
 
-        if (id != null) {
-            RecruitDTO recruitDTO = new RecruitDTO.Builder().id(id).build();
+    if (id != null) {
+      RecruitDTO recruitDTO = new RecruitDTO.Builder().id(id).build();
 
-            return recruitDAO.selectDetail(recruitDTO);
-        }
-
-        return null;
+      return RECRUIT_DAO.findRctDetail(recruitDTO);
     }
 
-    public String applyRecruit(ApplyInfoDTO applyInfoDTO, String memberId) {
-        StringBuilder sb = new StringBuilder();
+    return null;
+  }
 
-        Integer memberRealId = recruitDAO.searchMemberId(memberId);
+  public String apply(ApplyInfoDTO applyInfoDTO, String memberId) {
 
-        String aptId = AptIdFactory.createAptId(applyInfoDTO.getRecruitId(), applyInfoDTO.getCompanyId(), memberRealId);
+    Integer memberRealId = RECRUIT_DAO.findMemberId(memberId);
 
-        ApplyDTO applyDto = new ApplyDTO.Builder().aptId(aptId).recruitId(applyInfoDTO.getRecruitId()).memberId(memberRealId).build();
-        int result = recruitDAO.applyRecruit(applyDto);
+    String aptId = AptIdFactory.createAptId();
 
+    ApplyDTO applyDto = new ApplyDTO.Builder().aptId(aptId).recruitId(applyInfoDTO.getRecruitId())
+                                              .memberId(memberRealId).build();
+    int result = RECRUIT_DAO.apply(applyDto);
 
-        return result > 0 ? sb.append("success").toString() : sb.append("fail").toString();
-    }
+    return result > NONE ? Word.SUCCESS : Word.FAIL;
+  }
 }
