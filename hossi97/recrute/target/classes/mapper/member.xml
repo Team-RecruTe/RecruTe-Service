@@ -3,16 +3,29 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-    <insert id="saveMember" parameterType="SignupDto">
-        insert into member (member_id, password, email, name, birth, gender, phone_number)
-            values (#{memberId},#{password},#{name},#{email},#{birth},#{gender},#{phoneNumber})
+    <insert id="insertMember" parameterType="SignupReqDto">
+        insert into member (username, password, email, name, birth, gender, phone_number)
+            values (#{username},#{password},#{email},#{name},#{birth},#{gender},#{phoneNumber})
+        <selectKey keyProperty="id" resultType="Integer" order="AFTER">
+            select id from member where username = #{username}
+        </selectKey>
     </insert>
-    <select id="selectIdByMemberIdAndPassword" parameterType="SigninDto" resultType="Integer">
-        select id from member
-            where member_id = #{memberId} and password = #{password}
+    <select id="selectIdAndCertificationById" parameterType="Integer" resultType="SignupResDto">
+        select id, certification from member where id = #{id}
     </select>
-    <select id="selectCountByMemberId" parameterType="CheckDupDto" resultType="Integer">
+    <select id="selectIdAndCertificationByUsernameAndPassword" parameterType="SigninReqDto" resultType="SigninResDto">
+        select id, certification from member
+            where username = #{username} and password = #{password}
+    </select>
+    <select id="selectCountByUsername" parameterType="CheckDupDto" resultType="Integer">
         select count(*) from member
-            where member_id = #{memberId}
+            where username = #{username}
     </select>
+    <select id="selectEmailById" parameterType="Integer" resultType="String">
+        select email from member
+            where id = #{id}
+    </select>
+    <update id="updateCertificationById" parameterType="Integer">
+        update member set certification=true where id=#{id};
+    </update>
 </mapper>
