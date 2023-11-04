@@ -2,7 +2,9 @@ package com.blanc.recrute.recruitment.controller;
 
 import com.blanc.recrute.common.CookieManager;
 import com.blanc.recrute.common.JsonUtil;
+import com.blanc.recrute.common.URLParser;
 import com.blanc.recrute.common.ViewResolver;
+import com.blanc.recrute.common.Word;
 import com.blanc.recrute.member.dto.InvalidDTO;
 import com.blanc.recrute.recruitment.dto.ApplyInfoDTO;
 import com.blanc.recrute.recruitment.dto.DetailDTO;
@@ -14,53 +16,56 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 
 @WebServlet(name = "RecruitController", value = "/recruitments/*")
 public class RecruitController extends HttpServlet {
-    private static final ViewResolver ViewResolver = new ViewResolver();
-    private static final RecruitService recruitService = new RecruitService();
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String[] parsingURI = request.getRequestURI().split("/");
 
-        Integer recruitId = Integer.valueOf(parsingURI[parsingURI.length - 1]);
+  private final RecruitService RECRUIT_SERVICE = new RecruitService();
+  private final Gson GSON = new Gson();
 
-        DetailDTO detailDTO = recruitService.selectDetail(recruitId);
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-        if (detailDTO != null) {
-            request.setAttribute("detailDTO", detailDTO);
-        }
+    Integer recruitId = URLParser.getLastURI(request);
 
-        String path = "recruitment/rct-detail";
-        request.getRequestDispatcher(ViewResolver.viewPath(path)).forward(request, response);
+    DetailDTO detailDTO = RECRUIT_SERVICE.findRctDetail(recruitId);
+
+    if (detailDTO != null) {
+      request.setAttribute("detailDTO", detailDTO);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //비동기 처리 apt_id 는 회사ID+회사Name+응시순서+@로 입력
-        //외래키 삽입을 위해 MemberDTO 사용해야함
+    String path = "recruitment/rct-detail";
+    ViewResolver.render(path, request, response);
+  }
 
-        String parsingJSON = JsonUtil.jsonParsing(request);
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    //비동기 처리 apt_id 는 회사ID+회사Name+응시순서+@로 입력
+    //외래키 삽입을 위해 MemberDTO 사용해야함
 
-        ApplyInfoDTO applyInfoDTO = new Gson().fromJson(parsingJSON, ApplyInfoDTO.class);
+    String parsingJSON = JsonUtil.jsonParsing(request);
 
-        Cookie AuthCookie = CookieManager.getCookie(request, "sid");
+    ApplyInfoDTO applyInfoDTO = GSON.fromJson(parsingJSON, ApplyInfoDTO.class);
 
-        if (AuthCookie != null) {
+    Cookie AuthCookie = CookieManager.getCookie(request, "sid");
 
-            String memberId = (String) request.getSession().getAttribute(AuthCookie.getValue());
+    if (AuthCookie != null) {
 
-            String result = recruitService.applyRecruit(applyInfoDTO, memberId);
+      String memberId = (String) request.getSession().getAttribute(AuthCookie.getValue());
+      String result = RECRUIT_SERVICE.apply(applyInfoDTO, memberId);
 
-            InvalidDTO invalidDTO = result.equals("success") ? new InvalidDTO("available") : new InvalidDTO("unavailable");
+      InvalidDTO invalidDTO =
+          result.equals(Word.SUCCESS) ? new InvalidDTO(Word.AVAILABLE)
+              : new InvalidDTO(Word.UNAVAILABLE);
 
-            String json = new Gson().toJson(invalidDTO);
+      String json = GSON.toJson(invalidDTO);
 
-            JsonUtil.sendJSON(response, json);
+      JsonUtil.sendJSON(response, json);
 
-        }//end of if
-    }
+    }//end of if
+  }
 }
