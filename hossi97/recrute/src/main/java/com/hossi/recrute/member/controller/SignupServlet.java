@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
 import static com.google.common.net.MediaType.JSON_UTF_8;
@@ -62,11 +63,10 @@ public class SignupServlet extends HttpController {
     private SignupReqDto getSignupReqDto(HttpServletRequest request) {
         Integer gender = parseGender(getParameter("gender", request));
         LocalDate birth = parseBirth(getParameter("birth", request));
-
         return new SignupReqDto.Builder()
-            .username(getParameter("id", request))
+            .username(getParameter("username", request))
             .email(getParameter("email", request))
-            .name(getParameter("name", request))
+            .name(new String(getParameter("name", request).getBytes(StandardCharsets.UTF_8)))
             .gender(gender)
             .password(getParameter("password", request))
             .passwordConfirm(getParameter("passwordConfirm", request))

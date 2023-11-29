@@ -16,43 +16,68 @@ import static com.hossi.recrute.common.mybatis.ResultType.SUCCESS;
 public class MemberDao {
 
     public SignupResDto saveMember(SignupReqDto signupReqDto) {
-        SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
-        Integer id = sqlSession.insert("insertMember", signupReqDto);
-        SignupResDto signupResDto = sqlSession.selectOne("selectIdAndCertificationById", id);
-        sqlSession.close();
+        SignupResDto signupResDto = null;
+
+        try(SqlSession sqlSession = MyBatisConnectionManager.getSqlSession()) {
+            MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+            Integer id = mapper.insertMember(signupReqDto);
+            signupResDto = mapper.selectIdAndCertificationById(id);
+            sqlSession.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         return signupResDto;
     }
 
     public SigninResDto findIdAndCertification(SigninReqDto signinReqDto) {
-        SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
-        SigninResDto signinResDto = sqlSession.selectOne("selectIdAndCertificationByUsernameAndPassword", signinReqDto);
-        sqlSession.close();
+        SigninResDto signinResDto = null;
+
+        try(SqlSession sqlSession = MyBatisConnectionManager.getSqlSession()) {
+            MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+            signinResDto = mapper.selectIdAndCertificationByUsernameAndPassword(signinReqDto);
+            sqlSession.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         return signinResDto;
     }
 
     public CheckDupResDto getCount(CheckDupReqDto checkDupReqDto) {
-        SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
-        Integer count = sqlSession.selectOne("selectCountByUsername", checkDupReqDto);
-        CheckDupResDto checkDupResDto = new CheckDupResDto(count > 0);
-        sqlSession.close();
+        Integer count = 0;
+        try (SqlSession sqlSession = MyBatisConnectionManager.getSqlSession()) {
+            MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+            count = mapper.selectCountByUsername(checkDupReqDto);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
-        return checkDupResDto;
+        return new CheckDupResDto(count > 0);
     }
 
     public ResultType updateCerification(Integer id) {
-        SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
-        int result = sqlSession.update("updateCertificationById", id);
-        sqlSession.close();
+        int result = 0;
+
+        try (SqlSession sqlSession = MyBatisConnectionManager.getSqlSession()) {
+            MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+            result = mapper.updateCertificationById(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         return SUCCESS.equals(result) ? SUCCESS : FAILURE;
     }
 
     public String findEmail(Integer id) {
-        SqlSession sqlSession = MyBatisConnectionManager.getSqlSession();
-        String email = sqlSession.selectOne("selectEmailById", id);
-        sqlSession.close();
+        String email = null;
+
+        try (SqlSession sqlSession = MyBatisConnectionManager.getSqlSession()) {
+            MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+            email = mapper.selectEmailById(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         return email;
     }

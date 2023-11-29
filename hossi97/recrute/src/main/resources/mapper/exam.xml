@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hossi.recrute.exam.dao.ExamMapper">
+    <select id="selectUserEmailAndAptIdAndCompanyName" resultType="SendExamEmailDto">
+        select
+            email as userEmail,
+            apt_id as aptId,
+            company_name as companyName
+        from member as m
+            join applicant as a on m.id = a.member_id
+            join recruitment as r on r.id = a.recruitment_id
+            join company as c on c.id = r.company_id
+        where r.id = ${recruitmentId}
+    </select>
+</mapper>

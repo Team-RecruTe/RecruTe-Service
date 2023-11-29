@@ -22,3 +22,4 @@ public class HomeServlet extends HttpController {
             .forward(ViewResolver.getMainViewPath(), request, response);
     }
 }
+

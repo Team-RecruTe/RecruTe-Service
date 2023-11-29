@@ -3,14 +3,16 @@ import com.hossi.recrute.common.service.code.ServiceCodeManager;
 import com.hossi.recrute.common.service.code.ServicePrefix;
 import org.junit.jupiter.api.Test;
 
+import java.io.UnsupportedEncodingException;
+
 import static com.hossi.recrute.common.service.code.MemberCode.MBR001;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ServicePrefixTest {
     private final ServiceCodeManager serviceCodeManager = ServiceCodeManager.getInstance();
 
     @Test
-    public void testServiceCode() {
+    public void testServiceCode() throws UnsupportedEncodingException {
         // given
         ServicePrefix servicePrefix = ServicePrefix.MBR;
         String serviceNumber = "001";

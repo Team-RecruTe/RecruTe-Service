@@ -11,7 +11,6 @@ import java.util.Map;
 public interface RequestHandler {
     boolean isAuth(HttpServletRequest request);
     Authenticator getAuthenticator(HttpServletRequest request);
-
     AuthData getAuthData(HttpServletRequest request);
     String getParameter(String key, HttpServletRequest request);
     String getJson(HttpServletRequest request) throws IOException;

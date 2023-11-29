@@ -1,8 +1,8 @@
 package com.hossi.recrute.common.auth.util;
 
 import com.hossi.recrute.common.auth.AuthData;
-import com.hossi.recrute.common.auth.Authenticator;
 import com.hossi.recrute.common.auth.AuthType;
+import com.hossi.recrute.common.auth.Authenticator;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

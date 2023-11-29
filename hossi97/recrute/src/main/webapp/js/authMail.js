@@ -13,6 +13,6 @@ const authMail = () => {
 }
 
 authBtn.addEventListener("mousedown", authMailEvent = () => {
-    console.log("클릭")
+    alert("메일을 전송하였습니다.")
     authMail()
 })

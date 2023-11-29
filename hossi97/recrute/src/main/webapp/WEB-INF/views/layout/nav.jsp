@@ -2,7 +2,7 @@
 <header class="bg-white">
     <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
-            <div class="md:flex md:items-center md:gap-12">
+            <div class="md:flex md:items-center md:gap-12 w-44">
                 <a class="block text-teal-600" href="/">
                     <span class="sr-only">Home</span>
                     <svg
@@ -27,7 +27,7 @@
                                     class="text-gray-500 transition hover:text-gray-500/75"
                                     href="/"
                             >
-                                About
+                                인재풀
                             </a>
                         </li>
 
@@ -36,7 +36,7 @@
                                     class="text-gray-500 transition hover:text-gray-500/75"
                                     href="/"
                             >
-                                Careers
+                                채용공고
                             </a>
                         </li>
 
@@ -45,7 +45,7 @@
                                     class="text-gray-500 transition hover:text-gray-500/75"
                                     href="/"
                             >
-                                History
+                                기업목록
                             </a>
                         </li>
 
@@ -54,25 +54,7 @@
                                     class="text-gray-500 transition hover:text-gray-500/75"
                                     href="/"
                             >
-                                Services
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                    class="text-gray-500 transition hover:text-gray-500/75"
-                                    href="/"
-                            >
-                                Projects
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                    class="text-gray-500 transition hover:text-gray-500/75"
-                                    href="/"
-                            >
-                                Blog
+                                시험 응시
                             </a>
                         </li>
                     </ul>

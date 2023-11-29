@@ -1,4 +1,4 @@
-const id = document.querySelector('input[name="id"]')
+const id = document.querySelector('input[name="username"]')
 const email = document.querySelector('input[name="email"]')
 const name = document.querySelector('input[name="name"]')
 const gender = document.querySelector('input[name="gender"]')
