@@ -44,13 +44,8 @@
                     </li>
 
                     <li>
-<<<<<<< HEAD
-                        <a class="text-gray-500 transition hover:text-gray-500/75" href="/main">
-                            Email Auth
-=======
                         <a class="text-gray-500 transition hover:text-gray-500/75" href="/">
                             Careers
->>>>>>> f1d782afde2c09c742113e6a1c8cec2286699df8
                         </a>
                     </li>
 
